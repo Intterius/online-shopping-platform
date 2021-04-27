@@ -10,6 +10,8 @@ import {
 import { Link } from 'react-router-dom';
 import { createMuiTheme, ThemeProvider } from '@material-ui/core';
 import { makeStyles } from '@material-ui/core/styles';
+import { useState } from 'react';
+import * as EmailValidator from 'email-validator';
 
 const useStyles = makeStyles({
   boxBackground: {
@@ -18,6 +20,8 @@ const useStyles = makeStyles({
   boxTitle: {
     margin: '15px 0',
     color: 'white',
+    fontFamily: 'Lemonada, cursive',
+    fontWeight: '600',
   },
   breadLinks: {
     marginBottom: '20px',
@@ -32,10 +36,20 @@ const useStyles = makeStyles({
       color: 'black',
     },
   },
-  inputBoxes: {
-    width: '45%',
+  loginForm: {
+    marginTop: '35px',
+    display: 'grid',
+    justifyContent: 'center',
+    alignItems: 'center',
   },
-  registerBtn: {
+  forgotPassword: {
+    transition: '0.3s ease-in-out',
+    '&:hover': {
+      background: 'transparent',
+      color: '#89C74A',
+    },
+  },
+  loginBtn: {
     marginTop: '15px',
     background: '#89C74A',
     color: 'white',
@@ -45,10 +59,19 @@ const useStyles = makeStyles({
       background: '#FF6600',
     },
   },
-
-  returnHomeBtn: {
+  createAccBtn: {
     color: 'black',
     transition: '0.3s ease-in-out',
+    fontFamily: 'Roboto, sans-serif',
+    '&:hover': {
+      color: '#89c74a',
+    },
+  },
+  returnHomeBtn: {
+    color: 'black',
+
+    transition: '0.3s ease-in-out',
+    fontFamily: 'Roboto, sans-serif',
     '&:hover': {
       color: '#89c74a',
     },
@@ -56,6 +79,11 @@ const useStyles = makeStyles({
 });
 
 const theme = createMuiTheme({
+  typography: {
+    button: {
+      textTransform: 'none',
+    },
+  },
   palette: {
     primary: {
       main: '#89C74A',
@@ -65,114 +93,117 @@ const theme = createMuiTheme({
 
 const Login = () => {
   const classes = useStyles();
+  const [Errors, setErrors] = useState({
+    email: '',
+    password: '',
+  });
+  const [userInput, setUserInput] = useState({
+    email: '',
+    password: '',
+  });
+
+  const emailValidation = (e) => {
+    const { name, value } = e.target;
+    if (!EmailValidator.validate(value)) {
+      setUserInput({ [name]: value });
+      setErrors({ [name]: 'Please, introduce a valid email address.' });
+    } else {
+      setUserInput({ [name]: value });
+      setErrors({ [name]: '' });
+    }
+  };
+
+  const passwordValidation = (e) => {
+    const { name, value } = e.target;
+    const validation = new RegExp(/^([a-zA-Z0-9_-]){5,10}$/);
+    if (validation.test(value) && (value.length >= 5 || value.length <= 10)) {
+      setUserInput({ [name]: value });
+      setErrors({ [name]: '' });
+    } else {
+      setUserInput({ [name]: value });
+      setErrors({
+        [name]: 'Password must contain 5 to 10 letters and numbers.',
+      });
+    }
+  };
+
   return (
     <ThemeProvider theme={theme}>
-      <Box>
+      <Box
+        display='grid'
+        justifyContent='center'
+        className={classes.boxBackground}
+      >
+        <Typography component='h1' variant='h4' className={classes.boxTitle}>
+          {'Register'}
+        </Typography>
+        <Breadcrumbs aria-label='breadcrumb' className={classes.breadLinks}>
+          <LinkStyle component={Link} to='/home' className={classes.homeBtn}>
+            {'Home'}
+          </LinkStyle>
+          <div>Register</div>
+        </Breadcrumbs>
+      </Box>
+      <form
+        className={classes.loginForm}
+        onSubmit={(e) => {
+          e.preventDefault();
+        }}
+      >
+        <TextField
+          variant='outlined'
+          margin='normal'
+          style={{ width: '350px' }}
+          required
+          id='email'
+          label='Email Address'
+          name='email'
+          autoComplete='email'
+          autoFocus
+          type='email'
+          onChange={emailValidation}
+          error={Errors.email ? true : false}
+          helperText={Errors.email}
+        />
+
+        <TextField
+          variant='outlined'
+          margin='normal'
+          required
+          name='password'
+          label='Password'
+          type='password'
+          id='password'
+          autoComplete='current-password'
+          type='password'
+          onChange={passwordValidation}
+          error={Errors.password ? true : false}
+          helperText={Errors.password}
+          inputProps={{
+            minLength: 5,
+            maxLength: 10,
+          }}
+        />
+        <Grid container justify='center'>
+          <Button
+            type='submit'
+            variant='outlined'
+            fullWidth
+            className={classes.loginBtn}
+          >
+            Create
+          </Button>
+        </Grid>
         <Box
           display='grid'
           justifyContent='center'
-          className={classes.boxBackground}
+          style={{ marginTop: '5px' }}
         >
-          <Typography component='h1' variant='h4' className={classes.boxTitle}>
-            Create Account
-          </Typography>
-          <Breadcrumbs aria-label='breadcrumb' className={classes.breadLinks}>
-            <LinkStyle component={Link} to='/home' className={classes.homeBtn}>
-              {'Home'}
-            </LinkStyle>
-            <div>Create Account</div>
-          </Breadcrumbs>
+          <Link to='/home' className={classes.returnHomeBtn}>
+            <p>Return to store</p>
+          </Link>
         </Box>
-        <Box display='grid' justifyContent='center' alignItems='center' mt={5}>
-          <form
-            onSubmit={(e) => {
-              e.preventDefault();
-            }}
-          >
-            <TextField
-              variant='outlined'
-              margin='normal'
-              required
-              className={classes.inputBoxes}
-              id='first-name'
-              label='First Name'
-              name='first-name'
-              autoComplete='first-name'
-              type='text'
-              inputProps={{
-                minLength: 5,
-                maxLength: 10,
-                pattern: '^[a-zA-Z0-9]+$',
-              }}
-            />
-            <TextField
-              variant='outlined'
-              margin='normal'
-              required
-              className={classes.inputBoxes}
-              id='last-name'
-              label='Last Name'
-              name='last-name'
-              autoComplete='last-name'
-              type='text'
-              inputProps={{
-                minLength: 5,
-                maxLength: 10,
-                pattern: '^[a-zA-Z0-9]+$',
-              }}
-            />
-            <TextField
-              variant='outlined'
-              margin='normal'
-              required
-              className={classes.inputBoxes}
-              id='email'
-              label='Email Address'
-              name='email'
-              autoComplete='email'
-              autoFocus
-              type='email'
-            />
-
-            <TextField
-              variant='outlined'
-              margin='normal'
-              required
-              className={classes.inputBoxes}
-              name='password'
-              label='Password'
-              type='password'
-              id='password'
-              autoComplete='current-password'
-              type='password'
-              inputProps={{
-                minLength: 5,
-                maxLength: 10,
-                pattern: '^[a-zA-Z0-9]+$',
-              }}
-            />
-            <Grid container justify='center'>
-              <Button
-                type='submit'
-                variant='outlined'
-                fullWidth
-                className={classes.registerBtn}
-              >
-                Create
-              </Button>
-            </Grid>
-            <Box
-              display='grid'
-              justifyContent='center'
-              style={{ marginTop: '5px' }}
-            >
-              <Link to='/home' className={classes.returnHomeBtn}>
-                <h3>Return to store</h3>
-              </Link>
-            </Box>
-          </form>
-        </Box>
-      </Box>
+      </form>
     </ThemeProvider>
   );
 };
