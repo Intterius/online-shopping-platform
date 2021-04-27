@@ -1,0 +1,10 @@
+.cardList {
+  display: flex;
+  flex-wrap: wrap;
+}
+
+.cartContainer {
+  margin: 5px;
+}
+
+/*# sourceMappingURL=style.css.map */
