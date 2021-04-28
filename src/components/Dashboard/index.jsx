@@ -6,6 +6,8 @@ import './style.css'
 const foodSorted = food.sort((a, b) => (a.name > b.name) ? 1 : -1);
 const mostPopular = [...food].sort((a, b) => (a.rating < b.rating) ? 1 : -1);
 
+mostPopular.splice(15)
+
 const cardList = foodSorted.map((e) => {
     return (
         <div key={e.id} className="cartContainer">
