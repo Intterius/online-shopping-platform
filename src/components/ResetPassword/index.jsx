@@ -1,23 +1,9 @@
 import { Box, Button, Grid, TextField } from '@material-ui/core';
-import { createMuiTheme, ThemeProvider } from '@material-ui/core';
 import { makeStyles } from '@material-ui/core/styles';
 import * as EmailValidator from 'email-validator';
 import { useState } from 'react';
 
-const theme = createMuiTheme({
-  typography: {
-    button: {
-      textTransform: 'none',
-    },
-  },
-  palette: {
-    primary: {
-      main: '#89C74A',
-    },
-  },
-});
-
-const useStyles = makeStyles({
+const useStyles = makeStyles((theme) => ({
   resetTitle: {
     fontSize: '27px',
     fontFamily: 'Lemonada, cursive',
@@ -47,7 +33,7 @@ const useStyles = makeStyles({
       color: '#89C74A',
     },
   },
-});
+}));
 
 const ResetPassword = ({ cancelReset }) => {
   const classes = useStyles();
@@ -66,7 +52,7 @@ const ResetPassword = ({ cancelReset }) => {
   };
 
   return (
-    <ThemeProvider theme={theme}>
+    <>
       <Box
         display='grid'
         justifyContent='center'
@@ -123,7 +109,7 @@ const ResetPassword = ({ cancelReset }) => {
           </Button>
         </Grid>
       </Box>
-    </ThemeProvider>
+    </>
   );
 };
 

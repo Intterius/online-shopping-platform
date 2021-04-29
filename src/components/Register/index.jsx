@@ -8,7 +8,6 @@ import {
   Link as LinkStyle,
 } from '@material-ui/core';
 import { Link } from 'react-router-dom';
-import { createMuiTheme, ThemeProvider } from '@material-ui/core';
 import { makeStyles } from '@material-ui/core/styles';
 import { useState } from 'react';
 import * as EmailValidator from 'email-validator';
@@ -78,19 +77,6 @@ const useStyles = makeStyles({
   },
 });
 
-const theme = createMuiTheme({
-  typography: {
-    button: {
-      textTransform: 'none',
-    },
-  },
-  palette: {
-    primary: {
-      main: '#89C74A',
-    },
-  },
-});
-
 const Login = () => {
   const classes = useStyles();
   const [Errors, setErrors] = useState({
@@ -103,32 +89,32 @@ const Login = () => {
   });
 
   const emailValidation = (e) => {
-    const { name, value } = e.target;
+    const { value } = e.target;
     if (!EmailValidator.validate(value)) {
-      setUserInput({ [name]: value });
-      setErrors({ [name]: 'Please, introduce a valid email address.' });
+      setUserInput({ email: value });
+      setErrors({ email: 'Please, introduce a valid email address.' });
     } else {
-      setUserInput({ [name]: value });
-      setErrors({ [name]: '' });
+      setUserInput({ email: value });
+      setErrors({ email: '' });
     }
   };
 
   const passwordValidation = (e) => {
-    const { name, value } = e.target;
+    const { value } = e.target;
     const validation = new RegExp(/^([a-zA-Z0-9_-]){5,10}$/);
-    if (validation.test(value) && (value.length >= 5 || value.length <= 10)) {
-      setUserInput({ [name]: value });
-      setErrors({ [name]: '' });
+    if (validation.test(value)) {
+      setUserInput({ password: value });
+      setErrors({ password: '' });
     } else {
-      setUserInput({ [name]: value });
+      setUserInput({ password: value });
       setErrors({
-        [name]: 'Password must contain 5 to 10 letters and numbers.',
+        password: 'Password must contain 5 to 10 letters and numbers.',
       });
     }
   };
 
   return (
-    <ThemeProvider theme={theme}>
+    <>
       <Box
         display='grid'
         justifyContent='center'
@@ -204,7 +190,7 @@ const Login = () => {
           </Link>
         </Box>
       </form>
-    </ThemeProvider>
+    </>
   );
 };
 
