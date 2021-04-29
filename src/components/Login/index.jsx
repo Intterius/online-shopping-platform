@@ -86,7 +86,7 @@ const Login = () => {
               maxLength: 10,
             }}
           />
-          <Grid container justify='center'>
+          <Box display='grid' justifyContent='center'>
             <Button
               fullWidth
               variant='text'
@@ -95,7 +95,7 @@ const Login = () => {
             >
               Forgot your password?
             </Button>
-          </Grid>
+          </Box>
           <Grid container justify='center'>
             <Button
               type='submit'
