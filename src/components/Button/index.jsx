@@ -1,12 +1,11 @@
 import React from 'react';
 import {makeStyles} from "@material-ui/core/styles";
 
-const useStyles = makeStyles({
+const useStyles = makeStyles((theme)=>({
     buttonContainer:{
-        width: "125px",
-        height: "40px",
-        margin: "auto",
-        marginTop: "20px"
+        width: theme.spacing(15.625),
+        height: theme.spacing(5),
+        margin: theme.spacing(2.5, 'auto', 'auto', 'auto')
     },
     btnAddToCart:{
         display: "flex",
@@ -14,22 +13,22 @@ const useStyles = makeStyles({
         alignItems: "center",
         width: "100%",
         height: "100%",
-        borderRadius: "25px",
-        backgroundColor: "#85C645",
+        borderRadius: theme.spacing(4),
+        backgroundColor: theme.palette.primary.main,
         color: "white",
         fontFamily: "Arial, Helvetica, sans-serif",
-        fontSize: "18px",
+        fontSize: theme.spacing(2.25),
         cursor: "pointer",
         '&:hover':{
-            backgroundColor: "#FF6600",
-            transition: "1s"
+            backgroundColor: theme.palette.secondary.main,
+            transition: "1s ease-in-out"
         },
         '&:active':{
             transform: "scale(0.9)",
             transition: "none"
         }
     }
-});
+}));
 
 const Button = () => {
     const classes = useStyles();
