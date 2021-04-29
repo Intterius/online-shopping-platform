@@ -3,15 +3,15 @@ import food from '../../food'
 import Card from '../Card'
 import {makeStyles} from "@material-ui/core";
 
-const useStyles = makeStyles({
+const useStyles = makeStyles((theme)=>({
     cardList: {
         display: "flex",
         flexWrap: "wrap"
     },
     cardContainer: {
-        margin: "5px"
+        margin: theme.spacing(0.6)
     }
-});
+}));
 
 const foodSorted = food.sort((a, b) => (a.name > b.name) ? 1 : -1);
 const mostPopular = [...food].sort((a, b) => (a.rating < b.rating) ? 1 : -1);

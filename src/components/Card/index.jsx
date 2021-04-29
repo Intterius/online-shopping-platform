@@ -4,21 +4,21 @@ import Rating from '@material-ui/lab/Rating';
 import Box from "@material-ui/core/Box";
 import {makeStyles} from "@material-ui/core/styles";
 
-const useStyles = makeStyles({
+const useStyles = makeStyles((theme)=>({
     root: {
-        color: "black",
+        color: theme.palette.rating.main,
     },
     cartContainer: {
-        width: "180px",
-        height: "340px",
+        width: theme.spacing(22.5),
+        height: theme.spacing(42.5),
         border: "1px solid #E3E5E4",
-        padding: "10px",
-        borderRadius: "8px"
+        padding: theme.spacing(1.2),
+        borderRadius: theme.spacing(1)
     },
     cartImgContainer: {
         display: "flex",
         width: "100%",
-        height: "130px",
+        height: theme.spacing(16.25),
     },
     cartImgContainerImg:{
         width: "100%",
@@ -32,17 +32,17 @@ const useStyles = makeStyles({
     },
     cartNameP:{
         fontWeight: "bold",
-        fontSize: "24px",
-        margin: "5px 0",
-        textTransform: "capitalize"
+        fontSize: theme.spacing(3),
+        textTransform: "capitalize",
+        margin: theme.spacing(0.6, 0)
     },
     cartPriceP:{
         color: "#85C645",
-        fontSize: "20px",
+        fontSize: theme.spacing(2.5),
         fontWeight: "bold",
-        margin: "5px 0"
+        margin: theme.spacing(0.6, 0)
     }
-})
+}))
 
 const Card = ({food}) => {
     const [rating, setRating] = useState(food.rating)
