@@ -1,53 +1,7 @@
 import { Box, Button, Grid, TextField } from '@material-ui/core';
-import { createMuiTheme, ThemeProvider } from '@material-ui/core';
-import { makeStyles } from '@material-ui/core/styles';
 import * as EmailValidator from 'email-validator';
 import { useState } from 'react';
-
-const theme = createMuiTheme({
-  typography: {
-    button: {
-      textTransform: 'none',
-    },
-  },
-  palette: {
-    primary: {
-      main: '#89C74A',
-    },
-  },
-});
-
-const useStyles = makeStyles({
-  resetTitle: {
-    fontSize: '27px',
-    fontFamily: 'Lemonada, cursive',
-    fontWeight: '400',
-  },
-  resetForm: {
-    marginTop: '35px',
-    display: 'grid',
-    justifyContent: 'center',
-    alignItems: 'center',
-  },
-  submitBtn: {
-    marginTop: '15px',
-    background: '#89C74A',
-    color: 'white',
-    transition: '0.3s ease-in-out',
-    borderRadius: '50px',
-    '&:hover': {
-      background: '#FF6600',
-    },
-  },
-  cancelBtn: {
-    marginTop: '15px',
-    transition: '0.3s ease-in-out',
-    '&:hover': {
-      background: 'transparent',
-      color: '#89C74A',
-    },
-  },
-});
+import { useStyles } from './styles';
 
 const ResetPassword = ({ cancelReset }) => {
   const classes = useStyles();
@@ -66,7 +20,7 @@ const ResetPassword = ({ cancelReset }) => {
   };
 
   return (
-    <ThemeProvider theme={theme}>
+    <>
       <Box
         display='grid'
         justifyContent='center'
@@ -110,7 +64,7 @@ const ResetPassword = ({ cancelReset }) => {
             Submit
           </Button>
         </Grid>
-        <Grid container justify='center'>
+        <Box display='grid' justifyContent='center'>
           <Button
             className={classes.cancelBtn}
             fullWidth
@@ -121,9 +75,9 @@ const ResetPassword = ({ cancelReset }) => {
           >
             Cancel
           </Button>
-        </Grid>
+        </Box>
       </Box>
-    </ThemeProvider>
+    </>
   );
 };
 
