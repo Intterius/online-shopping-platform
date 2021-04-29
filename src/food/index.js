@@ -5,7 +5,7 @@ const food = [
         name: 'apple',
         picture: 'https://5.imimg.com/data5/OP/BX/MY-78693864/apple-500x500.jpg',
         price: '5',
-        rating: 4.5
+        rating: 4.25
     },
     {
         id: 1,
@@ -13,7 +13,7 @@ const food = [
         name: 'banana',
         picture: 'https://media.istockphoto.com/photos/banana-picture-id1184345169?k=6&m=1184345169&s=612x612&w=0&h=I159iiNId_-XwGsoZlpi9WyeACv8kpg-EmyB5X2oo30=',
         price: '7.5',
-        rating: 5.5
+        rating: 5.60
     },
     {
         id: 2,
@@ -21,7 +21,7 @@ const food = [
         name: 'beef',
         picture: 'https://beef2live.com/images/668/author/1764/2020/6/images/peel_plenty_beef_independence_day_1_637290375378753268.jpg',
         price: '15',
-        rating: 4
+        rating: 4.30
     },
     {
         id: 3,
@@ -29,7 +29,7 @@ const food = [
         name: 'broccoli',
         picture: 'https://www.labpedia.net/wp-content/uploads/2020/07/broccoli.jpg',
         price: '8',
-        rating: 2.5
+        rating: 2.6
     },
     {
         id: 4,
@@ -37,7 +37,7 @@ const food = [
         name: 'chicken',
         picture: 'https://static01.nyt.com/images/2020/05/01/science/01TB-CHICKEN/01TB-CHICKEN-videoSixteenByNineJumbo1600.jpg',
         price: '5',
-        rating: 4
+        rating: 4.2
     },
     {
         id: 5,
@@ -45,7 +45,7 @@ const food = [
         name: 'coriander',
         picture: 'https://www.myfreshorder.com/pub/media/catalog/product/cache/a562db2c3bf7636894738ac95f9cc320/c/o/coriander-leaves.jpg',
         price: '6',
-        rating: 4
+        rating: 4.4
     },
     {
         id: 6,
@@ -53,7 +53,7 @@ const food = [
         name: 'cucumber',
         picture: 'https://lehzon.com/wp-content/uploads/2020/05/Cucumber-Imported.jpg',
         price: '7',
-        rating: 3.5
+        rating: 3.8
     },
     {
         id: 7,
@@ -101,7 +101,7 @@ const food = [
         name: 'salmon',
         picture: 'https://www.pngkey.com/png/full/71-715224_salmon-fish-meat-transparent-background.png',
         price: '7',
-        rating: 6
+        rating: 6.7
     },
     {
         id: 13,
@@ -117,7 +117,7 @@ const food = [
         name: 'tomato',
         picture: 'https://cdn.shopify.com/s/files/1/0244/4961/3905/products/tomato@2x.jpg?v=1576807420',
         price: '5',
-        rating: 4.5
+        rating: 4.2
     },
     {
         id: 15,
@@ -125,7 +125,7 @@ const food = [
         name: 'watermelon',
         picture: 'https://cdn.britannica.com/99/143599-050-C3289491/Watermelon.jpg',
         price: '9',
-        rating: 3.5
+        rating: 3.8
     }
 ]
 
