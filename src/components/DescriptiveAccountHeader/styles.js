@@ -8,6 +8,7 @@ const useStyles = makeStyles((theme) => ({
     margin: theme.spacing(2, 0),
     color: theme.palette.common.white,
     fontFamily: 'Lemonada, cursive',
+    fontSize:theme.spacing(3.8),
     fontWeight: '600',
   },
   breadLinks: {
