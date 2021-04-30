@@ -1,6 +1,6 @@
 import { Link } from 'react-router-dom';
 import { Box } from '@material-ui/core';
-import DescriptiveAccountHeader from '../DescriptiveAccountHeader';
+import DescriptiveAccountHeader from '../../components/DescriptiveAccountHeader';
 import { useStyles } from './styles';
 const NotFound = () => {
   const classes = useStyles();

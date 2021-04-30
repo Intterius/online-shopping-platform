@@ -1,45 +1,12 @@
 import { Box, Button, Grid, TextField } from '@material-ui/core';
 import { Link } from 'react-router-dom';
-import { useState } from 'react';
 import { useStyles } from './styles';
-import * as EmailValidator from 'email-validator';
-import DescriptiveAccountHeader from '../DescriptiveAccountHeader';
+import DescriptiveAccountHeader from '../../components/DescriptiveAccountHeader';
+import { useFormValidation } from '../../utils/FormValidation';
 
 const Login = () => {
   const classes = useStyles();
-  const [errors, setErrors] = useState({
-    email: '',
-    password: '',
-  });
-  const [userInput, setUserInput] = useState({
-    email: '',
-    password: '',
-  });
-
-  const emailValidation = (e) => {
-    const { value } = e.target;
-    if (!EmailValidator.validate(value)) {
-      setUserInput({ email: value });
-      setErrors({ email: 'Please, introduce a valid email address.' });
-    } else {
-      setUserInput({ email: value });
-      setErrors({ email: '' });
-    }
-  };
-
-  const passwordValidation = (e) => {
-    const { value } = e.target;
-    const validation = new RegExp(/^([a-zA-Z0-9_-]){5,10}$/);
-    if (validation.test(value)) {
-      setUserInput({ password: value });
-      setErrors({ password: '' });
-    } else {
-      setUserInput({ password: value });
-      setErrors({
-        password: 'Password must contain 5 to 10 letters and numbers.',
-      });
-    }
-  };
+  const [fields, setFields] = useFormValidation({ email: '', password: '' });
 
   return (
     <>
@@ -61,9 +28,9 @@ const Login = () => {
           autoComplete='email'
           autoFocus
           type='email'
-          onChange={emailValidation}
-          error={errors.email ? true : false}
-          helperText={errors.email}
+          onChange={setFields}
+          error={fields.email.error ? true : false}
+          helperText={fields.email.error}
         />
 
         <TextField
@@ -75,10 +42,9 @@ const Login = () => {
           type='password'
           id='password'
           autoComplete='current-password'
-          type='password'
-          onChange={passwordValidation}
-          error={errors.password ? true : false}
-          helperText={errors.password}
+          onChange={setFields}
+          error={fields.password.error ? true : false}
+          helperText={fields.password.error}
           inputProps={{
             minLength: 5,
             maxLength: 10,
