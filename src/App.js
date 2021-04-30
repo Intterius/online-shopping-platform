@@ -1,8 +1,8 @@
 import { Route, Switch, Redirect, BrowserRouter } from 'react-router-dom';
-import Home from './components/Home';
-import NotFound from './components/NotFound';
-import Login from './components/Login';
-import Register from './components/Register';
+import Home from '../src/pages/Home';
+import NotFound from '../src/pages/NotFound';
+import Login from '../src/pages/Login';
+import Register from '../src/pages/Register';
 
 function App() {
   return (

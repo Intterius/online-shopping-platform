@@ -1,23 +1,10 @@
 import { Box, Button, Grid, TextField } from '@material-ui/core';
-import * as EmailValidator from 'email-validator';
-import { useState } from 'react';
+import { useFormValidation } from '../../../utils/FormValidation';
 import { useStyles } from './styles';
 
 const ResetPassword = ({ cancelReset }) => {
   const classes = useStyles();
-  const [email, setEmail] = useState('');
-  const [emailError, setError] = useState('');
-
-  const emailValidation = (e) => {
-    const { value } = e.target;
-    if (!EmailValidator.validate(value)) {
-      setEmail(value);
-      setError('Please, introduce a valid email address.');
-    } else {
-      setEmail(value);
-      setError('');
-    }
-  };
+  const [field, setEmail] = useFormValidation({ email: '' });
 
   return (
     <>
@@ -50,9 +37,9 @@ const ResetPassword = ({ cancelReset }) => {
           autoComplete='email'
           autoFocus
           type='email'
-          onChange={emailValidation}
-          error={emailError ? true : false}
-          helperText={emailError}
+          onChange={setEmail}
+          error={field.email.error ? true : false}
+          helperText={field.email.error}
         />
         <Grid container justify='center'>
           <Button

@@ -1,46 +1,18 @@
 import { Box, Button, Grid, TextField } from '@material-ui/core';
 import { Link } from 'react-router-dom';
-import DescriptiveAccountHeader from '../DescriptiveAccountHeader';
+import DescriptiveAccountHeader from '../../components/DescriptiveAccountHeader';
 import { useState } from 'react';
-import * as EmailValidator from 'email-validator';
-import ResetPassword from '../ResetPassword';
+import ResetPassword from './ResetPassword';
 import { useStyles } from './styles';
+import { useFormValidation } from '../../utils/FormValidation';
 
 const Login = () => {
   const classes = useStyles();
   const [resetPasswordForm, setResetPasswordForm] = useState(false);
-  const [errors, setErrors] = useState({
+  const [fields, setValues] = useFormValidation({
     email: '',
     password: '',
   });
-  const [userInput, setUserInput] = useState({
-    email: '',
-    password: '',
-  });
-  const emailValidation = (e) => {
-    const { value } = e.target;
-    if (!EmailValidator.validate(value)) {
-      setUserInput({ email: value });
-      setErrors({ email: 'Please, introduce a valid email address.' });
-    } else {
-      setUserInput({ email: value });
-      setErrors({ email: '' });
-    }
-  };
-
-  const passwordValidation = (e) => {
-    const { value } = e.target;
-    const validation = new RegExp(/^([a-zA-Z0-9_-]){5,10}$/);
-    if (validation.test(value)) {
-      setUserInput({ password: value });
-      setErrors({ password: '' });
-    } else {
-      setUserInput({ password: value });
-      setErrors({
-        password: 'Password must contain 5 to 10 letters and numbers.',
-      });
-    }
-  };
 
   return (
     <>
@@ -63,9 +35,9 @@ const Login = () => {
             autoComplete='email'
             autoFocus
             type='email'
-            onChange={emailValidation}
-            error={errors.email ? true : false}
-            helperText={errors.email}
+            onChange={setValues}
+            error={fields.email.error ? true : false}
+            helperText={fields.email.error}
           />
 
           <TextField
@@ -77,10 +49,9 @@ const Login = () => {
             type='password'
             id='password'
             autoComplete='current-password'
-            type='password'
-            onChange={passwordValidation}
-            error={errors.password ? true : false}
-            helperText={errors.password}
+            onChange={setValues}
+            error={fields.password.error ? true : false}
+            helperText={fields.password.error}
             inputProps={{
               minLength: 5,
               maxLength: 10,
