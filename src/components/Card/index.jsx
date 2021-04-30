@@ -45,7 +45,6 @@ const useStyles = makeStyles((theme)=>({
 }))
 
 const Card = ({food}) => {
-    const [rating, setRating] = useState(food.rating)
     const classes = useStyles();
 
     return (
@@ -58,7 +57,7 @@ const Card = ({food}) => {
             </div>
             <div>
                 <Box component="fieldset" mb={3} borderColor="transparent">
-                    <Rating className={classes.root} name="read-only" value={rating} max={6} readOnly precision={0.25}/>
+                    <Rating className={classes.root} name="read-only" value={food.rating} max={6} readOnly precision={0.25}/>
                 </Box>
             </div>
             <div className={classes.cartName}>
