@@ -5,6 +5,7 @@ import { useState } from 'react';
 import ResetPassword from './ResetPassword';
 import { useStyles } from './styles';
 import { useFormValidation } from '../../utils/FormValidation';
+import DashboardHeader from '../../components/DashboardHeader';
 
 const Login = () => {
   const classes = useStyles();
@@ -16,6 +17,7 @@ const Login = () => {
 
   return (
     <>
+      <DashboardHeader />
       <DescriptiveAccountHeader title={'Account'} />
       {!resetPasswordForm ? (
         <form
