@@ -3,6 +3,7 @@ import { Link } from 'react-router-dom';
 import { useStyles } from './styles';
 import DescriptiveAccountHeader from '../../components/DescriptiveAccountHeader';
 import { useFormValidation } from '../../utils/FormValidation';
+import DashboardHeader from '../../components/DashboardHeader';
 
 const Login = () => {
   const classes = useStyles();
@@ -10,6 +11,7 @@ const Login = () => {
 
   return (
     <>
+      <DashboardHeader />
       <DescriptiveAccountHeader title={'Create Account'} />
       <form
         className={classes.registerForm}
