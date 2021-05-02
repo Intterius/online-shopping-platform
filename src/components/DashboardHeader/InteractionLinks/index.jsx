@@ -41,13 +41,11 @@ const InteractionLinks = () => {
           </Link>
         </Box>
         <Box className={classes.linksContainer}>
-          <>
-            <Link to={'#'} className={classes.links}>
-              <ShoppingCartOutlinedIcon className={classes.cart} />
-              <Box className={classes.cartCounter}>0</Box>
-            </Link>
-          </>
-          <Link to={'./account/login'} className={classes.links}>
+          <Link to={'#'} className={classes.links}>
+            <ShoppingCartOutlinedIcon className={classes.cart} />
+            <Box className={classes.cartCounter}>0</Box>
+          </Link>
+          <Link to={'./account/login'} className={classes.links} title='Login'>
             <PersonIcon className={classes.user} />
           </Link>
           <Box className={classes.menuBtn}>
