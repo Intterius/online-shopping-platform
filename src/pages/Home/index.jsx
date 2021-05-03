@@ -1,12 +1,10 @@
 import Dashboard from '../../components/Dashboard';
-import InteractionLinks from '../../components/DashboardHeader/InteractionLinks';
-import AllCategoryDropDown from "../../components/DashboardHeader/AllCategoryDropDown";
+import DashboardHeader from "../../components/DashboardHeader";
 
 const Home = () => {
     return (
         <>
-            <InteractionLinks/>
-            <AllCategoryDropDown/>
+            <DashboardHeader />
             <Dashboard/>
         </>
     );
