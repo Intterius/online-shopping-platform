@@ -1,4 +1,7 @@
-import {makeStyles} from "@material-ui/core/styles";
+import {makeStyles, withStyles} from "@material-ui/core/styles";
+import Menu from "@material-ui/core/Menu";
+import MenuItem from "@material-ui/core/MenuItem";
+import React from "react";
 
 const useStyles = makeStyles((theme) => ({
     allCategoryStyle: {
@@ -54,4 +57,41 @@ const useStyles = makeStyles((theme) => ({
     }
 }))
 
-export default useStyles;
+const StyledMenu = withStyles({
+    paper: {
+        border: '1px solid #d3d4d5',
+        borderRadius: 0
+    },
+})((props) => (
+    <Menu
+        elevation={0}
+        getContentAnchorEl={null}
+        anchorOrigin={{
+            vertical: 'bottom',
+            horizontal: 'center'
+        }}
+        transformOrigin={{
+            vertical: 'top',
+            horizontal: 'center'
+        }}
+        {...props}
+    />
+));
+
+const StyledMenuItem = withStyles((theme) => ({
+    root: {
+        backgroundColor: {
+            color: theme.palette.primary.main
+        },
+        '&:focus': {
+            backgroundColor: theme.palette.primary.main,
+            '& .MuiListItemIcon-root, & .MuiListItemText-primary': {
+                color: theme.palette.common.white
+            }
+        },
+        width: theme.spacing(36),
+
+    }
+}))(MenuItem);
+
+export {useStyles, StyledMenu, StyledMenuItem};
