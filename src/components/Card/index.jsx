@@ -1,4 +1,4 @@
-import React, {useState} from 'react';
+import React from 'react';
 import Button from "../Button";
 import Rating from '@material-ui/lab/Rating';
 import Box from "@material-ui/core/Box";
@@ -28,7 +28,7 @@ const useStyles = makeStyles((theme)=>({
     cartName:{
         display: "flex",
         justifyContent: "center",
-        fontFamily: "'Roboto', sans-serif"
+        fontFamily: theme.fontFamily.main
     },
     cartNameP:{
         fontWeight: "bold",
