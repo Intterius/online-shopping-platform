@@ -1,48 +1,8 @@
 import React, {useState} from 'react';
-import {makeStyles, withStyles} from "@material-ui/core/styles";
-import Menu from "@material-ui/core/Menu";
-import MenuItem from '@material-ui/core/MenuItem'
 import ListItemText from '@material-ui/core/ListItemText';
 import Box from "@material-ui/core/Box";
 import ExpandMoreIcon from '@material-ui/icons/ExpandMore';
-import useStyles from "./style";
-
-const StyledMenu = withStyles({
-    paper: {
-        border: '1px solid #d3d4d5',
-        borderRadius: 0
-    },
-})((props) => (
-    <Menu
-        elevation={0}
-        getContentAnchorEl={null}
-        anchorOrigin={{
-            vertical: 'bottom',
-            horizontal: 'center'
-        }}
-        transformOrigin={{
-            vertical: 'top',
-            horizontal: 'center'
-        }}
-        {...props}
-    />
-));
-
-const StyledMenuItem = withStyles((theme) => ({
-    root: {
-        backgroundColor: {
-            color: theme.palette.primary.main
-        },
-        '&:focus': {
-            backgroundColor: theme.palette.primary.main,
-            '& .MuiListItemIcon-root, & .MuiListItemText-primary': {
-                color: theme.palette.common.white
-            }
-        },
-        width: theme.spacing(36),
-
-    }
-}))(MenuItem);
+import {useStyles, StyledMenu, StyledMenuItem} from "./style";
 
 const AllCategoryDropDown = () => {
     const classes = useStyles();
