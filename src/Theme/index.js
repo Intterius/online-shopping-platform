@@ -15,7 +15,16 @@ const theme = createMuiTheme({
         },
         rating:{
             main: 'black'
-        }
+        },
+        common:{
+            white: 'white',
+            black: 'black'
+        },
+
+
+    },
+    fontFamily:{
+        main: "'Roboto', sans-serif"
     }
 });
 
