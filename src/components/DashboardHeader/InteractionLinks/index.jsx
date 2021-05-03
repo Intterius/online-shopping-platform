@@ -3,6 +3,7 @@ import { Link } from 'react-router-dom';
 import { useEffect, useState } from 'react';
 import { useStyles } from './styles';
 import ShoppingCartOutlinedIcon from '@material-ui/icons/ShoppingCartOutlined';
+import ExitToAppIcon from '@material-ui/icons/ExitToApp';
 import PersonIcon from '@material-ui/icons/Person';
 import MenuIcon from '@material-ui/icons/Menu';
 import logo from './logo.png';
@@ -29,31 +30,34 @@ const InteractionLinks = () => {
   }, []);
 
   return (
-    <Box className={clsx(classes.container, sticky ? classes.sticky : '')}>
+    <div className={clsx(classes.container, sticky ? classes.sticky : '')}>
       <Box
         display='flex'
         justifyContent='space-between'
         className={classes.interactionBox}
       >
-        <Box display='flex' alignItems='center'>
+        <Box display='flex' alignItems='center' justifyContent='center'>
           <Link to='/home'>
             <img src={logo} alt='shop-logo' />
           </Link>
         </Box>
-        <Box className={classes.linksContainer}>
+        <div className={classes.linksContainer}>
           <Link to={'#'} className={classes.links}>
             <ShoppingCartOutlinedIcon className={classes.cart} />
-            <Box className={classes.cartCounter}>0</Box>
+            <div className={classes.cartCounter}>0</div>
           </Link>
           <Link to={'./account/login'} className={classes.links} title='Login'>
             <PersonIcon className={classes.user} />
           </Link>
-          <Box className={classes.menuBtn}>
+          <Link to={'#'} className={clsx(classes.links, classes.exit)}>
+            <ExitToAppIcon />
+          </Link>
+          <div className={classes.menuBtn}>
             <MenuIcon />
-          </Box>
-        </Box>
+          </div>
+        </div>
       </Box>
-    </Box>
+    </div>
   );
 };
 

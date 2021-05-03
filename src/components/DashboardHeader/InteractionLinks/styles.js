@@ -38,25 +38,27 @@ const useStyles = makeStyles((theme) => ({
   linksContainer: {
     display: 'flex',
     alignItems: 'center',
-    justifyContent: 'space-between',
-    width: '8%',
+    justifyContent: 'center',
+    width: '7%',
+    [theme.breakpoints.down('965')]: {
+      width: '10%',
+    },
     [theme.breakpoints.down('760')]: {
       width: '100%',
-      justifyContent: 'center',
+      justifyContent: 'space-between',
     },
   },
 
   links: {
-    paddingRight: theme.spacing(1.9),
+    paddingRight: theme.spacing(2.5),
     color: theme.palette.common.black,
     textDecoration: 'none',
     '&:hover': {
       color: theme.palette.primary.main,
     },
-  },
-
-  user: {
-    fontSize: theme.spacing(3.2),
+    [theme.breakpoints.down('760')]: {
+      paddingRight: theme.spacing(4.5),
+    },
   },
 
   cart: {
@@ -76,6 +78,14 @@ const useStyles = makeStyles((theme) => ({
     left: theme.spacing(2.25),
     borderRadius: '50%',
     background: theme.palette.primary.main,
+  },
+
+  user: {
+    fontSize: theme.spacing(3.2),
+  },
+
+  exit: {
+    display: 'none',
   },
 
   menuBtn: {
