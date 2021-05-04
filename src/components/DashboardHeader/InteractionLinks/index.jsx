@@ -1,4 +1,4 @@
-import { Box } from '@material-ui/core';
+import { Box, Zoom } from '@material-ui/core';
 import { Link } from 'react-router-dom';
 import { useEffect, useState } from 'react';
 import { useStyles } from './styles';
@@ -12,6 +12,8 @@ import clsx from 'clsx';
 const InteractionLinks = () => {
   const classes = useStyles();
   const [sticky, setSticky] = useState(false);
+
+  const [showCartProducts, setShowCartProducts] = useState(false);
 
   const scrollCheck = () => {
     if (window.pageYOffset >= 100) {
@@ -42,19 +44,42 @@ const InteractionLinks = () => {
           </Link>
         </Box>
         <div className={classes.linksContainer}>
-          <Link to={'#'} className={classes.links}>
-            <ShoppingCartOutlinedIcon className={classes.cart} />
-            <div className={classes.cartCounter}>0</div>
-          </Link>
-          <Link to={'./account/login'} className={classes.links} title='Login'>
-            <PersonIcon className={classes.user} />
-          </Link>
-          <Link to={'#'} className={clsx(classes.links, classes.exit)}>
-            <ExitToAppIcon />
-          </Link>
-          <div className={classes.menuBtn}>
-            <MenuIcon />
-          </div>
+          <Box
+            display='flex'
+            justifyContent='start'
+            alignContent='center'
+            style={{ position: 'relative', width: '50%' }}
+            onMouseEnter={() => setShowCartProducts(true)}
+            onMouseLeave={() => setShowCartProducts(false)}
+          >
+            <Link to={'#'} className={classes.links}>
+              <div style={{ position: 'relative' }}>
+                <ShoppingCartOutlinedIcon className={classes.cart} />
+                <div className={classes.cartCounter}>0</div>
+              </div>
+            </Link>
+            <Zoom in={showCartProducts} timeout={350}>
+              <Box className={classes.cartProducts}>
+                Your cart is currently empty!
+              </Box>
+            </Zoom>
+          </Box>
+          <Box
+            display='flex'
+            justifyContent='space-between'
+            alignContent='center'
+            style={{ width: '50%' }}
+          >
+            <Link to={'/account/login'} className={classes.links} title='Login'>
+              <PersonIcon className={classes.user} />
+            </Link>
+            <Link to={'#'} className={clsx(classes.links, classes.exit)}>
+              <ExitToAppIcon />
+            </Link>
+            <div className={classes.menuBtn}>
+              <MenuIcon />
+            </div>
+          </Box>
         </div>
       </Box>
     </div>
