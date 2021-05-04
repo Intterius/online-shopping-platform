@@ -25,22 +25,24 @@ const ResetPassword = ({ cancelReset }) => {
             We will send you an email to reset your password.
           </p>
         </Box>
-        <TextField
-          variant='outlined'
-          margin='normal'
-          required
-          style={{ width: '350px' }}
-          fullWidth
-          id='email'
-          label='Email Address'
-          name='email'
-          autoComplete='email'
-          autoFocus
-          type='email'
-          onChange={setEmail}
-          error={field.email.error ? true : false}
-          helperText={field.email.error}
-        />
+        <Box display='flex' justifyContent='center' alignContent='center'>
+          <TextField
+            className={classes.input}
+            variant='outlined'
+            margin='normal'
+            required
+            fullWidth
+            id='email'
+            label='Email Address'
+            name='email'
+            autoComplete='email'
+            autoFocus
+            type='email'
+            onChange={setEmail}
+            error={field.email.error ? true : false}
+            helperText={field.email.error}
+          />
+        </Box>
         <Grid container justify='center'>
           <Button
             type='submit'

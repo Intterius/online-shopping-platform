@@ -7,6 +7,14 @@ const useStyles = makeStyles((theme) => ({
     justifyContent: 'center',
     alignItems: 'center',
   },
+
+  input: {
+    width: '350px',
+    [theme.breakpoints.down('321')]: {
+      width: '310px',
+    },
+  },
+
   forgotPassword: {
     transition: '0.3s ease-in-out',
     '&:hover': {

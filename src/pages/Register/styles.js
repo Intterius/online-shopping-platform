@@ -7,11 +7,11 @@ const useStyles = makeStyles((theme) => ({
     justifyContent: 'center',
     alignItems: 'center',
   },
-  forgotPassword: {
-    transition: '0.3s ease-in-out',
-    '&:hover': {
-      background: 'transparent',
-      color: theme.palette.primary.main,
+
+  input: {
+    width: '350px',
+    [theme.breakpoints.down('321')]: {
+      width: '310px',
     },
   },
   registerBtn: {
