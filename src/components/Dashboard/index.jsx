@@ -14,9 +14,7 @@ const useStyles = makeStyles((theme)=>({
 }));
 
 const foodSorted = food.sort((a, b) => (a.name > b.name) ? 1 : -1);
-const mostPopular = [...food].sort((a, b) => (a.rating < b.rating) ? 1 : -1);
-
-mostPopular.splice(15);
+const mostPopular = [...food].sort((a, b) => (a.rating < b.rating) ? 1 : -1).slice(0,15);
 
 const Dashboard = () => {
     const classes = useStyles();

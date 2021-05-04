@@ -21,6 +21,7 @@ const useStyles = makeStyles((theme) => ({
         fontFamily: theme.fontFamily.main,
         fontSize: theme.spacing(2.5),
         justifyContent: 'center',
+        marginBottom: theme.spacing(3)
     },
     searchContainer: {
         display: 'flex',
