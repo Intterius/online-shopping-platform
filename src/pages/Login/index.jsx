@@ -27,9 +27,9 @@ const Login = () => {
           }}
         >
           <TextField
+            className={classes.input}
             variant='outlined'
             margin='normal'
-            style={{ width: '350px' }}
             required
             id='email'
             label='Email Address'
@@ -43,6 +43,7 @@ const Login = () => {
           />
 
           <TextField
+            className={classes.input}
             variant='outlined'
             margin='normal'
             required

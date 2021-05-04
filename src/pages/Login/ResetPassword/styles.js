@@ -12,6 +12,13 @@ const useStyles = makeStyles((theme) => ({
     justifyContent: 'center',
     alignItems: 'center',
   },
+
+  input: {
+    width: '350px',
+    [theme.breakpoints.down('321')]: {
+      width: '90%',
+    },
+  },
   submitBtn: {
     marginTop: theme.spacing(2),
     background: theme.palette.primary.main,
@@ -20,6 +27,9 @@ const useStyles = makeStyles((theme) => ({
     borderRadius: theme.spacing(6),
     '&:hover': {
       background: theme.palette.secondary.main,
+    },
+    [theme.breakpoints.down('321')]: {
+      width: '90%',
     },
   },
   cancelBtn: {
