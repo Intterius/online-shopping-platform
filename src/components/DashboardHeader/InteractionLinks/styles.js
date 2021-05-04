@@ -28,6 +28,7 @@ const useStyles = makeStyles((theme) => ({
     position: 'sticky',
     animation: '$stickyHeader 0.5s ease-in-out',
     top: 0,
+    boxShadow: '0px 15px 10px -15px #111',
   },
 
   '@keyframes stickyHeader': {
@@ -38,32 +39,27 @@ const useStyles = makeStyles((theme) => ({
   linksContainer: {
     display: 'flex',
     alignItems: 'center',
-    justifyContent: 'center',
-    width: '7%',
+    justifyContent: 'space-between',
+    width: '11%',
     [theme.breakpoints.down('965')]: {
-      width: '10%',
+      width: '20%',
     },
     [theme.breakpoints.down('760')]: {
       width: '100%',
-      justifyContent: 'space-between',
+      paddingTop: theme.spacing(3.8),
     },
   },
 
   links: {
-    paddingRight: theme.spacing(2.5),
     color: theme.palette.common.black,
     textDecoration: 'none',
     '&:hover': {
       color: theme.palette.primary.main,
     },
-    [theme.breakpoints.down('760')]: {
-      paddingRight: theme.spacing(4.5),
-    },
   },
 
   cart: {
     fontSize: theme.spacing(3.2),
-    marginTop: theme.spacing(2.05),
   },
 
   cartCounter: {
@@ -71,26 +67,47 @@ const useStyles = makeStyles((theme) => ({
     display: 'flex',
     justifyContent: 'center',
     alignItems: 'center',
-    position: 'relative',
-    width: '65%',
+    position: 'absolute',
+    width: '60%',
     fontSize: theme.spacing(1.75),
-    bottom: theme.spacing(4.5),
-    left: theme.spacing(2.25),
+    left: theme.spacing(1.9),
+    bottom: theme.spacing(2.5),
     borderRadius: '50%',
     background: theme.palette.primary.main,
   },
 
+  cartProducts: {
+    width: '350px',
+    color: '#444444',
+    fontFamily: 'Roboto, sans-serif',
+    textAlign: 'center',
+    padding: theme.spacing(2, 0),
+    position: 'absolute',
+    background: 'white',
+    border: 'transparent',
+    top: theme.spacing(4.7),
+    right: theme.spacing(1.9),
+    boxShadow: '0px 0px 30px 0 rgb(0 0 0 / 15%)',
+    [theme.breakpoints.down('760')]: {
+      right: theme.spacing(-10),
+    },
+    [theme.breakpoints.down('500')]: {
+      display: 'none',
+    },
+  },
+
   user: {
     fontSize: theme.spacing(3.2),
+    marginRight: theme.spacing(1.25),
   },
 
   exit: {
+    marginRight: theme.spacing(1.25),
     display: 'none',
   },
 
   menuBtn: {
     display: 'none',
-    paddingRight: theme.spacing(1.9),
     '&:hover': {
       cursor: 'pointer',
       color: theme.palette.primary.main,

@@ -1,10 +1,10 @@
 import * as EmailValidator from 'email-validator';
-import { useState } from 'react';
+import { useCallback, useState } from 'react';
 
 const useFormValidation = (initialState) => {
   const [fields, setValues] = useState(initialState);
 
-  const validateEmail = (e) => {
+  const validateEmail = useCallback((e) => {
     const { value } = e.target;
     if (!EmailValidator.validate(value)) {
       return {
@@ -14,9 +14,9 @@ const useFormValidation = (initialState) => {
     } else {
       return { input: value, error: '' };
     }
-  };
+  }, []);
 
-  const validatePassword = (e) => {
+  const validatePassword = useCallback((e) => {
     const { value } = e.target;
     const validation = new RegExp(/^([a-zA-Z0-9_-]){5,10}$/);
     if (validation.test(value)) {
@@ -27,7 +27,7 @@ const useFormValidation = (initialState) => {
         error: 'Password must contain 5 to 10 letters and numbers.',
       };
     }
-  };
+  }, []);
 
   return [
     fields,
