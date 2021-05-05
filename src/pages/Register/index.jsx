@@ -4,10 +4,15 @@ import { useStyles } from './styles';
 import DescriptiveAccountHeader from '../../components/DescriptiveAccountHeader';
 import { useFormValidation } from '../../utils/FormValidation';
 import DashboardHeader from '../../components/DashboardHeader';
+import { Alert } from '@material-ui/lab';
 
 const Login = () => {
   const classes = useStyles();
-  const [fields, setFields] = useFormValidation({ email: '', password: '' });
+  const [fields, setFields] = useFormValidation({
+    username: '',
+    email: '',
+    password: '',
+  });
 
   return (
     <>
@@ -19,6 +24,24 @@ const Login = () => {
           e.preventDefault();
         }}
       >
+        {/* <Alert severity="error" >Such user alread exists!</Alert> */}
+        <TextField
+          variant='outlined'
+          margin='normal'
+          className={classes.input}
+          required
+          id='username'
+          label='Username'
+          name='username'
+          autoComplete='username'
+          autoFocus
+          type='text'
+          onChange={setFields}
+          inputProps={{
+            minLength: 3,
+            maxLength: 30,
+          }}
+        />
         <TextField
           variant='outlined'
           margin='normal'
@@ -28,7 +51,6 @@ const Login = () => {
           label='Email Address'
           name='email'
           autoComplete='email'
-          autoFocus
           type='email'
           onChange={setFields}
           error={fields.email.error ? true : false}

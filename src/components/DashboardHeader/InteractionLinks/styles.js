@@ -39,7 +39,6 @@ const useStyles = makeStyles((theme) => ({
   linksContainer: {
     display: 'flex',
     alignItems: 'center',
-    justifyContent: 'space-between',
     width: '11%',
     [theme.breakpoints.down('965')]: {
       width: '20%',
