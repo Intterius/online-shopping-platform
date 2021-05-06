@@ -7,13 +7,21 @@ import {makeStyles} from "@material-ui/core/styles";
 const useStyles = makeStyles((theme)=>({
     root: {
         color: theme.palette.rating.main,
+        fontSize: theme.spacing(2),
+        display: "flex",
+        justifyContent: 'center'
     },
     cartContainer: {
         width: theme.spacing(22.5),
         height: theme.spacing(42.5),
         border: "1px solid #E3E5E4",
         padding: theme.spacing(1.2),
-        borderRadius: theme.spacing(1)
+        borderRadius: theme.spacing(1),
+        '&:hover':{
+            border: '1px solid #85C645',
+            transition: '0.5s'
+        }
+
     },
     cartImgContainer: {
         display: "flex",
@@ -57,7 +65,7 @@ const Card = ({food}) => {
             </div>
             <div>
                 <Box component="fieldset" mb={3} borderColor="transparent">
-                    <Rating className={classes.root} name="read-only" value={food.rating} max={6} readOnly precision={0.25}/>
+                    <Rating className={classes.root} name="read-only" value={food.rating} max={5} readOnly precision={0.25}/>
                 </Box>
             </div>
             <div className={classes.cartName}>

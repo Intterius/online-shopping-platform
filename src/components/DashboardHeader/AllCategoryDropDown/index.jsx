@@ -17,7 +17,7 @@ const AllCategoryDropDown = () => {
     }
 
     return (
-        <div>
+        <Box>
             <Box className={classes.navContainer}>
                 <Box className={classes.categoryAndSearchContainer}>
                     <Box
@@ -61,7 +61,7 @@ const AllCategoryDropDown = () => {
                     <ListItemText primary="Meat"/>
                 </StyledMenuItem>
             </StyledMenu>
-        </div>
+        </Box>
     );
 }
 

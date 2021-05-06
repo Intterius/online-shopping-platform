@@ -13,7 +13,7 @@ const food = [
         name: 'banana',
         picture: 'https://media.istockphoto.com/photos/banana-picture-id1184345169?k=6&m=1184345169&s=612x612&w=0&h=I159iiNId_-XwGsoZlpi9WyeACv8kpg-EmyB5X2oo30=',
         price: '7.5',
-        rating: 5.60
+        rating: 5
     },
     {
         id: 2,
@@ -85,7 +85,7 @@ const food = [
         name: 'orange',
         picture: 'https://thumbs.dreamstime.com/b/orange-fruit-green-leaves-isolated-white-background-clipping-path-full-depth-field-fresh-177726692.jpg',
         price: '3',
-        rating: 5.5
+        rating: 4.8
     },
     {
         id: 11,
@@ -101,7 +101,7 @@ const food = [
         name: 'salmon',
         picture: 'https://www.pngkey.com/png/full/71-715224_salmon-fish-meat-transparent-background.png',
         price: '7',
-        rating: 6.7
+        rating: 5
     },
     {
         id: 13,
