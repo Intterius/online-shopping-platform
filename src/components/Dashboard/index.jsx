@@ -6,10 +6,19 @@ import {makeStyles} from "@material-ui/core";
 const useStyles = makeStyles((theme)=>({
     cardList: {
         display: "flex",
-        flexWrap: "wrap"
+        flexWrap: "wrap",
+        margin: theme.spacing(1, 10)
     },
     cardContainer: {
         margin: theme.spacing(0.6)
+    },
+    title:{
+        display: 'flex',
+        justifyContent: 'center'
+    },
+    line:{
+        margin: 'auto',
+        width: '95%'
     }
 }));
 
@@ -37,13 +46,13 @@ const Dashboard = () => {
 
     return (
         <div>
-            <h1>Product list</h1>
-            <hr/>
+            <h1 className={classes.title} >Product list</h1>
+            <hr className={classes.line}/>
             <div className={classes.cardList}>
                 {cardList}
             </div>
-            <h1>Most popular</h1>
-            <hr/>
+            <h1 className={classes.title}>Most popular</h1>
+            <hr className={classes.line}/>
             <div className={classes.cardList}>
                 {mostPopularCardList}
             </div>
