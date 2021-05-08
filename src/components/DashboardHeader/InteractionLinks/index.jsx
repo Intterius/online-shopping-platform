@@ -23,6 +23,8 @@ const InteractionLinks = () => {
     }
   };
 
+  const auth = JSON.parse(localStorage.getItem('auth'));
+
   useEffect(() => {
     window.addEventListener('scroll', scrollCheck);
 
@@ -73,13 +75,17 @@ const InteractionLinks = () => {
             <Link to={'/account/login'} className={classes.links} title='Login'>
               <PersonIcon className={classes.user} />
             </Link>
-            <Link
-              to={'#'}
-              className={clsx(classes.links, classes.exit)}
-              title='Logout'
-            >
-              <ExitToAppIcon />
-            </Link>
+            {auth && (
+              <Link
+                onClick={() => localStorage.removeItem('auth')}
+                to={'#'}
+                className={clsx(classes.links, classes.exit)}
+                title='Logout'
+              >
+                <ExitToAppIcon />
+              </Link>
+            )}
+
             <div className={classes.menuBtn}>
               <MenuIcon />
             </div>

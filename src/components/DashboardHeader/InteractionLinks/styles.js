@@ -102,11 +102,12 @@ const useStyles = makeStyles((theme) => ({
 
   exit: {
     marginRight: theme.spacing(1.25),
-    display: 'none',
+    marginTop: '1px',
   },
 
   menuBtn: {
     display: 'none',
+    marginTop: '1px',
     '&:hover': {
       cursor: 'pointer',
       color: theme.palette.primary.main,

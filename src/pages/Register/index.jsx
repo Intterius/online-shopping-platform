@@ -1,12 +1,14 @@
 import { Box, Button, Grid, TextField } from '@material-ui/core';
-import { Link } from 'react-router-dom';
+import { Link, useHistory } from 'react-router-dom';
 import { useStyles } from './styles';
-import DescriptiveAccountHeader from '../../components/DescriptiveAccountHeader';
 import { useFormValidation } from '../../utils/FormValidation';
-import DashboardHeader from '../../components/DashboardHeader';
 import { Alert } from '@material-ui/lab';
+import { useState } from 'react';
+import DescriptiveAccountHeader from '../../components/DescriptiveAccountHeader';
+import DashboardHeader from '../../components/DashboardHeader';
+import axios from 'axios';
 
-const Login = () => {
+const Register = () => {
   const classes = useStyles();
   const [fields, setFields] = useFormValidation({
     username: '',
@@ -14,17 +16,47 @@ const Login = () => {
     password: '',
   });
 
+  const history = useHistory();
+
+  const [validationStatus, setValidationStatus] = useState();
+
+  const showStatus = () => {
+    if (validationStatus === false) {
+      return <Alert severity='error'>Such user already exists!</Alert>;
+    } else if (validationStatus === true) {
+      return <Alert severity='success'>You have successfully registerd!</Alert>;
+    }
+  };
+
+  const handleSumit = (e) => {
+    e.preventDefault();
+    if (fields.email.error || fields.password.error) {
+      setValidationStatus(false);
+      console.log('invalid');
+      return;
+    } else {
+      setValidationStatus(true);
+      console.log(fields.username, fields.email.input, fields.password.input);
+      // axios
+      //   .post(
+      //     'http://localhost:8080/sign-in/register',
+      //     JSON.stringify({
+      //       username: fields.username,
+      //       email: fields.email.input,
+      //       password: fields.password.input,
+      //     })
+      //   )
+      //   .then((res) => console.log(res));
+      // e.target.reset();
+    }
+  };
+
   return (
     <>
       <DashboardHeader />
       <DescriptiveAccountHeader title={'Create Account'} />
-      <form
-        className={classes.registerForm}
-        onSubmit={(e) => {
-          e.preventDefault();
-        }}
-      >
-        {/* <Alert severity="error" >Such user alread exists!</Alert> */}
+      <form className={classes.registerForm} onSubmit={handleSumit}>
+        {showStatus()}
         <TextField
           variant='outlined'
           margin='normal'
@@ -99,4 +131,4 @@ const Login = () => {
   );
 };
 
-export default Login;
+export default Register;

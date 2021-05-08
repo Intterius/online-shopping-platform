@@ -1,10 +1,11 @@
 import { Box, Button, Grid, TextField } from '@material-ui/core';
-import { Link } from 'react-router-dom';
-import DescriptiveAccountHeader from '../../components/DescriptiveAccountHeader';
+import { Link, useHistory } from 'react-router-dom';
+import { Alert } from '@material-ui/lab';
 import { useState } from 'react';
-import ResetPassword from './ResetPassword';
 import { useStyles } from './styles';
 import { useFormValidation } from '../../utils/FormValidation';
+import DescriptiveAccountHeader from '../../components/DescriptiveAccountHeader';
+import ResetPassword from './ResetPassword';
 import DashboardHeader from '../../components/DashboardHeader';
 
 const Login = () => {
@@ -15,17 +16,42 @@ const Login = () => {
     password: '',
   });
 
+  const history = useHistory();
+
+  const [validationStatus, setValidationStatus] = useState();
+
+  const showStatus = () => {
+    if (validationStatus === false) {
+      return <Alert severity='error'>Such user already exists!</Alert>;
+    } else if (validationStatus === true) {
+      return <Alert severity='success'>You have successfully registerd!</Alert>;
+    }
+  };
+
+  const handleSumit = (e) => {
+    e.preventDefault();
+    if (fields.email.error || fields.password.error) {
+      setValidationStatus(false);
+      console.log('invalid');
+      return;
+    } else {
+      setValidationStatus(true);
+      localStorage.setItem('auth', true);
+      history.push('/home');
+      e.target.reset();
+      setTimeout(() => {
+        console.log('everything ok');
+      }, 1000);
+    }
+  };
+
   return (
     <>
       <DashboardHeader />
       <DescriptiveAccountHeader title={'Account'} />
       {!resetPasswordForm ? (
-        <form
-          className={classes.loginForm}
-          onSubmit={(e) => {
-            e.preventDefault();
-          }}
-        >
+        <form className={classes.loginForm} onSubmit={handleSumit}>
+          {showStatus()}
           <TextField
             className={classes.input}
             variant='outlined'
