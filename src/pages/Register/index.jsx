@@ -34,15 +34,19 @@ const Register = () => {
       setValidationStatus(false);
       return;
     } else {
-      setValidationStatus(true);
-      axios
-        .post('http://localhost:8080/sign-in/register', {
-          username: fields.username,
-          email: fields.email.input,
-          password: fields.password.input,
-        })
-        .then((res) => console.log(res));
-      e.target.reset();
+      try {
+        axios
+          .post('http://localhost:8080/sign-in/register', {
+            username: fields.username,
+            email: fields.email.input,
+            password: fields.password.input,
+          })
+          .then(setValidationStatus(true));
+        e.target.reset();
+      } catch (err) {
+        setValidationStatus(false);
+        console.log(err)
+      }
     }
   };
 
