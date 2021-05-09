@@ -32,22 +32,17 @@ const Register = () => {
     e.preventDefault();
     if (fields.email.error || fields.password.error) {
       setValidationStatus(false);
-      console.log('invalid');
       return;
     } else {
       setValidationStatus(true);
-      console.log(fields.username, fields.email.input, fields.password.input);
-      // axios
-      //   .post(
-      //     'http://localhost:8080/sign-in/register',
-      //     JSON.stringify({
-      //       username: fields.username,
-      //       email: fields.email.input,
-      //       password: fields.password.input,
-      //     })
-      //   )
-      //   .then((res) => console.log(res));
-      // e.target.reset();
+      axios
+        .post('http://localhost:8080/sign-in/register', {
+          username: fields.username,
+          email: fields.email.input,
+          password: fields.password.input,
+        })
+        .then((res) => console.log(res));
+      e.target.reset();
     }
   };
 
