@@ -1,12 +1,14 @@
 import { Box, Button, Grid, TextField } from '@material-ui/core';
 import { Link, useHistory } from 'react-router-dom';
 import { Alert } from '@material-ui/lab';
-import { useState } from 'react';
+import { useEffect, useState } from 'react';
 import { useStyles } from './styles';
 import { useFormValidation } from '../../utils/FormValidation';
 import DescriptiveAccountHeader from '../../components/DescriptiveAccountHeader';
 import ResetPassword from './ResetPassword';
 import DashboardHeader from '../../components/DashboardHeader';
+import axios from 'axios';
+import { useSelector } from 'react-redux';
 
 const Login = () => {
   const classes = useStyles();
@@ -15,42 +17,63 @@ const Login = () => {
     email: '',
     password: '',
   });
-
-  const history = useHistory();
-
   const [validationStatus, setValidationStatus] = useState();
+  const [submitDisable, setSubmitDisable] = useState(false);
+  const { status } = useSelector((state) => state);
+  const history = useHistory();
 
   const showStatus = () => {
     if (validationStatus === false) {
-      return <Alert severity='error'>Such user already exists!</Alert>;
+      return <Alert severity='error'>Wrond credentials!</Alert>;
     } else if (validationStatus === true) {
-      return <Alert severity='success'>You have successfully registerd!</Alert>;
+      return <Alert severity='success'>You have successfully signed in!</Alert>;
     }
   };
 
-  const handleSumit = (e) => {
+  const handleSubmit = (e) => {
     e.preventDefault();
     if (fields.email.error || fields.password.error) {
-      setValidationStatus(false);
-      console.log('invalid');
       return;
     } else {
-      setValidationStatus(true);
-      localStorage.setItem('auth', true);
-      history.push('/home');
-      e.target.reset();
-      setTimeout(() => {
-        console.log('everything ok');
-      }, 1000);
+      axios
+        .post(
+          'https://online-shopping-platform-back.herokuapp.com/sign-in/login',
+          {
+            email: fields.email.input,
+            password: fields.password.input,
+          }
+        )
+        .then((res) => {
+          setValidationStatus(true);
+          localStorage.setItem('key', res.data.key);
+          e.target.reset();
+          setTimeout(() => {
+            history.push('/home');
+            window.location.reload();
+          }, 1000);
+        })
+        .catch((err) => {
+          setValidationStatus(false);
+        });
     }
   };
+  useEffect(() => {
+    if (fields.email.error || fields.password.error) {
+      setSubmitDisable(true);
+    } else {
+      setSubmitDisable(false);
+    }
+    if (status) {
+      history.push('/account');
+    }
+  }, [fields, status, history]);
 
   return (
     <>
       <DashboardHeader />
       <DescriptiveAccountHeader title={'Account'} />
       {!resetPasswordForm ? (
-        <form className={classes.loginForm} onSubmit={handleSumit}>
+        <form className={classes.loginForm} onSubmit={handleSubmit}>
           {showStatus()}
           <TextField
             className={classes.input}
@@ -98,6 +121,7 @@ const Login = () => {
           </Box>
           <Grid container justify='center'>
             <Button
+              disabled={submitDisable}
               type='submit'
               variant='outlined'
               fullWidth
