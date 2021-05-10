@@ -1,9 +1,11 @@
-import React from 'react';
-import food from '../../food'
+import React, {useEffect, useState} from 'react';
 import Card from '../Card'
-import {makeStyles} from "@material-ui/core";
+import {Divider, makeStyles, Typography} from "@material-ui/core";
+import axios from "axios";
+import Box from "@material-ui/core/Box";
+// import {CircularProgress} from "@material-ui/core";
 
-const useStyles = makeStyles((theme)=>({
+const useStyles = makeStyles((theme) => ({
     cardList: {
         display: "flex",
         flexWrap: "wrap",
@@ -12,21 +14,32 @@ const useStyles = makeStyles((theme)=>({
     cardContainer: {
         margin: theme.spacing(0.6)
     },
-    title:{
+    title: {
         display: 'flex',
-        justifyContent: 'center'
+        justifyContent: 'center',
+        fontFamily: theme.fontFamily.main
     },
-    line:{
-        margin: 'auto',
-        width: '95%'
-    }
+    // loader: {
+    //     display: 'flex',
+    //     justifyContent: 'center',
+    //     padding: theme.spacing(2, 0)
+    // }
+
 }));
 
-const foodSorted = food.sort((a, b) => (a.name > b.name) ? 1 : -1);
-const mostPopular = [...food].sort((a, b) => (a.rating < b.rating) ? 1 : -1).slice(0,15);
-
 const Dashboard = () => {
+    const [data, setData] = useState([])
+    // const [loading, setLoading] = useState(true)
     const classes = useStyles();
+
+    useEffect(() => {
+        axios.get('http://localhost:8080/products?pageNr=0&items=20')
+            .then(res => setData(res.data))
+            .catch((err) => console.error(err))
+    }, [])
+
+    const foodSorted = data.sort((a, b) => (a.title > b.title) ? 1 : -1);
+    const mostPopular = [...data].sort((a, b) => (a.rating < b.rating) ? 1 : -1).slice(0, 15);
 
     const cardList = foodSorted.map((e) => {
         return (
@@ -45,18 +58,28 @@ const Dashboard = () => {
     });
 
     return (
-        <div>
-            <h1 className={classes.title} >Product list</h1>
-            <hr className={classes.line}/>
-            <div className={classes.cardList}>
+        <Box>
+            <Typography align="center" variant="h3" style={{paddingBottom: '15px'}}>Product list</Typography>
+            <Divider variant="middle"/>
+            {/*{loading &&*/}
+            {/*<Box className={classes.loader}>*/}
+            {/*    <CircularProgress />*/}
+            {/*</Box>*/}
+            {/*}*/}
+            <Box className={classes.cardList}>
                 {cardList}
-            </div>
-            <h1 className={classes.title}>Most popular</h1>
-            <hr className={classes.line}/>
-            <div className={classes.cardList}>
+            </Box>
+            <Typography align="center" variant="h3" style={{paddingBottom: '15px'}}>Most popular</Typography>
+            <Divider variant="middle"/>
+            {/*{loading &&*/}
+            {/*<Box className={classes.loader}>*/}
+            {/*    <CircularProgress />*/}
+            {/*</Box>*/}
+            {/*}*/}
+            <Box className={classes.cardList}>
                 {mostPopularCardList}
-            </div>
-        </div>
+            </Box>
+        </Box>
     );
 }
 

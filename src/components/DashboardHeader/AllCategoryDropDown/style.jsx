@@ -12,7 +12,11 @@ const useStyles = makeStyles((theme) => ({
         alignItems: 'center',
         justifyContent: 'space-between',
         cursor: 'pointer',
-        marginLeft: theme.spacing(3)
+        marginLeft: theme.spacing(3),
+        [theme.breakpoints.down('sm')]:{
+            borderBottom: '1px solid lightGray',
+            marginBottom: theme.spacing(1)
+        }
     },
     navContainer: {
         display: 'flex',
@@ -21,17 +25,26 @@ const useStyles = makeStyles((theme) => ({
         fontFamily: theme.fontFamily.main,
         fontSize: theme.spacing(2.5),
         justifyContent: 'center',
-        marginBottom: theme.spacing(3)
+        marginBottom: theme.spacing(3),
+        [theme.breakpoints.down('sm')]:{
+            // flexDirection: 'column',
+            flexFlow: 'column wrap'
+        }
     },
     searchContainer: {
         display: 'flex',
-        alignItems: 'center'
+        alignItems: 'center',
+        justifyContent: 'center'
     },
     searchInput: {
         border: 0,
         outline: 0,
         width: theme.spacing(50),
-        fontSize: theme.spacing(2)
+        fontSize: theme.spacing(2),
+        [theme.breakpoints.down('sm')]:{
+            width: '60%'
+        }
+
     },
     searchButton: {
         backgroundColor: theme.palette.primary.main,
@@ -41,7 +54,10 @@ const useStyles = makeStyles((theme) => ({
         cursor: 'pointer',
         display: 'flex',
         alignItems: 'center',
-        justifyContent: 'center'
+        justifyContent: 'center',
+        [theme.breakpoints.down('sm')]:{
+            width: theme.spacing(10)
+        }
     },
     iconBetween: {
         display: 'flex',
@@ -49,11 +65,18 @@ const useStyles = makeStyles((theme) => ({
         color: '#CECECE',
         marginLeft: theme.spacing(3),
         marginRight: theme.spacing(3),
-        fontSize: theme.spacing(2)
+        fontSize: theme.spacing(2),
+        [theme.breakpoints.down('sm')]:{
+            display: 'none'
+        }
     },
     categoryAndSearchContainer: {
         border: '1px solid #CECECE',
         display: "flex",
+        [theme.breakpoints.down('sm')]:{
+            // flexDirection: 'column',
+            flexFlow: 'column wrap'
+        }
 
     }
 }))
