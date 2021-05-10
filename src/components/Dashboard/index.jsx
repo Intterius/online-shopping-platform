@@ -33,8 +33,10 @@ const Dashboard = () => {
     const classes = useStyles();
 
     useEffect(() => {
-        axios.get('http://localhost:8080/products?pageNr=0&items=20')
-            .then(res => setData(res.data))
+        axios.get('https://online-shopping-platform-back.herokuapp.com/products')
+            .then(res => {
+                setData(res.data)
+            })
             .catch((err) => console.error(err))
     }, [])
 
