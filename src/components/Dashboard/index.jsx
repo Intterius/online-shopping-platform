@@ -3,7 +3,7 @@ import Card from '../Card'
 import {Divider, makeStyles, Typography} from "@material-ui/core";
 import axios from "axios";
 import Box from "@material-ui/core/Box";
-// import {CircularProgress} from "@material-ui/core";
+import {CircularProgress} from "@material-ui/core";
 
 const useStyles = makeStyles((theme) => ({
     cardList: {
@@ -19,22 +19,23 @@ const useStyles = makeStyles((theme) => ({
         justifyContent: 'center',
         fontFamily: theme.fontFamily.main
     },
-    // loader: {
-    //     display: 'flex',
-    //     justifyContent: 'center',
-    //     padding: theme.spacing(2, 0)
-    // }
+    loader: {
+        display: 'flex',
+        justifyContent: 'center',
+        padding: theme.spacing(2, 0)
+    }
 
 }));
 
 const Dashboard = () => {
     const [data, setData] = useState([])
-    // const [loading, setLoading] = useState(true)
+    const [loading, setLoading] = useState(true)
     const classes = useStyles();
 
     useEffect(() => {
         axios.get('https://online-shopping-platform-back.herokuapp.com/products')
             .then(res => {
+                setLoading(false)
                 setData(res.data)
             })
             .catch((err) => console.error(err))
@@ -63,21 +64,21 @@ const Dashboard = () => {
         <Box>
             <Typography align="center" variant="h3" style={{paddingBottom: '15px'}}>Product list</Typography>
             <Divider variant="middle"/>
-            {/*{loading &&*/}
-            {/*<Box className={classes.loader}>*/}
-            {/*    <CircularProgress />*/}
-            {/*</Box>*/}
-            {/*}*/}
+            {loading &&
+            <Box className={classes.loader}>
+                <CircularProgress />
+            </Box>
+            }
             <Box className={classes.cardList}>
                 {cardList}
             </Box>
             <Typography align="center" variant="h3" style={{paddingBottom: '15px'}}>Most popular</Typography>
             <Divider variant="middle"/>
-            {/*{loading &&*/}
-            {/*<Box className={classes.loader}>*/}
-            {/*    <CircularProgress />*/}
-            {/*</Box>*/}
-            {/*}*/}
+            {loading &&
+            <Box className={classes.loader}>
+                <CircularProgress />
+            </Box>
+            }
             <Box className={classes.cardList}>
                 {mostPopularCardList}
             </Box>
