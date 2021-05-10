@@ -16,7 +16,9 @@ const NotFound = () => {
         <p className={classes.description}>
           The page you requested does not exist. Click{' '}
           <span>
-            <Link className={classes.linkBtn}>here</Link>
+            <Link className={classes.linkBtn} to={'#'}>
+              here
+            </Link>
           </span>{' '}
           to continue shopping.
         </p>
