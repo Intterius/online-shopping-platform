@@ -8,12 +8,13 @@ import PersonIcon from '@material-ui/icons/Person';
 import MenuIcon from '@material-ui/icons/Menu';
 import logo from './logo.png';
 import clsx from 'clsx';
+import { useSelector } from 'react-redux';
 
 const InteractionLinks = () => {
   const classes = useStyles();
   const [sticky, setSticky] = useState(false);
-
   const [showCartProducts, setShowCartProducts] = useState(false);
+  const { status } = useSelector((state) => state);
 
   const scrollCheck = () => {
     if (window.pageYOffset >= 100) {
@@ -22,8 +23,6 @@ const InteractionLinks = () => {
       setSticky(false);
     }
   };
-
-  const auth = JSON.parse(localStorage.getItem('auth'));
 
   useEffect(() => {
     window.addEventListener('scroll', scrollCheck);
@@ -75,9 +74,12 @@ const InteractionLinks = () => {
             <Link to={'/account/login'} className={classes.links} title='Login'>
               <PersonIcon className={classes.user} />
             </Link>
-            {auth && (
+            {status && (
               <Link
-                onClick={() => localStorage.removeItem('auth')}
+                onClick={() => {
+                  localStorage.removeItem('key');
+                  window.location.reload();
+                }}
                 to={'#'}
                 className={clsx(classes.links, classes.exit)}
                 title='Logout'

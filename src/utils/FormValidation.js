@@ -31,7 +31,7 @@ const useFormValidation = (initialState) => {
   const validatePassword = useCallback(
     (e) => {
       const { value } = e.target;
-      const validation = new RegExp(/^([a-zA-Z0-9_-]){5,10}$/);
+      const validation = new RegExp(/^(?=.*[A-Za-z])(?=.*\d)[A-Za-z\d]{5,10}$/);
       if (validation.test(value)) {
         setValues({ ...fields, password: { input: value, error: '' } });
       } else {
@@ -39,7 +39,9 @@ const useFormValidation = (initialState) => {
           ...fields,
           password: {
             input: value,
-            error: 'Password must contain 5 to 10 letters and numbers.',
+            error:
+              'The password should contain at least one digit, ' +
+              'letters, and have a size between 5 and 10 characters.',
           },
         });
       }

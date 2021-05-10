@@ -3,10 +3,11 @@ import { Link, useHistory } from 'react-router-dom';
 import { useStyles } from './styles';
 import { useFormValidation } from '../../utils/FormValidation';
 import { Alert } from '@material-ui/lab';
-import { useState } from 'react';
+import { useEffect, useState } from 'react';
 import DescriptiveAccountHeader from '../../components/DescriptiveAccountHeader';
 import DashboardHeader from '../../components/DashboardHeader';
 import axios from 'axios';
+import { useSelector } from 'react-redux';
 
 const Register = () => {
   const classes = useStyles();
@@ -15,47 +16,63 @@ const Register = () => {
     email: '',
     password: '',
   });
-
-  const history = useHistory();
-
   const [validationStatus, setValidationStatus] = useState();
+  const [registerError, setRegisterError] = useState();
+  const [submitDisable, setSubmitDisable] = useState(false);
+  const { status } = useSelector((state) => state);
+  const history = useHistory();
 
   const showStatus = () => {
     if (validationStatus === false) {
-      return <Alert severity='error'>Such user already exists!</Alert>;
+      return <Alert severity='error'>{registerError}</Alert>;
     } else if (validationStatus === true) {
-      return <Alert severity='success'>You have successfully registerd!</Alert>;
+      return (
+        <Alert severity='success'>You have successfully registered!</Alert>
+      );
     }
   };
 
-  const handleSumit = (e) => {
+  const handleSubmit = (e) => {
     e.preventDefault();
     if (fields.email.error || fields.password.error) {
-      setValidationStatus(false);
-      console.log('invalid');
       return;
-    } else {
-      setValidationStatus(true);
-      console.log(fields.username, fields.email.input, fields.password.input);
-      // axios
-      //   .post(
-      //     'http://localhost:8080/sign-in/register',
-      //     JSON.stringify({
-      //       username: fields.username,
-      //       email: fields.email.input,
-      //       password: fields.password.input,
-      //     })
-      //   )
-      //   .then((res) => console.log(res));
-      // e.target.reset();
     }
+    axios
+      .post(
+        'https://online-shopping-platform-back.herokuapp.com/sign-in/register',
+        {
+          username: fields.username,
+          email: fields.email.input,
+          password: fields.password.input,
+        }
+      )
+      .then((res) => {
+        setValidationStatus(true);
+        e.target.reset();
+        history.push('/home');
+      })
+      .catch((err) => {
+        setValidationStatus(false);
+        setRegisterError(err.response.data.error.message);
+      });
   };
+
+  useEffect(() => {
+    if (fields.email.error || fields.password.error) {
+      setSubmitDisable(true);
+    } else {
+      setSubmitDisable(false);
+    }
+    if (status) {
+      history.push('/account');
+    }
+  }, [status, fields, history]);
 
   return (
     <>
       <DashboardHeader />
       <DescriptiveAccountHeader title={'Create Account'} />
-      <form className={classes.registerForm} onSubmit={handleSumit}>
+      <form className={classes.registerForm} onSubmit={handleSubmit}>
         {showStatus()}
         <TextField
           variant='outlined'
@@ -109,6 +126,7 @@ const Register = () => {
         />
         <Grid container justify='center'>
           <Button
+            disabled={submitDisable}
             type='submit'
             variant='outlined'
             fullWidth
