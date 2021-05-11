@@ -21,7 +21,7 @@ const useStyles = makeStyles((theme)=>({
         cursor: "pointer",
         '&:hover':{
             backgroundColor: theme.palette.secondary.main,
-            transition: "1s ease-in-out"
+            transition: "0.5s ease-in-out"
         },
         '&:active':{
             transform: "scale(0.9)",

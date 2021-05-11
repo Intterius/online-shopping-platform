@@ -2,6 +2,7 @@ import {createMuiTheme} from "@material-ui/core";
 
 const theme = createMuiTheme({
     typography: {
+        fontFamily: "'Roboto', sans-serif",
         button: {
             textTransform: 'none'
         }
@@ -13,17 +14,15 @@ const theme = createMuiTheme({
         secondary: {
             main: '#FF6600'
         },
-        rating:{
+        rating: {
             main: 'black'
         },
-        common:{
+        common: {
             white: 'white',
             black: 'black'
         },
-
-
     },
-    fontFamily:{
+    fontFamily: {
         main: "'Roboto', sans-serif"
     }
 });
