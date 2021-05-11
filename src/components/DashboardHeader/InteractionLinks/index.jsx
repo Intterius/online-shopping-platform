@@ -2,13 +2,13 @@ import { Box, Zoom } from '@material-ui/core';
 import { Link } from 'react-router-dom';
 import { useEffect, useState } from 'react';
 import { useStyles } from './styles';
+import { useSelector } from 'react-redux';
 import ShoppingCartOutlinedIcon from '@material-ui/icons/ShoppingCartOutlined';
 import ExitToAppIcon from '@material-ui/icons/ExitToApp';
 import PersonIcon from '@material-ui/icons/Person';
 import MenuIcon from '@material-ui/icons/Menu';
 import logo from './logo.png';
 import clsx from 'clsx';
-import { useSelector } from 'react-redux';
 
 const InteractionLinks = () => {
   const classes = useStyles();

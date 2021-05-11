@@ -1,14 +1,13 @@
 import { Box, Button, Grid, TextField } from '@material-ui/core';
 import { Link, useHistory } from 'react-router-dom';
-import { Alert } from '@material-ui/lab';
 import { useEffect, useState } from 'react';
 import { useStyles } from './styles';
 import { useFormValidation } from '../../utils/FormValidation';
+import { useSelector } from 'react-redux';
 import DescriptiveAccountHeader from '../../components/DescriptiveAccountHeader';
 import ResetPassword from './ResetPassword';
 import DashboardHeader from '../../components/DashboardHeader';
-import axios from 'axios';
-import { useSelector } from 'react-redux';
+import useLoginationSubmit from '../../utils/LoginationSubmit';
 
 const Login = () => {
   const classes = useStyles();
@@ -17,46 +16,11 @@ const Login = () => {
     email: '',
     password: '',
   });
-  const [validationStatus, setValidationStatus] = useState();
   const [submitDisable, setSubmitDisable] = useState(false);
   const { status } = useSelector((state) => state);
+  const [handleSubmit, showStatus] = useLoginationSubmit(fields);
   const history = useHistory();
 
-  const showStatus = () => {
-    if (validationStatus === false) {
-      return <Alert severity='error'>Wrong email or password!</Alert>;
-    } else if (validationStatus === true) {
-      return <Alert severity='success'>You have successfully signed in!</Alert>;
-    }
-  };
-
-  const handleSubmit = (e) => {
-    e.preventDefault();
-    if (fields.email.error || fields.password.error) {
-      return;
-    } else {
-      axios
-        .post(
-          'https://online-shopping-platform-back.herokuapp.com/sign-in/login',
-          {
-            email: fields.email.input,
-            password: fields.password.input,
-          }
-        )
-        .then((res) => {
-          setValidationStatus(true);
-          localStorage.setItem('key', res.data.key);
-          e.target.reset();
-          setTimeout(() => {
-            history.push('/home');
-            window.location.reload();
-          }, 1000);
-        })
-        .catch((err) => {
-          setValidationStatus(false);
-        });
-    }
-  };
   useEffect(() => {
     if (fields.email.error || fields.password.error) {
       setSubmitDisable(true);
