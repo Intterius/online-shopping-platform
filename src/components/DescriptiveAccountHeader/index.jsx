@@ -23,7 +23,7 @@ const DescriptiveAccountHeader = ({ title }) => {
           <LinkStyle component={Link} to='/home' className={classes.homeBtn}>
             {'Home'}
           </LinkStyle>
-          <div>{title}</div>
+          <div className={classes.location}>{title}</div>
         </Breadcrumbs>
       </Box>
     </>

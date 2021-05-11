@@ -8,7 +8,7 @@ const useStyles = makeStyles((theme) => ({
     margin: theme.spacing(2, 0),
     color: theme.palette.common.white,
     fontFamily: 'Lemonada, cursive',
-    fontSize:theme.spacing(3.8),
+    fontSize: theme.spacing(3.8),
     fontWeight: '600',
   },
   breadLinks: {
@@ -24,6 +24,15 @@ const useStyles = makeStyles((theme) => ({
     '&:hover': {
       textDecoration: 'none',
       color: theme.palette.common.black,
+    },
+    [theme.breakpoints.down('965')]: {
+      fontSize: theme.spacing(1.8),
+    },
+  },
+
+  location: {
+    [theme.breakpoints.down('965')]: {
+      fontSize: theme.spacing(1.8),
     },
   },
 }));
