@@ -24,7 +24,7 @@ const Login = () => {
 
   const showStatus = () => {
     if (validationStatus === false) {
-      return <Alert severity='error'>Wrond credentials!</Alert>;
+      return <Alert severity='error'>Wrong email or password!</Alert>;
     } else if (validationStatus === true) {
       return <Alert severity='success'>You have successfully signed in!</Alert>;
     }

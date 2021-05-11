@@ -12,7 +12,6 @@ import { useSelector } from 'react-redux';
 const Register = () => {
   const classes = useStyles();
   const [fields, setFields] = useFormValidation({
-    username: '',
     email: '',
     password: '',
   });
@@ -41,7 +40,6 @@ const Register = () => {
       .post(
         'https://online-shopping-platform-back.herokuapp.com/sign-in/register',
         {
-          username: fields.username,
           email: fields.email.input,
           password: fields.password.input,
         }
@@ -49,7 +47,10 @@ const Register = () => {
       .then((res) => {
         setValidationStatus(true);
         e.target.reset();
-        history.push('/home');
+        setTimeout(() => {
+          history.push('/account/login');
+          window.location.reload();
+        }, 1000);
       })
       .catch((err) => {
         setValidationStatus(false);
@@ -74,23 +75,6 @@ const Register = () => {
       <DescriptiveAccountHeader title={'Create Account'} />
       <form className={classes.registerForm} onSubmit={handleSubmit}>
         {showStatus()}
-        <TextField
-          variant='outlined'
-          margin='normal'
-          className={classes.input}
-          required
-          id='username'
-          label='Username'
-          name='username'
-          autoComplete='username'
-          autoFocus
-          type='text'
-          onChange={setFields}
-          inputProps={{
-            minLength: 3,
-            maxLength: 30,
-          }}
-        />
         <TextField
           variant='outlined'
           margin='normal'
