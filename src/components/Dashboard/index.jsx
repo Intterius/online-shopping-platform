@@ -62,16 +62,6 @@ const Dashboard = () => {
 
     return (
         <Box>
-            <Typography align="center" variant="h3" style={{paddingBottom: '15px'}}>Product list</Typography>
-            <Divider variant="middle"/>
-            {loading &&
-            <Box className={classes.loader}>
-                <CircularProgress />
-            </Box>
-            }
-            <Box className={classes.cardList}>
-                {cardList}
-            </Box>
             <Typography align="center" variant="h3" style={{paddingBottom: '15px'}}>Most popular</Typography>
             <Divider variant="middle"/>
             {loading &&
@@ -81,6 +71,16 @@ const Dashboard = () => {
             }
             <Box className={classes.cardList}>
                 {mostPopularCardList}
+            </Box>
+            <Typography align="center" variant="h3" style={{paddingBottom: '15px'}}>Product list</Typography>
+            <Divider variant="middle"/>
+            {loading &&
+            <Box className={classes.loader}>
+                <CircularProgress />
+            </Box>
+            }
+            <Box className={classes.cardList}>
+                {cardList}
             </Box>
         </Box>
     );
