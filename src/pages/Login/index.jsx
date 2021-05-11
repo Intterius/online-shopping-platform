@@ -127,7 +127,7 @@ const Login = () => {
               fullWidth
               className={classes.loginBtn}
             >
-              Sign In
+              Log In
             </Button>
           </Grid>
           <Box
