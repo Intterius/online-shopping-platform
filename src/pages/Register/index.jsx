@@ -35,27 +35,28 @@ const Register = () => {
     e.preventDefault();
     if (fields.email.error || fields.password.error) {
       return;
+    } else {
+      axios
+        .post(
+          'https://online-shopping-platform-back.herokuapp.com/sign-in/register',
+          {
+            email: fields.email.input,
+            password: fields.password.input,
+          }
+        )
+        .then((res) => {
+          setValidationStatus(true);
+          e.target.reset();
+          setTimeout(() => {
+            history.push('/account/login');
+            window.location.reload();
+          }, 1000);
+        })
+        .catch((err) => {
+          setValidationStatus(false);
+          setRegisterError(err.response.data.error.message);
+        });
     }
-    axios
-      .post(
-        'https://online-shopping-platform-back.herokuapp.com/sign-in/register',
-        {
-          email: fields.email.input,
-          password: fields.password.input,
-        }
-      )
-      .then((res) => {
-        setValidationStatus(true);
-        e.target.reset();
-        setTimeout(() => {
-          history.push('/account/login');
-          window.location.reload();
-        }, 1000);
-      })
-      .catch((err) => {
-        setValidationStatus(false);
-        setRegisterError(err.response.data.error.message);
-      });
   };
 
   useEffect(() => {

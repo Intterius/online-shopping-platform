@@ -14,7 +14,7 @@ const InteractionLinks = () => {
   const classes = useStyles();
   const [sticky, setSticky] = useState(false);
   const [showCartProducts, setShowCartProducts] = useState(false);
-  const { status } = useSelector((state) => state);
+  const { status, user } = useSelector((state) => state);
 
   const scrollCheck = () => {
     if (window.pageYOffset >= 100) {
@@ -71,7 +71,11 @@ const InteractionLinks = () => {
             alignContent='center'
             style={{ width: '50%' }}
           >
-            <Link to={'/account/login'} className={classes.links} title='Login'>
+            <Link
+              to={user ? '/account' : '/account/login'}
+              className={classes.links}
+              title={user ? 'Profile' : 'Login'}
+            >
               <PersonIcon className={classes.user} />
             </Link>
             {status && (
