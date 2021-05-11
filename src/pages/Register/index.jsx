@@ -45,11 +45,22 @@ const Register = () => {
           }
         )
         .then((res) => {
-          setValidationStatus(true);
-          e.target.reset();
           setTimeout(() => {
-            history.push('/account/login');
-            window.location.reload();
+            setValidationStatus(true);
+            e.target.reset();
+            axios
+              .post(
+                'https://online-shopping-platform-back.herokuapp.com/sign-in/login',
+                {
+                  email: fields.email.input,
+                  password: fields.password.input,
+                }
+              )
+              .then((res) => {
+                localStorage.setItem('key', res.data.key);
+                history.push('/home');
+                window.location.reload();
+              });
           }, 1000);
         })
         .catch((err) => {
