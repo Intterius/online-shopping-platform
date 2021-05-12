@@ -6,9 +6,10 @@ import { ThemeProvider } from '@material-ui/core';
 import theme from './Theme';
 import { Provider } from 'react-redux';
 import { createStore } from 'redux';
-import { tokenReducer } from './redux/reducers/tokenReducer';
+import rootReducer from "./redux/reducers";
 
-const store = createStore(tokenReducer);
+
+const store = createStore(rootReducer);
 
 ReactDOM.render(
   <ThemeProvider theme={theme}>

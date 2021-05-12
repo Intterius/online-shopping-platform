@@ -21,21 +21,21 @@ const useStyles = makeStyles((theme)=>({
         cursor: "pointer",
         '&:hover':{
             backgroundColor: theme.palette.secondary.main,
-            transition: "0.5s ease-in-out"
+            // transition: "0.5s ease-in-out"
         },
         '&:active':{
             transform: "scale(0.9)",
-            transition: "none"
+            // transition: "none"
         }
     }
 }));
 
-const Button = () => {
+const Button = ({onClick}) => {
     const classes = useStyles();
 
     return (
-        <div className={classes.buttonContainer}>
-            <div className={classes.btnAddToCart}>Add to cart</div>
+        <div onClick={onClick} className={classes.buttonContainer}>
+            <div className={classes.btnAddToCart} >Add to cart</div>
         </div>
     );
 }
