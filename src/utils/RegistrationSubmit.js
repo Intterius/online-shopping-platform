@@ -54,7 +54,6 @@ const useRegistrationSubmit = (fields) => {
           .catch((err) => {
             setValidationStatus(false);
             setRegisterError(err.response.data.error.message);
-            console.log(err.response.data.error.message);
           });
       }
     },

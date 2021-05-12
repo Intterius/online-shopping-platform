@@ -9,6 +9,7 @@ import PersonIcon from '@material-ui/icons/Person';
 import MenuIcon from '@material-ui/icons/Menu';
 import logo from './logo.png';
 import clsx from 'clsx';
+import CartContent from '../../CartContent';
 
 const InteractionLinks = () => {
   const classes = useStyles();
@@ -44,6 +45,9 @@ const InteractionLinks = () => {
             <img src={logo} alt='shop-logo' />
           </Link>
         </Box>
+        <Link to={'/home'} className={classes.homeBtn}>
+          Home
+        </Link>
         <div className={classes.linksContainer}>
           <Box
             display='flex'
@@ -60,8 +64,15 @@ const InteractionLinks = () => {
               </div>
             </Link>
             <Zoom in={showCartProducts} timeout={350}>
-              <Box className={classes.cartProducts}>
-                Your cart is currently empty!
+              <Box
+                className={classes.cartProducts}
+                // style={{ maxHeight: 200, overflow: 'auto' }}
+              >
+                {/* Your cart is currently empty! */}
+                <CartContent />
+                <CartContent />
+                <CartContent />
+                <CartContent />
               </Box>
             </Zoom>
           </Box>
