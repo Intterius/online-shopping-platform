@@ -3,6 +3,8 @@ import Button from "../Button";
 import Rating from '@material-ui/lab/Rating';
 import Box from "@material-ui/core/Box";
 import {makeStyles} from "@material-ui/core/styles";
+import {useDispatch} from "react-redux";
+import {addToCart} from "../../redux/reducers/addToCartReducer";
 
 const useStyles = makeStyles((theme) => ({
     root: {
@@ -55,6 +57,9 @@ const useStyles = makeStyles((theme) => ({
 const Card = ({food}) => {
     const classes = useStyles();
     const noImage = 'https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcSjwJGQfzWC5sSRL2r4zJTXPRj-eJO-BgGWxg&usqp=CAU';
+    const dispatch = useDispatch();
+    console.log(food)
+
 
     return (
         <div className={classes.cartContainer}>
@@ -62,7 +67,7 @@ const Card = ({food}) => {
                 <img
                     src={food.imagesSet.length > 0 ? food.imagesSet[0].url : noImage}
                     className={classes.cartImgContainerImg}
-                    alt="here should be apple"
+                    alt={food.id}
                 />
             </div>
             <div className={classes.cartName}>
@@ -77,7 +82,7 @@ const Card = ({food}) => {
             <div className={classes.cartName}>
                 <p className={classes.cartPriceP}>${food.price}</p>
             </div>
-            <Button/>
+            <Button onClick={()=>dispatch(addToCart(food.id))} />
         </div>
     );
 }
