@@ -17,7 +17,7 @@ const Login = () => {
     password: '',
   });
   const [submitDisable, setSubmitDisable] = useState(false);
-  const { status } = useSelector((state) => state);
+  const { status } = useSelector((state) => state.tokenReducer);
   const [handleSubmit, showStatus] = useLoginationSubmit(fields);
   const history = useHistory();
 

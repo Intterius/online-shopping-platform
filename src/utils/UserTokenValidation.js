@@ -15,7 +15,10 @@ const TokenValidation = () => {
         }
       )
       .then((res) => dispatch({ type: 'VALID', payload: res.data }))
-      .catch((err) => dispatch({ type: 'INVALID' }));
+      .catch((err) => {
+        dispatch({ type: 'INVALID' });
+        console.log(err);
+      });
   }
 };
 
