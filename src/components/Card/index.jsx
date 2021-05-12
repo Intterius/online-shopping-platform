@@ -58,8 +58,6 @@ const Card = ({food}) => {
     const classes = useStyles();
     const noImage = 'https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcSjwJGQfzWC5sSRL2r4zJTXPRj-eJO-BgGWxg&usqp=CAU';
     const dispatch = useDispatch();
-    console.log(food)
-
 
     return (
         <div className={classes.cartContainer}>
@@ -82,7 +80,7 @@ const Card = ({food}) => {
             <div className={classes.cartName}>
                 <p className={classes.cartPriceP}>${food.price}</p>
             </div>
-            <Button onClick={()=>dispatch(addToCart(food.id))} />
+            <Button onClick={()=>dispatch(addToCart(food))} />
         </div>
     );
 }
