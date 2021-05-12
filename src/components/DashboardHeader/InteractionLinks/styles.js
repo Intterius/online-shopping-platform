@@ -57,6 +57,23 @@ const useStyles = makeStyles((theme) => ({
     },
   },
 
+  homeBtn: {
+    display: 'flex',
+    alignItems: 'center',
+    textDecoration: 'none',
+    fontFamily: 'Lemonada, cursive',
+    fontSize: theme.spacing(1.8),
+    fontWeight: '700',
+    color: theme.palette.primary.main,
+    transition: '0.3s ease-in-out',
+    '&:hover': {
+      color: theme.palette.secondary.main,
+    },
+    [theme.breakpoints.down('965')]: {
+      display: 'none',
+    },
+  },
+
   cart: {
     fontSize: theme.spacing(3.2),
   },
@@ -76,6 +93,7 @@ const useStyles = makeStyles((theme) => ({
   },
 
   cartProducts: {
+    zIndex:'5',
     width: '350px',
     color: '#444444',
     fontFamily: 'Roboto, sans-serif',
@@ -113,7 +131,7 @@ const useStyles = makeStyles((theme) => ({
       color: theme.palette.primary.main,
     },
     [theme.breakpoints.down('965')]: {
-      display: 'block',
+      // display: 'block',
     },
   },
 }));

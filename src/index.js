@@ -1,12 +1,13 @@
-import 'fontsource-roboto';
+import { ThemeProvider } from '@material-ui/core';
+import { Provider } from 'react-redux';
+import { createStore } from 'redux';
 import React from 'react';
 import ReactDOM from 'react-dom';
 import App from './App';
-import { ThemeProvider } from '@material-ui/core';
 import theme from './Theme';
-import { Provider } from 'react-redux';
-import { createStore } from 'redux';
+import 'fontsource-roboto';
 import rootReducer from "./redux/reducers";
+
 
 
 const store = createStore(rootReducer);
