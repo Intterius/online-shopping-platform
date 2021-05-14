@@ -64,14 +64,8 @@ const InteractionLinks = () => {
               </div>
             </Link>
             <Zoom in={showCartProducts} timeout={350}>
-              <Box
-                className={classes.cartProducts}
-                // style={{ maxHeight: 200, overflow: 'auto' }}
-              >
+              <Box className={classes.cartProducts}>
                 {/* Your cart is currently empty! */}
-                <CartContent />
-                <CartContent />
-                <CartContent />
                 <CartContent />
               </Box>
             </Zoom>

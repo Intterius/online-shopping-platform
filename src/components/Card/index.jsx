@@ -1,5 +1,5 @@
 import React from 'react';
-import Button from "../Button";
+import Button from '../Button';
 import Rating from '@material-ui/lab/Rating';
 import Box from "@material-ui/core/Box";
 import {useDispatch, useSelector} from "react-redux";
@@ -8,18 +8,16 @@ import {Link} from "react-router-dom";
 import {getProductId} from "../../redux/reducers/getProductIdReducer";
 import {useStyles} from "./style";
 
-
 const Card = ({food}) => {
     const classes = useStyles();
     const noImage = 'https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcSjwJGQfzWC5sSRL2r4zJTXPRj-eJO-BgGWxg&usqp=CAU';
     const dispatch = useDispatch();
     const {user} = useSelector((state) => state.tokenReducer)
     const addToCart = () => {
+      
         if (user) return dispatch(addToCartAsUser(food));
         return dispatch(addToCartAsGuest(food));
     }
-
-
 
     return (
         <div className={classes.cartContainer}>
@@ -48,5 +46,6 @@ const Card = ({food}) => {
         </div>
     );
 }
+
 
 export default Card;
