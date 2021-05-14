@@ -2,6 +2,7 @@ import { makeStyles } from '@material-ui/core';
 
 const useStyles = makeStyles((theme) => ({
   cartOptionsBox: {
+    position: 'relative',
     boxShadow: '0 -5px 5px -5px #333',
   },
   priceDescription: {
