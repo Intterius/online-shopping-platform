@@ -1,16 +1,16 @@
 import { Route, Switch, Redirect, BrowserRouter } from 'react-router-dom';
+import { useTokenValidation } from './utils/UserTokenValidation';
 import Home from '../src/pages/Home';
 import NotFound from '../src/pages/NotFound';
 import Login from '../src/pages/Login';
 import Register from '../src/pages/Register';
 import AccountInfo from './pages/AccountInfo';
-import ProductPage from "./pages/ProductPage";
-import { TokenValidation } from './utils/UserTokenValidation';
-import AddProductList from "./utils/AddProductList";
+import ProductPage from './pages/ProductPage';
+import useAddProductList from './utils/AddProductList';
 
 function App() {
-  TokenValidation();
-  AddProductList();
+  useTokenValidation();
+  useAddProductList();
   return (
     <BrowserRouter>
       <Switch>
@@ -18,7 +18,7 @@ function App() {
         <Route path='/account' exact component={AccountInfo} />
         <Route path='/account/login' exact component={Login} />
         <Route path='/account/register' exact component={Register} />
-        <Route path={'/path/path:id'} exact component={ProductPage}/>
+        <Route path={'/path/path:id'} exact component={ProductPage} />
         <Route path='/not-found' exact component={NotFound} />
         <Redirect from='/' exact to='/home' />
         <Redirect to='/not-found' />

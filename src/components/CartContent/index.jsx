@@ -1,20 +1,38 @@
 import { Box } from '@material-ui/core';
+import { useSelector } from 'react-redux';
 import CartItem from './CartItem';
 import CartPrices from './CartPrices';
 
 const CartContent = () => {
-  const items = [1, 2, 3, 4, 5];
-  const cartList = items.map((el) => <CartItem key={el} />);
+  const productList = useSelector((state) => state.addToCartReducer);
 
-  const checkItemLength = () => {
-    if (items.length > 4) {
+  const cartList = productList.map((item) => (
+    <CartItem
+      key={item.id}
+      image={item.imagesSet[0].url}
+      title={item.title}
+      price={item.price}
+      description={item.description}
+      id={item.id}
+    />
+  ));
+
+  const checkSroll = () => {
+    if (productList.length >= 4) {
       return { maxHeight: 400, overflow: 'auto' };
     }
   };
+
   return (
     <>
-      <Box style={checkItemLength()}>{cartList}</Box>
-      <CartPrices />
+      {productList.length ? (
+        <>
+          <Box style={checkSroll()}>{cartList}</Box>
+          <CartPrices />
+        </>
+      ) : (
+        'Your cart is currently empty!'
+      )}
     </>
   );
 };

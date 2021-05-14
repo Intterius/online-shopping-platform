@@ -37,9 +37,6 @@ const useStyles = makeStyles((theme) => ({
     margin: '0',
     float: 'right',
     color: theme.palette.common.black,
-    '&:hover': {
-      cursor: 'pointer',
-    },
   },
   removeIcon: {
     stroke: theme.palette.common.black,
@@ -48,6 +45,7 @@ const useStyles = makeStyles((theme) => ({
     fontSize: theme.spacing(2),
     transition: '0.3s ease-in-out',
     '&:hover': {
+      cursor:'pointer',
       stroke: theme.palette.primary.main,
       color: theme.palette.primary.main,
     },
