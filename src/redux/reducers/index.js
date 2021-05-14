@@ -1,10 +1,15 @@
 import addToCartReducer from "./addToCartReducer";
 import {tokenReducer} from "./tokenReducer";
 import {combineReducers} from "redux";
+import {productPathReducer} from "./productPathReducer";
+import {getProductIdReducer} from "./getProductIdReducer";
 
 const rootReducer = combineReducers({
     addToCartReducer,
-    tokenReducer
+    tokenReducer,
+    productPathReducer,
+    getProductIdReducer
+
 });
 
 export default rootReducer;
