@@ -15,7 +15,7 @@ const InteractionLinks = () => {
   const classes = useStyles();
   const [sticky, setSticky] = useState(false);
   const [showCartProducts, setShowCartProducts] = useState(false);
-  const { status, user } = useSelector((state) => state);
+  const { status, user } = useSelector((state) => state.tokenReducer);
 
   const scrollCheck = () => {
     if (window.pageYOffset >= 100) {

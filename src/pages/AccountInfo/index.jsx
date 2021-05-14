@@ -5,7 +5,7 @@ import DashboardHeader from '../../components/DashboardHeader';
 import DescriptiveAccountHeader from '../../components/DescriptiveAccountHeader';
 
 const AccountInfo = () => {
-  const { user, status } = useSelector((state) => state);
+  const { user, status } = useSelector((state) => state.tokenReducer);
   const history = useHistory();
   useEffect(() => {
     if (!status) {
