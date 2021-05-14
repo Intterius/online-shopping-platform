@@ -16,6 +16,7 @@ const InteractionLinks = () => {
   const [sticky, setSticky] = useState(false);
   const [showCartProducts, setShowCartProducts] = useState(false);
   const { status, user } = useSelector((state) => state.tokenReducer);
+  const productList = useSelector((state) => state.addToCartReducer);
 
   const scrollCheck = () => {
     if (window.pageYOffset >= 100) {
@@ -60,12 +61,11 @@ const InteractionLinks = () => {
             <Link to={'#'} className={classes.links}>
               <div style={{ position: 'relative' }}>
                 <ShoppingCartOutlinedIcon className={classes.cart} />
-                <div className={classes.cartCounter}>0</div>
+                <div className={classes.cartCounter}>{productList.length}</div>
               </div>
             </Link>
             <Zoom in={showCartProducts} timeout={350}>
               <Box className={classes.cartProducts}>
-                {/* Your cart is currently empty! */}
                 <CartContent />
               </Box>
             </Zoom>

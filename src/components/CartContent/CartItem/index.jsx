@@ -1,33 +1,53 @@
 import { Box } from '@material-ui/core';
 import { useStyles } from './styles';
 import { Link } from 'react-router-dom';
+import { useDispatch, useSelector } from 'react-redux';
 import ClearIcon from '@material-ui/icons/Clear';
-import { useSelector } from 'react-redux';
+import { removePrice } from '../../../redux/reducers/cartPriceReducer';
+import {
+  removeItemAsGuest,
+  removeItemAsUser,
+} from '../../../redux/reducers/addToCartReducer';
 
-const CartItem = () => {
+const CartItem = ({ id, image, description, title, price }) => {
   const classes = useStyles();
-  const { productList } = useSelector((state) => state.addToCartReducer);
+  const dispatch = useDispatch();
+  const { user } = useSelector((state) => state.tokenReducer);
+
+  const removeItem = () => {
+    if (user) {
+      dispatch(removeItemAsUser(id));
+    } else {
+      dispatch(removeItemAsGuest(id));
+    }
+  };
 
   return (
     <div className={classes.item}>
       <Box display='flex' justifyContent='center'>
         <div className={classes.itemComponents}>
           <Link to={'#'}>
-            <img
-              className={classes.itemImg}
-              src='https://thumbs.dreamstime.com/b/orange-fruit-green-leaves-isolated-white-background-clipping-path-full-depth-field-fresh-177726692.jpg'
-            />
+            <img className={classes.itemImg} src={image} alt={title} />
           </Link>
           <Box display='grid'>
             <Link style={{ textDecoration: 'none' }} to={'#'}>
               <p className={classes.itemDescription}>
-                Watermelon - 3 kg / Blue
+                {title} - 3 kg / {description}
               </p>
             </Link>
-            <p className={classes.priceAndQuantity}>1 x $489.00 USD</p>
+            <p className={classes.priceAndQuantity}>
+              1 x ${Number.isInteger(price) ? `${price}.00` : price} USD
+            </p>
           </Box>
           <div>
-            <Box fontWeight='fontWeightBold' className={classes.removeItemBtn}>
+            <Box
+              fontWeight='fontWeightBold'
+              className={classes.removeItemBtn}
+              onClick={() => {
+                dispatch(removePrice(price));
+                removeItem();
+              }}
+            >
               <ClearIcon className={classes.removeIcon} />
             </Box>
           </div>
