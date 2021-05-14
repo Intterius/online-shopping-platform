@@ -15,7 +15,7 @@ const Register = () => {
     password: '',
   });
   const [submitDisable, setSubmitDisable] = useState(false);
-  const { status } = useSelector((state) => state);
+  const { status } = useSelector((state) => state.tokenReducer);
   const [handleSubmit, showStatus] = useRegistrationSubmit(fields);
   const history = useHistory();
 

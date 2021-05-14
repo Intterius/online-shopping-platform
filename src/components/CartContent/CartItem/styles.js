@@ -11,14 +11,26 @@ const useStyles = makeStyles((theme) => ({
     gridTemplateColumns: '4fr 6fr 3fr',
     width: '95%',
   },
-  itemImg: { margin: '0' },
+
+  itemImg: {
+    margin: '0',
+    height: '80%',
+    width: '80%',
+    objectFit: 'contain',
+  },
 
   itemDescription: {
+    textDecoration: 'none',
+    color: theme.palette.common.black,
     margin: '0',
-    lineHeight: '20px',
+    lineHeight: '32px',
     fontFamily: 'Roboto, sans-serif',
     textAlign: 'start',
     fontSize: theme.spacing(2.1),
+    transition: '0.3s ease-in-out',
+    '&:hover': {
+      color: theme.palette.primary.main,
+    },
   },
 
   removeItemBtn: {
@@ -30,16 +42,24 @@ const useStyles = makeStyles((theme) => ({
     },
   },
   removeIcon: {
-    stroke: 'black',
+    stroke: theme.palette.common.black,
     strokeWidth: '1',
     margin: '0',
     fontSize: theme.spacing(2),
+    transition: '0.3s ease-in-out',
+    '&:hover': {
+      stroke: theme.palette.primary.main,
+      color: theme.palette.primary.main,
+    },
   },
 
   priceAndQuantity: {
-    textAlign: 'center',
+    fontFamily: 'Roboto, sans-serif',
+    textAlign: 'start',
+    color: theme.palette.common.black,
     margin: '0',
-    marginBottom: theme.spacing(1.7),
+    marginBottom: theme.spacing(2.5),
+    marginTop: theme.spacing(0.8),
   },
 }));
 

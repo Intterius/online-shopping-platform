@@ -93,7 +93,7 @@ const useStyles = makeStyles((theme) => ({
   },
 
   cartProducts: {
-    zIndex:'5',
+    zIndex: '5',
     width: '350px',
     color: '#444444',
     fontFamily: 'Roboto, sans-serif',
