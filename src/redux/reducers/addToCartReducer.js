@@ -1,8 +1,8 @@
 const defaultState = {
-    productList: []
-}
+  productList: [],
+};
 
-export const ADD_TO_CART = "ADD_TO_CART";
+export const ADD_TO_CART = 'ADD_TO_CART';
 
 const addToCartReducer = (state = defaultState, action) => {
     switch (action.type) {
@@ -13,6 +13,6 @@ const addToCartReducer = (state = defaultState, action) => {
     }
 }
 
-export const addToCart = payload => ({type: ADD_TO_CART, payload})
+export const addToCart = (payload) => ({ type: ADD_TO_CART, payload });
 
 export default addToCartReducer;
