@@ -6,9 +6,8 @@ import {useSelector} from "react-redux";
 const ProductPage = () => {
     const [products] = useSelector((state)=>state.productPathReducer);
     const {productId} = useSelector((state)=>state.getProductIdReducer);
+    const product = products.filter((element)=>element.id === productId);
 
-    console.log(productId)
-    console.log(products)
     return (
         <>
             <DashboardHeader/>
