@@ -6,13 +6,15 @@ import { setUserCartPrice } from '../redux/reducers/cartPriceReducer';
 const getUserCart = () => {
   const items = JSON.parse(localStorage.getItem('cartContent'));
 
-  return [...items] || [];
+  if(items) return [...items];
+  return [];
 };
 
 const getUserCartPrice = () => {
   const items = JSON.parse(localStorage.getItem('cartContent'));
 
-  return items.reduce((a, b) => Number((a + b.price).toFixed(2)), 0);
+  if(items) return items.reduce((a, b) => Number((a + b.price).toFixed(2)), 0);
+  return 0
 };
 
 const useTokenValidation = () => {
@@ -35,6 +37,7 @@ const useTokenValidation = () => {
       })
       .catch((err) => {
         dispatch({ type: 'INVALID' });
+        console.error(err)
       });
   }
 };

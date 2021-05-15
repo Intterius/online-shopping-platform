@@ -10,9 +10,11 @@ const addToCartReducer = (state = [], action) => {
       return [...action.payload];
 
     case ADD_TO_CART_AS_GUEST:
+      action.payload.id = Math.random();
       return [{ ...action.payload }, ...state];
 
     case ADD_TO_CART_AS_USER:
+      action.payload.id = Math.random();
       localStorage.setItem(
         'cartContent',
         JSON.stringify([{ ...action.payload }, ...state])

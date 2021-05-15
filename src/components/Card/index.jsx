@@ -33,7 +33,7 @@ const Card = ({ food }) => {
           <img
             src={food.imagesSet.length > 0 ? food.imagesSet[0].url : noImage}
             className={classes.cartImgContainerImg}
-            alt={food.id}
+            alt={food.title}
           />
         </div>
       </Link>
