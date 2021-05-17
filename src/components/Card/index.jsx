@@ -26,7 +26,7 @@ const Card = ({ food }) => {
 
   return (
     <div className={classes.cartContainer}>
-      <Link to={`/path/path:${food.title}`}>
+      <Link to={`/product/${food.id}`}>
         <div
           onClick={() => dispatch(getProductId(food.id))}
           className={classes.cartImgContainer}

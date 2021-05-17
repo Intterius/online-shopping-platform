@@ -18,7 +18,7 @@ function App() {
         <Route path='/account' exact component={AccountInfo} />
         <Route path='/account/login' exact component={Login} />
         <Route path='/account/register' exact component={Register} />
-        <Route path={'/path/path:id'} exact component={ProductPage} />
+        <Route path={'/product/:id'} exact component={ProductPage} />
         <Route path='/not-found' exact component={NotFound} />
         <Redirect from='/' exact to='/home' />
         <Redirect to='/not-found' />

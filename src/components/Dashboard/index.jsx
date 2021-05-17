@@ -5,6 +5,7 @@ import axios from "axios";
 import Box from "@material-ui/core/Box";
 import {CircularProgress} from "@material-ui/core";
 
+
 const useStyles = makeStyles((theme) => ({
     cardList: {
         display: "flex",
@@ -40,6 +41,8 @@ const Dashboard = () => {
             })
             .catch((err) => console.error(err))
     }, [])
+
+
 
     const foodSorted = data.sort((a, b) => (a.title > b.title) ? 1 : -1);
     const mostPopular = [...data].sort((a, b) => (a.rating < b.rating) ? 1 : -1).slice(0, 15);
