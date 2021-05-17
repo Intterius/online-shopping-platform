@@ -4,17 +4,32 @@ const ADD_TO_CART_AS_USER = 'ADD_TO_CART_AS_USER';
 const REMOVE_ITEM_AS_GUEST = 'REMOVE_ITEM_AS_GUEST';
 const REMOVE_ITEM_AS_USER = 'REMOVE_ITEM_AS_USER';
 
-const addToCartReducer = (state = [], action) => {
+const cartReducer = (state = [], action) => {
   switch (action.type) {
     case SET_CART_FOR_USER:
       return [...action.payload];
 
     case ADD_TO_CART_AS_GUEST:
-      action.payload.id = Math.random();
+      const repeatedGuestItem = state.findIndex(
+        (el) => el.id === action.payload.id
+      );
+      if (repeatedGuestItem !== -1) {
+        state[repeatedGuestItem].quantity += 1;
+        return state;
+      }
+      action.payload.quantity += 1;
       return [{ ...action.payload }, ...state];
 
     case ADD_TO_CART_AS_USER:
-      action.payload.id = Math.random();
+      const repeteadUserItem = state.findIndex(
+        (el) => el.id === action.payload.id
+      );
+      if (repeteadUserItem !== -1) {
+        state[repeteadUserItem].quantity += 1;
+        localStorage.setItem('cartContent', JSON.stringify(state));
+        return state;
+      }
+      action.payload.quantity += 1;
       localStorage.setItem(
         'cartContent',
         JSON.stringify([{ ...action.payload }, ...state])
@@ -60,4 +75,4 @@ export const removeItemAsUser = (payload) => ({
   payload,
 });
 
-export default addToCartReducer;
+export default cartReducer;

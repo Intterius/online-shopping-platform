@@ -14,7 +14,7 @@ const CartPrices = () => {
       <p className={classes.priceDescription}>
         CART TOTAL :
         <span className={classes.finalPrice}>
-          ${Number.isInteger(totalSum) ? `${totalSum}.00` : totalSum} USD
+          ${`${totalSum.toFixed(2)}`} USD
         </span>
       </p>
       <Box display='flex' justifyContent='center'>

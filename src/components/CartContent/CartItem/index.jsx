@@ -7,9 +7,9 @@ import { removePrice } from '../../../redux/reducers/cartPriceReducer';
 import {
   removeItemAsGuest,
   removeItemAsUser,
-} from '../../../redux/reducers/addToCartReducer';
+} from '../../../redux/reducers/cartReducer';
 
-const CartItem = ({ id, image, description, title, price }) => {
+const CartItem = ({ id, image, description, title, price, quantity }) => {
   const classes = useStyles();
   const dispatch = useDispatch();
   const { user } = useSelector((state) => state.tokenReducer);
@@ -32,11 +32,11 @@ const CartItem = ({ id, image, description, title, price }) => {
           <Box display='grid'>
             <Link style={{ textDecoration: 'none' }} to={'#'}>
               <p className={classes.itemDescription}>
-                {title} - 3 kg / {description}
+                {title} / {description.substring(0, 45)}...
               </p>
             </Link>
             <p className={classes.priceAndQuantity}>
-              1 x ${Number.isInteger(price) ? `${price}.00` : price} USD
+              {quantity} x ${price} USD
             </p>
           </Box>
           <div>
@@ -44,7 +44,7 @@ const CartItem = ({ id, image, description, title, price }) => {
               fontWeight='fontWeightBold'
               className={classes.removeItemBtn}
               onClick={() => {
-                dispatch(removePrice(price));
+                dispatch(removePrice(price * quantity));
                 removeItem();
               }}
             >

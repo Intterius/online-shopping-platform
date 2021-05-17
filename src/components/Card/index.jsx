@@ -6,7 +6,7 @@ import { useDispatch, useSelector } from 'react-redux';
 import {
   addToCartAsGuest,
   addToCartAsUser,
-} from '../../redux/reducers/addToCartReducer';
+} from '../../redux/reducers/cartReducer';
 import { Link } from 'react-router-dom';
 import { getProductId } from '../../redux/reducers/getProductIdReducer';
 import { useStyles } from './style';
@@ -18,6 +18,7 @@ const Card = ({ food }) => {
     'https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcSjwJGQfzWC5sSRL2r4zJTXPRj-eJO-BgGWxg&usqp=CAU';
   const dispatch = useDispatch();
   const { user } = useSelector((state) => state.tokenReducer);
+  food.quantity = 0;
   const addToCart = () => {
     if (user) return dispatch(addToCartAsUser(food));
     return dispatch(addToCartAsGuest(food));

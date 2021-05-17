@@ -1,4 +1,4 @@
-import addToCartReducer from './addToCartReducer';
+import cartReducer from './cartReducer';
 import { tokenReducer } from './tokenReducer';
 import { combineReducers } from 'redux';
 import { productPathReducer } from './productPathReducer';
@@ -6,7 +6,7 @@ import { getProductIdReducer } from './getProductIdReducer';
 import { cartPriceReducer } from './cartPriceReducer';
 
 const rootReducer = combineReducers({
-  addToCartReducer,
+  cartReducer,
   tokenReducer,
   productPathReducer,
   getProductIdReducer,
