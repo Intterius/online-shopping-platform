@@ -8,7 +8,7 @@ const useStyles = makeStyles((theme) => ({
   },
   itemComponents: {
     display: 'grid',
-    gridTemplateColumns: '4fr 6fr 3fr',
+    gridTemplateColumns: '4fr 7fr 1fr',
     width: '95%',
   },
 
@@ -45,7 +45,7 @@ const useStyles = makeStyles((theme) => ({
     fontSize: theme.spacing(2),
     transition: '0.3s ease-in-out',
     '&:hover': {
-      cursor:'pointer',
+      cursor: 'pointer',
       stroke: theme.palette.primary.main,
       color: theme.palette.primary.main,
     },

@@ -4,18 +4,21 @@ import CartItem from './CartItem';
 import CartPrices from './CartPrices';
 
 const CartContent = () => {
-  const productList = useSelector((state) => state.addToCartReducer);
+  const productList = useSelector((state) => state.cartReducer);
 
-  const cartList = productList.map((item) => (
-    <CartItem
-      key={item.id}
-      image={item.imagesSet[0].url}
-      title={item.title}
-      price={item.price}
-      description={item.description}
-      id={item.id}
-    />
-  ));
+  const cartList = productList.map((item) => {
+    return (
+      <CartItem
+        key={item.id}
+        image={item.imagesSet[0].url}
+        title={item.title}
+        price={item.price.toFixed(2)}
+        description={item.description}
+        id={item.id}
+        quantity={item.quantity}
+      />
+    );
+  });
 
   const checkSroll = () => {
     if (productList.length >= 4) {
