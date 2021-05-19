@@ -1,11 +1,15 @@
 import React, {useEffect, useState} from 'react';
 import {Box, makeStyles, Typography, Snackbar} from "@material-ui/core";
 import DashboardHeader from "../../components/DashboardHeader";
-import {useSelector} from "react-redux";
+import {useDispatch, useSelector} from "react-redux";
 import DescriptiveAccountHeader from "../../components/DescriptiveAccountHeader";
 import Rating from "@material-ui/lab/Rating";
 import AddShoppingCartIcon from '@material-ui/icons/AddShoppingCart';
 import {useParams} from "react-router-dom";
+import {addToCartAsGuest, addToCartAsUser} from "../../redux/reducers/cartReducer";
+import {addPrice} from "../../redux/reducers/cartPriceReducer";
+import useAddProductList from "../../utils/AddProductList";
+import axios from "axios";
 
 const useStyles = makeStyles((theme) => ({
     image: {
@@ -74,10 +78,11 @@ const useStyles = makeStyles((theme) => ({
         alignItems: "center",
         border: "2px solid #E5E5E5",
         height: theme.spacing(3.7),
-        width: theme.spacing(7),
+        width: "auto",
         marginLeft: theme.spacing(2),
         fontSize: theme.spacing(2.5),
-        cursor: "pointer"
+        cursor: "pointer",
+        padding: theme.spacing(0, 1)
     },
     selected: {
         display: "flex",
@@ -85,10 +90,11 @@ const useStyles = makeStyles((theme) => ({
         alignItems: "center",
         border: "2px solid #85C645",
         height: theme.spacing(3.7),
-        width: theme.spacing(7),
+        width: "auto",
         marginLeft: theme.spacing(2),
         fontSize: theme.spacing(2.5),
-        cursor: "pointer"
+        cursor: "pointer",
+        padding: theme.spacing(0, 1)
     },
     quantity: {
         display: "flex",
@@ -127,6 +133,7 @@ const useStyles = makeStyles((theme) => ({
         display: "flex",
         justifyContent: "space-evenly",
         alignItems: "center",
+        cursor: "pointer",
         width: theme.spacing(18),
         height: theme.spacing(5),
         border: "2px solid #85C645",
@@ -152,12 +159,27 @@ const ProductPage = () => {
         horizontal: 'center'
     })
     const [products] = useSelector((state) => state.productPathReducer);
-    const item = products.filter((element) => element.id === params.id);
+    const item =products ?  products.filter((element) => element.id === params.id) : [];
     const product = item[0];
     const classes = useStyles();
-    const subtotal = quantity * size * product.price;
+    const subtotal = quantity * size * product?.price;
     const {vertical, horizontal, open} = position;
+    const {user} = useSelector((state) => state.tokenReducer);
+    const dispatch = useDispatch();
 
+    const addToCart = () => {
+        product.quantity = quantity * size;
+        dispatch(addPrice(subtotal))
+        if (user) {
+            dispatch(addToCartAsUser(product));
+            setQuantity(1);
+            setSize(1);
+            return;
+        }
+        dispatch(addToCartAsGuest(product));
+        setQuantity(1);
+        setSize(1)
+    };
 
     const handleIncrement = () => {
         setQuantity(quantity + 1)
@@ -186,6 +208,9 @@ const ProductPage = () => {
         }
     }, [quantity])
 
+    if(!product) {
+        return <h>loading...</h>
+    }
 
     return (
         <>
@@ -219,11 +244,11 @@ const ProductPage = () => {
                         <Typography className={classes.sizeText}>Size :</Typography>
                         <Box className={classes.sizeVariant}>
                             <Box onClick={() => setSize(1)}
-                                 className={(size === 1) ? classes.selected : classes.sizeBox}>1 kg</Box>
+                                 className={(size === 1) ? classes.selected : classes.sizeBox}>1 {product.measureUnit}</Box>
                             <Box onClick={() => setSize(3)}
-                                 className={(size === 3) ? classes.selected : classes.sizeBox}>3 kg</Box>
+                                 className={(size === 3) ? classes.selected : classes.sizeBox}>3 {(product.measureUnit === "pack") ? product.measureUnit + "s" : product.measureUnit}</Box>
                             <Box onClick={() => setSize(5)}
-                                 className={(size === 5) ? classes.selected : classes.sizeBox}>5 kg</Box>
+                                 className={(size === 5) ? classes.selected : classes.sizeBox}>5 {(product.measureUnit === "pack") ? product.measureUnit + "s" : product.measureUnit.toLowerCase()}</Box>
                         </Box>
                     </Box>
                     <Box className={classes.quantity}>
@@ -239,7 +264,7 @@ const ProductPage = () => {
                         <Typography className={classes.sizeText}>Subtotal :</Typography>
                         <Typography className={classes.subtotal}>{"$" + subtotal}</Typography>
                     </Box>
-                    <Box className={classes.button}>
+                    <Box onClick={addToCart} className={classes.button}>
                         <AddShoppingCartIcon/>
                         <Typography style={{fontSize: "18px"}}>Add to cart</Typography>
                     </Box>

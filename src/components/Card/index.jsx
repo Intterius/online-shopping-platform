@@ -18,7 +18,7 @@ const Card = ({ food }) => {
     'https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcSjwJGQfzWC5sSRL2r4zJTXPRj-eJO-BgGWxg&usqp=CAU';
   const dispatch = useDispatch();
   const { user } = useSelector((state) => state.tokenReducer);
-  food.quantity = 0;
+  food.quantity = 1;
   const addToCart = () => {
     if (user) return dispatch(addToCartAsUser(food));
     return dispatch(addToCartAsGuest(food));
