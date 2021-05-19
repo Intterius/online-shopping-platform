@@ -3,6 +3,7 @@ import { makeStyles } from '@material-ui/core';
 const useStyles = makeStyles((theme) => ({
   boxBackground: {
     background: theme.palette.primary.main,
+    padding: theme.spacing(1.8, 0),
   },
   boxTitle: {
     margin: theme.spacing(2, 0),
@@ -21,6 +22,9 @@ const useStyles = makeStyles((theme) => ({
     color: theme.palette.common.white,
     textDecoration: 'none',
     transition: '0.3s ease-in-out',
+    display: 'flex',
+    justifyContent: 'center',
+    alignItems: 'center',
     '&:hover': {
       textDecoration: 'none',
       color: theme.palette.common.black,

@@ -58,7 +58,7 @@ const InteractionLinks = () => {
             onMouseEnter={() => setShowCartProducts(true)}
             onMouseLeave={() => setShowCartProducts(false)}
           >
-            <Link to={'#'} className={classes.links}>
+            <Link to={'/cart'} className={classes.links}>
               <div style={{ position: 'relative' }}>
                 <ShoppingCartOutlinedIcon className={classes.cart} />
                 <div className={classes.cartCounter}>{productList.length}</div>
