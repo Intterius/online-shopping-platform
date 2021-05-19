@@ -6,7 +6,7 @@ import { useDispatch } from 'react-redux';
 const useAddProductList = () => {
   const dispatch = useDispatch();
   axios
-    .get('https://online-shopping-platform-back.herokuapp.com/products')
+    .get('https://online-shopping-platform-back.herokuapp.com/products?pageNumber=0&itemsPerPage=50')
     .then((res) => {
       dispatch(setProductList(res.data));
     })

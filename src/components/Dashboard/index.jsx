@@ -5,7 +5,6 @@ import axios from "axios";
 import Box from "@material-ui/core/Box";
 import {CircularProgress} from "@material-ui/core";
 
-
 const useStyles = makeStyles((theme) => ({
     cardList: {
         display: "flex",

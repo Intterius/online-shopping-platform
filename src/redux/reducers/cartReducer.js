@@ -14,10 +14,9 @@ const cartReducer = (state = [], action) => {
         (el) => el.id === action.payload.id
       );
       if (repeatedGuestItem !== -1) {
-        state[repeatedGuestItem].quantity += 1;
-        return state;
+        state[repeatedGuestItem].quantity += action.payload.quantity;
+        return [...state];
       }
-      action.payload.quantity += 1;
       return [{ ...action.payload }, ...state];
 
     case ADD_TO_CART_AS_USER:
@@ -25,11 +24,10 @@ const cartReducer = (state = [], action) => {
         (el) => el.id === action.payload.id
       );
       if (repeteadUserItem !== -1) {
-        state[repeteadUserItem].quantity += 1;
+        state[repeteadUserItem].quantity += action.payload.quantity;
         localStorage.setItem('cartContent', JSON.stringify(state));
-        return state;
+        return [...state];
       }
-      action.payload.quantity += 1;
       localStorage.setItem(
         'cartContent',
         JSON.stringify([{ ...action.payload }, ...state])
