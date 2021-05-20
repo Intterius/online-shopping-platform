@@ -9,7 +9,7 @@ import {
   removeItemAsUser,
 } from '../../../redux/reducers/cartReducer';
 
-const CartItem = ({ id, image, description, title, price, quantity }) => {
+const CartItem = ({ id, image, title, price, quantity, measure }) => {
   const classes = useStyles();
   const dispatch = useDispatch();
   const { user } = useSelector((state) => state.tokenReducer);
@@ -26,22 +26,21 @@ const CartItem = ({ id, image, description, title, price, quantity }) => {
     <div className={classes.item}>
       <Box display='flex' justifyContent='center'>
         <div className={classes.itemComponents}>
-          <Link to={'#'}>
+          <Link to={`/product/${id}`}>
             <img className={classes.itemImg} src={image} alt={title} />
           </Link>
           <Box display='grid'>
-            <Link style={{ textDecoration: 'none' }} to={'#'}>
-              <p className={classes.itemDescription}>
-                {title} / {description.substring(0, 45)}...
-              </p>
+            <Link style={{ textDecoration: 'none' }} to={`/product/${id}`}>
+              <p className={classes.itemDescription}>{title}</p>
             </Link>
             <p className={classes.priceAndQuantity}>
-              {quantity} x ${price} USD
+              {quantity}{' '}
+              {measure === 'kg' ? 'kg' : quantity > 1 ? 'packs' : 'pack'} x $
+              {price} USD
             </p>
           </Box>
           <div>
             <Box
-              fontWeight='fontWeightBold'
               className={classes.removeItemBtn}
               onClick={() => {
                 dispatch(removePrice(price * quantity));

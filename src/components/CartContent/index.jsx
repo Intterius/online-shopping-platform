@@ -16,6 +16,7 @@ const CartContent = () => {
         description={item.description}
         id={item.id}
         quantity={item.quantity}
+        measure={item.measureUnit}
       />
     );
   });
