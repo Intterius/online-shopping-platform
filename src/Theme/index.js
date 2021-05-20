@@ -1,30 +1,30 @@
-import {createMuiTheme} from "@material-ui/core";
+import { createMuiTheme } from '@material-ui/core';
 
 const theme = createMuiTheme({
-    typography: {
-        fontFamily: "'Roboto', sans-serif",
-        button: {
-            textTransform: 'none'
-        }
+  typography: {
+    fontFamily: "'Roboto', sans-serif",
+    button: {
+      textTransform: 'none',
     },
-    palette: {
-        primary: {
-            main: "#85C645"
-        },
-        secondary: {
-            main: '#FF6600'
-        },
-        rating: {
-            main: 'black'
-        },
-        common: {
-            white: 'white',
-            black: 'black'
-        },
+  },
+  palette: {
+    primary: {
+      main: '#89c74a',
     },
-    fontFamily: {
-        main: "'Roboto', sans-serif"
-    }
+    secondary: {
+      main: '#FF6600',
+    },
+    rating: {
+      main: 'black',
+    },
+    common: {
+      white: 'white',
+      black: 'black',
+    },
+  },
+  fontFamily: {
+    main: "'Roboto', sans-serif",
+  },
 });
 
 export default theme;

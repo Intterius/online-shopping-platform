@@ -34,7 +34,7 @@ const CartPrices = () => {
             startIcon={<ShoppingBasketIcon />}
             className={classes.buttonContent}
           >
-            <Link to={'#'} className={classes.link}>
+            <Link to={'/cart'} className={classes.link}>
               View Cart
             </Link>
           </Button>
