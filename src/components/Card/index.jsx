@@ -13,6 +13,7 @@ import { useStyles } from './style';
 import { addPrice } from '../../redux/reducers/cartPriceReducer';
 import { cartAxios } from '../../utils/requestInterceptor';
 
+
 const Card = ({ food }) => {
   const classes = useStyles();
   const noImage =
@@ -21,8 +22,9 @@ const Card = ({ food }) => {
   const { user } = useSelector((state) => state.tokenReducer);
   food.quantity = 1;
   const addToCart = () => {
-    if (user) {
-      return dispatch(addToCartAsUser(food));
+    if (user){
+        dispatch(addToCartAsUser(food));
+        return;
     }
     return dispatch(addToCartAsGuest(food));
   };

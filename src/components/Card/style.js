@@ -35,10 +35,19 @@ export const useStyles = makeStyles((theme) => ({
     },
     cartNameP: {
         fontWeight: "bold",
-        fontSize: theme.spacing(3),
+        fontSize: theme.spacing(2.5),
         textTransform: "capitalize",
-        margin: theme.spacing(0.6, 0)
+        margin: theme.spacing(0.6, 0),
+        textAlign: "center",
     },
+    // cartNameP2: {
+    //     fontWeight: "bold",
+    //     fontSize: theme.spacing(2.5),
+    //     textTransform: "capitalize",
+    //     margin: theme.spacing(0.6, 0),
+    //     textAlign: "center",
+    //     height: theme.spacing(3.5)
+    // },
     cartPriceP: {
         color: "#85C645",
         fontSize: theme.spacing(2.5),
