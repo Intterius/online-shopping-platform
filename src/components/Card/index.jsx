@@ -11,6 +11,7 @@ import { Link } from 'react-router-dom';
 import { getProductId } from '../../redux/reducers/getProductIdReducer';
 import { useStyles } from './style';
 import { addPrice } from '../../redux/reducers/cartPriceReducer';
+import { cartAxios } from '../../utils/requestInterceptor';
 
 const Card = ({ food }) => {
   const classes = useStyles();
@@ -20,7 +21,9 @@ const Card = ({ food }) => {
   const { user } = useSelector((state) => state.tokenReducer);
   food.quantity = 1;
   const addToCart = () => {
-    if (user) return dispatch(addToCartAsUser(food));
+    if (user) {
+      return dispatch(addToCartAsUser(food));
+    }
     return dispatch(addToCartAsGuest(food));
   };
 
