@@ -8,6 +8,7 @@ import {useStyles} from "../style";
 import {addPrice} from "../../../redux/reducers/cartPriceReducer";
 import {addToCartAsGuest, addToCartAsUser} from "../../../redux/reducers/cartReducer";
 import DashboardHeader from "../../../components/DashboardHeader";
+import {Alert} from "@material-ui/lab";
 
 const Product = ({product}) => {
 
@@ -66,6 +67,10 @@ const Product = ({product}) => {
         }
     }, [quantity])
 
+    const handleInput = (e)=>{
+        setQuantity(e.target.value)
+    }
+
     return (
         <>
             <DashboardHeader />
@@ -109,8 +114,14 @@ const Product = ({product}) => {
                         <Typography className={classes.sizeText}>Quantity :</Typography>
                         <Box className={classes.quantitySpiner}>
                             <Box onClick={handleDecrement} className={classes.quantityBox}>-</Box>
-                            <Box style={{borderLeft: "0", borderRight: "0"}}
-                                 className={classes.quantityBox}>{quantity}</Box>
+                            <input style={{borderLeft: "0", borderRight: "0"}}
+                                 className={classes.inputBox}
+                                   onChange={handleInput}
+                                   value={quantity}
+                                   type="number"
+                                   min="1"
+                                   max="99"
+                            />
                             <Box onClick={handleIncrement} className={classes.quantityBox}>+</Box>
                         </Box>
                     </Box>
@@ -127,11 +138,16 @@ const Product = ({product}) => {
             <Snackbar
                 style={{height: "1000px"}}
                 anchorOrigin={{vertical, horizontal}}
+                autoHideDuration={2000}
                 open={open}
                 onClose={() => setPosition({...position, open: false})}
-                message={message}
+                // message={message}
                 key={vertical + horizontal}
-            />
+            >
+                <Alert severity="error">
+                    {message}
+                </Alert>
+            </Snackbar>
         </>
     );
 }

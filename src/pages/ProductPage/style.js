@@ -75,6 +75,29 @@ export const useStyles = makeStyles((theme) => ({
         cursor: "pointer",
         padding: theme.spacing(0, 1)
     },
+    inputBox:{
+        display: "flex",
+        justifyContent: "center",
+        textAlign: "center",
+        border: "1px solid #E5E5E5",
+        height: theme.spacing(3.5),
+        width: theme.spacing(5),
+        fontSize: theme.spacing(2.5),
+        '&:focus':{
+            outline: "none"
+        },
+        '&[type=number]': {
+            '-moz-appearance': 'textfield',
+        },
+        '&::-webkit-outer-spin-button': {
+            '-webkit-appearance': 'none',
+            margin: 0,
+        },
+        '&::-webkit-inner-spin-button': {
+            '-webkit-appearance': 'none',
+            margin: 0,
+        },
+    },
     selected: {
         display: "flex",
         justifyContent: "center",
