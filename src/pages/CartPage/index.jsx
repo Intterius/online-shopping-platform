@@ -19,10 +19,12 @@ const CartPage = () => {
   const { user } = useSelector((state) => state.tokenReducer);
   const dispatch = useDispatch();
   const [update, setUpdate] = useState({ id: '', quantity: '' });
+  const [updatedItems, setUpdatedItems] = useState([]);
 
   const updatedChildren = items.map((item) => {
-    if (item.id === update.id) {
+    if (item.id === update.id && item.quantity !== update.quantity) {
       item.quantity = update.quantity;
+      setUpdatedItems([item, ...updatedItems]);
       return item;
     }
     return item;
@@ -68,7 +70,9 @@ const CartPage = () => {
               <Button
                 disabled={items.length ? false : true}
                 className={classes.updateBtn}
-                onClick={updateCart}
+                onClick={() => {
+                  updateCart();
+                }}
               >
                 Update Cart
               </Button>

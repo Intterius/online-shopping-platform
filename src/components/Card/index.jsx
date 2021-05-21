@@ -11,7 +11,8 @@ import { Link } from 'react-router-dom';
 import { getProductId } from '../../redux/reducers/getProductIdReducer';
 import { useStyles } from './style';
 import { addPrice } from '../../redux/reducers/cartPriceReducer';
-import axios from "axios";
+import { cartAxios } from '../../utils/requestInterceptor';
+
 
 const Card = ({ food }) => {
   const classes = useStyles();
@@ -22,13 +23,6 @@ const Card = ({ food }) => {
   food.quantity = 1;
   const addToCart = () => {
     if (user){
-        // axios.post({
-        //     method: "post",
-        //     url: ` https://online-shopping-platform-back.herokuapp.com/cart?product_id=${food.id}&quantity=${food.quantity} `,
-        //     headers: {
-        //         key: user
-        //     }
-        // })
         dispatch(addToCartAsUser(food));
         return;
     }
