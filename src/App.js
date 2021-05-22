@@ -1,5 +1,5 @@
 import { Route, Switch, Redirect, BrowserRouter } from 'react-router-dom';
-import { useTokenValidation } from './utils/UserTokenValidation';
+import { useUserValidation } from './utils/UserValidation';
 import Home from '../src/pages/Home';
 import NotFound from '../src/pages/NotFound';
 import Login from '../src/pages/Login';
@@ -10,7 +10,7 @@ import useAddProductList from './utils/AddProductList';
 import CartPage from './pages/CartPage';
 
 function App() {
-  useTokenValidation();
+  useUserValidation();
   useAddProductList();
   return (
     <BrowserRouter>

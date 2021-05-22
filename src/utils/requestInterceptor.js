@@ -1,12 +1,10 @@
 import axios from 'axios';
 const key = localStorage.getItem('key');
 
-const cartAxios = axios.create({
+const cartRequest = axios.create({
   headers: {
     Authorization: key,
   },
 });
 
-export { cartAxios };
-
-
+export { cartRequest };
