@@ -38,7 +38,7 @@ const CartItem = ({ id, image, title, price, quantity, measure }) => {
             </Link>
             <p className={classes.priceAndQuantity}>
               {quantity}{' '}
-              {measure === 'kg' ? 'kg' : quantity > 1 ? 'packs' : 'pack'} x $
+              {measure === 'KG' ? 'kg' : quantity > 1 ? 'packs' : 'pack'} x $
               {price} USD
             </p>
           </Box>

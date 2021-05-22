@@ -22,6 +22,7 @@ const CartPageItem = ({
   price,
   updateCart,
 }) => {
+  console.log(measure)
   const classes = useStyles();
   const [quantity, setQuantity] = useState(amount);
   const { user } = useSelector((state) => state.tokenReducer);
@@ -64,7 +65,7 @@ const CartPageItem = ({
           <div className={classes.itemTitle}>
             <p className={classes.title}>{title}</p>
             <p className={classes.description}>
-              {amount} {measure === 'kg' ? 'kg' : amount > 1 ? 'packs' : 'pack'}
+              {amount} {measure === 'KG' ? 'kg' : amount > 1 ? 'packs' : 'pack'}
             </p>
           </div>
           <p className={classes.money}>${price.toFixed(2)}</p>
