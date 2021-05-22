@@ -32,23 +32,21 @@ const Dashboard = () => {
   const [mostPopular, setMostPopular] = useState([]);
   const [loading, setLoading] = useState(true);
   const classes = useStyles();
-
-  useEffect(() => {
-    axios
-      .get(`${demoUrl}/products/rated`)
-      .then((res) => {
-        setLoading(false);
-        setMostPopular(res.data);
-      })
-      .catch((err) => console.error(err));
-    axios
-      .get(`${demoUrl}/products?pageNumber=0&itemsPerPage=100`)
-      .then((res) => {
-        setLoading(false);
-        setData(res.data);
-      })
-      .catch((err) => console.error(err));
-  }, []);
+  
+    useEffect(() => {
+        axios.get('https://online-shopping-platform-back.herokuapp.com/products/rated')
+            .then(res => {
+                setLoading(false)
+                setMostPopular(res.data)
+            })
+            .catch((err) => console.error(err))
+        axios.get(`https://online-shopping-platform-back.herokuapp.com/products?pageNumber=0&itemsPerPage=100`)
+            .then(res => {
+                setLoading(false)
+                setData(res.data)
+            })
+            .catch((err) => console.error(err))
+    }, [])
 
   const foodSorted = data.sort((a, b) => (a.title > b.title ? 1 : -1));
   // const mostPopular = [...data].sort((a, b) => (a.rating < b.rating) ? 1 : -1).slice(0, 15);
