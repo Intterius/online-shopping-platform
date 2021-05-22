@@ -11,7 +11,7 @@ import { Link } from 'react-router-dom';
 import { getProductId } from '../../redux/reducers/getProductIdReducer';
 import { useStyles } from './style';
 import { addPrice } from '../../redux/reducers/cartPriceReducer';
-import { cartAxios, cartRequest } from '../../utils/requestInterceptor';
+import {  cartRequest } from '../../utils/requestInterceptor';
 import { demoUrl } from '../../utils/baseUrl';
 
 const Card = ({ food }) => {
