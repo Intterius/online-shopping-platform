@@ -2,6 +2,7 @@ import { Alert } from '@material-ui/lab';
 import { useCallback, useState } from 'react';
 import { useHistory } from 'react-router';
 import axios from 'axios';
+import { demoUrl } from './baseUrl';
 
 const useLoginationSubmit = (fields) => {
   const [validationStatus, setValidationStatus] = useState();
@@ -23,7 +24,7 @@ const useLoginationSubmit = (fields) => {
       } else {
         axios
           .post(
-            'https://online-shopping-platform-back.herokuapp.com/sign-in/login',
+            `${demoUrl}/sign-in/login`,
             {
               email: fields.email.input,
               password: fields.password.input,

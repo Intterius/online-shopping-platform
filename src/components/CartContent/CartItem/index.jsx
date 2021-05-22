@@ -8,6 +8,8 @@ import {
   removeItemAsGuest,
   removeItemAsUser,
 } from '../../../redux/reducers/cartReducer';
+import { cartRequest } from '../../../utils/requestInterceptor';
+import { demoUrl } from '../../../utils/baseUrl';
 
 const CartItem = ({ id, image, title, price, quantity, measure }) => {
   const classes = useStyles();
@@ -16,6 +18,7 @@ const CartItem = ({ id, image, title, price, quantity, measure }) => {
 
   const removeItem = () => {
     if (user) {
+      cartRequest.delete(`${demoUrl}/cart?product_id=${id}`);
       dispatch(removeItemAsUser(id));
     } else {
       dispatch(removeItemAsGuest(id));

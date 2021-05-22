@@ -2,7 +2,6 @@ const SET_CART_FOR_USER = 'SET_CART_FOR_USER';
 const ADD_TO_CART_AS_GUEST = 'ADD_TO_CART_AS_GUEST';
 const ADD_TO_CART_AS_USER = 'ADD_TO_CART_AS_USER';
 const UPDATE_CART_AS_GUEST = 'UPDATE_CART_AS_GUEST';
-const UPDATE_CART_AS_USER = 'UPDATE_CART_AS_USER';
 const REMOVE_ITEM_AS_GUEST = 'REMOVE_ITEM_AS_GUEST';
 const REMOVE_ITEM_AS_USER = 'REMOVE_ITEM_AS_USER';
 
@@ -27,30 +26,17 @@ const cartReducer = (state = [], action) => {
       );
       if (repeteadUserItem !== -1) {
         state[repeteadUserItem].quantity += action.payload.quantity;
-        localStorage.setItem('cartContent', JSON.stringify(state));
         return [...state];
       }
-      localStorage.setItem(
-        'cartContent',
-        JSON.stringify([{ ...action.payload }, ...state])
-      );
       return [{ ...action.payload }, ...state];
 
     case UPDATE_CART_AS_GUEST:
-      return [...action.payload];
-
-    case UPDATE_CART_AS_USER:
-      localStorage.setItem('cartContent', JSON.stringify(action.payload));
       return [...action.payload];
 
     case REMOVE_ITEM_AS_GUEST:
       return [...state.filter((item) => item.id !== action.payload)];
 
     case REMOVE_ITEM_AS_USER:
-      localStorage.setItem(
-        'cartContent',
-        JSON.stringify([...state.filter((item) => item.id !== action.payload)])
-      );
       return [...state.filter((item) => item.id !== action.payload)];
 
     default:
@@ -73,10 +59,6 @@ export const addToCartAsUser = (payload) => ({
 });
 export const updateCartAsGuest = (payload) => ({
   type: UPDATE_CART_AS_GUEST,
-  payload,
-});
-export const updateCartAsUser = (payload) => ({
-  type: UPDATE_CART_AS_USER,
   payload,
 });
 

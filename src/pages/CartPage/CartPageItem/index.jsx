@@ -7,6 +7,8 @@ import {
   removeItemAsUser,
 } from '../../../redux/reducers/cartReducer';
 import { removePrice } from '../../../redux/reducers/cartPriceReducer';
+import { demoUrl } from '../../../utils/baseUrl';
+import { cartRequest } from '../../../utils/requestInterceptor';
 import ClearIcon from '@material-ui/icons/Clear';
 import RemoveIcon from '@material-ui/icons/Remove';
 import AddIcon from '@material-ui/icons/Add';
@@ -36,6 +38,7 @@ const CartPageItem = ({
 
   const removeItem = () => {
     if (user) {
+      cartRequest.delete(`${demoUrl}/cart?product_id=${id}`);
       dispatch(removeItemAsUser(id));
     } else {
       dispatch(removeItemAsGuest(id));
