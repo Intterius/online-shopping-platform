@@ -23,6 +23,9 @@ const Card = ({ food }) => {
   food.quantity = 1;
   const addToCart = () => {
     if (user){
+        cartAxios.post(`https://online-shopping-platform-back.herokuapp.com/cart?product_id=${food.id}&quantity=${food.quantity}`)
+            .then(res=>console.log(res.data))
+            .catch(err=>console.log(err))
         dispatch(addToCartAsUser(food));
         return;
     }

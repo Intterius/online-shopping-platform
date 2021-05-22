@@ -25,7 +25,7 @@ const ProductPage = () => {
     const [product, setProduct] = useState('')
 
     useEffect(() => {
-        axios.get(`https://online-shopping-platform-back.herokuapp.com/products?productId=${params.id}`)
+        axios.get(`https://online-shopping-platform-back.herokuapp.com/products/description?productId=${params.id}`)
             .then(res => {
                 setProduct(res.data)
             })

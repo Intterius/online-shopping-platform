@@ -39,7 +39,7 @@ const Dashboard = () => {
                 setMostPopular(res.data)
             })
             .catch((err) => console.error(err))
-        axios.get('https://online-shopping-platform-back.herokuapp.com/products?pageNumber=0&itemsPerPage=100')
+        axios.get(`https://online-shopping-platform-back.herokuapp.com/products?pageNumber=0&itemsPerPage=100`)
             .then(res => {
                 setLoading(false)
                 setData(res.data)
