@@ -2,6 +2,7 @@ import { Alert } from '@material-ui/lab';
 import { useCallback, useState } from 'react';
 import { useHistory } from 'react-router';
 import axios from 'axios';
+import { demoUrl } from './baseUrl';
 
 const useRegistrationSubmit = (fields) => {
   const [validationStatus, setValidationStatus] = useState();
@@ -25,24 +26,18 @@ const useRegistrationSubmit = (fields) => {
         return;
       } else {
         axios
-          .post(
-            'https://online-shopping-platform-back.herokuapp.com/sign-in/register',
-            {
-              email: fields.email.input,
-              password: fields.password.input,
-            }
-          )
+          .post(`${demoUrl}/sign-in/register`, {
+            email: fields.email.input,
+            password: fields.password.input,
+          })
           .then((res) => {
             setValidationStatus(true);
             event.target.reset();
             axios
-              .post(
-                'https://online-shopping-platform-back.herokuapp.com/sign-in/login',
-                {
-                  email: fields.email.input,
-                  password: fields.password.input,
-                }
-              )
+              .post(`${demoUrl}/sign-in/login`, {
+                email: fields.email.input,
+                password: fields.password.input,
+              })
               .then((res) => {
                 localStorage.setItem('key', res.data.key);
                 setTimeout(() => {

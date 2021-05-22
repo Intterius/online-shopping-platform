@@ -2,15 +2,14 @@ import { Button } from '@material-ui/core';
 import { Link } from 'react-router-dom';
 import { useStyles } from './styles';
 import { useDispatch, useSelector } from 'react-redux';
-import DashboardHeader from '../../components/DashboardHeader';
-import DescriptiveAccountHeader from '../../components/DescriptiveAccountHeader';
-import CartPageItem from './CartPageItem';
 import { useState } from 'react';
-import {
-  updateCartAsGuest,
-  updateCartAsUser,
-} from '../../redux/reducers/cartReducer';
+import { updateCartAsGuest } from '../../redux/reducers/cartReducer';
 import { updatePrice } from '../../redux/reducers/cartPriceReducer';
+import { cartRequest } from '../../utils/requestInterceptor';
+import { demoUrl } from '../../utils/baseUrl';
+import DescriptiveAccountHeader from '../../components/DescriptiveAccountHeader';
+import DashboardHeader from '../../components/DashboardHeader';
+import CartPageItem from './CartPageItem';
 
 const CartPage = () => {
   const classes = useStyles();
@@ -45,8 +44,9 @@ const CartPage = () => {
 
   const updateCart = () => {
     if (user) {
-      dispatch(updateCartAsUser(updatedChildren));
-      window.location.reload();
+      cartRequest
+        .put(`${demoUrl}/cart`, updatedItems)
+        .then(() => window.location.reload());
     }
     dispatch(updateCartAsGuest(updatedChildren));
     dispatch(updatePrice(updatedChildren));

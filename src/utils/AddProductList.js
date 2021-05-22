@@ -1,12 +1,13 @@
 import axios from 'axios';
 import { setProductList } from '../redux/reducers/productPathReducer';
 import { useDispatch } from 'react-redux';
+import { demoUrl } from './baseUrl';
 
 
 const useAddProductList = () => {
   const dispatch = useDispatch();
   axios
-    .get('https://online-shopping-platform-back.herokuapp.com/products?pageNumber=0&itemsPerPage=50')
+    .get(`${demoUrl}/products?pageNumber=0&itemsPerPage=50`)
     .then((res) => {
       dispatch(setProductList(res.data));
     })
