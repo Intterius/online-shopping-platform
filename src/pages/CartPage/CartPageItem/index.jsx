@@ -1,13 +1,13 @@
 import { useStyles } from './styles';
 import { useEffect, useState } from 'react';
-import { IconButton } from '@material-ui/core';
+import { Box, IconButton } from '@material-ui/core';
 import { useDispatch, useSelector } from 'react-redux';
 import {
   removeItemAsGuest,
   removeItemAsUser,
 } from '../../../redux/reducers/cartReducer';
 import { removePrice } from '../../../redux/reducers/cartPriceReducer';
-import {  url } from '../../../utils/baseUrl';
+import { url } from '../../../utils/baseUrl';
 import { cartRequest } from '../../../utils/requestInterceptor';
 import ClearIcon from '@material-ui/icons/Clear';
 import RemoveIcon from '@material-ui/icons/Remove';
@@ -77,14 +77,16 @@ const CartPageItem = ({
             >
               <RemoveIcon />
             </IconButton>
-            <input
-              onChange={handleInput}
-              className={classes.input}
-              type='number'
-              min='1'
-              max='99'
-              value={quantity}
-            />
+            <Box height='100%'>
+              <input
+                onChange={handleInput}
+                className={classes.input}
+                type='number'
+                min='1'
+                max='99'
+                value={quantity}
+              />
+            </Box>
             <IconButton
               disabled={quantity === 99 ? true : false}
               className={classes.increment}
