@@ -6,6 +6,7 @@ import {CircularProgress, Box, makeStyles} from "@material-ui/core";
 import DashboardHeader from "../../components/DashboardHeader";
 import DescriptiveAccountHeader from "../../components/DescriptiveAccountHeader";
 import axios from "axios";
+import {url} from "../../utils/baseUrl";
 
 const useStyles = makeStyles((theme)=>({
     loader: {
@@ -25,7 +26,7 @@ const ProductPage = () => {
     const [product, setProduct] = useState('')
 
     useEffect(() => {
-        axios.get(`https://online-shopping-platform-back.herokuapp.com/products/description?productId=${params.id}`)
+        axios.get(`${url}/products/description?productId=${params.id}`)
             .then(res => {
                 setProduct(res.data)
             })
