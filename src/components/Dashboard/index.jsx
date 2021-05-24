@@ -4,12 +4,13 @@ import { Divider, makeStyles, Typography } from '@material-ui/core';
 import axios from 'axios';
 import Box from '@material-ui/core/Box';
 import { CircularProgress } from '@material-ui/core';
-import {demoUrl, url} from '../../utils/baseUrl';
+import {url} from '../../utils/baseUrl';
 
 const useStyles = makeStyles((theme) => ({
   cardList: {
     display: 'flex',
     flexWrap: 'wrap',
+    justifyContent: "center",
     margin: theme.spacing(1, 10),
   },
   cardContainer: {
