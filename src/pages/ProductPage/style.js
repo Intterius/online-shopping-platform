@@ -134,6 +134,17 @@ export const useStyles = makeStyles((theme) => ({
         fontSize: theme.spacing(2.5),
         cursor: "pointer",
     },
+    quantityBoxLimit: {
+        display: "flex",
+        justifyContent: "center",
+        alignItems: "center",
+        border: "1px solid #E5E5E5",
+        height: theme.spacing(3.7),
+        width: theme.spacing(5),
+        fontSize: theme.spacing(2.5),
+        cursor: "pointer",
+        pointerEvents: "none"
+    },
     subtotal: {
         fontSize: theme.spacing(3),
         color: theme.palette.primary.main,

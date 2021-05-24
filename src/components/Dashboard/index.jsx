@@ -4,7 +4,7 @@ import { Divider, makeStyles, Typography } from '@material-ui/core';
 import axios from 'axios';
 import Box from '@material-ui/core/Box';
 import { CircularProgress } from '@material-ui/core';
-import { demoUrl } from '../../utils/baseUrl';
+import {demoUrl, url} from '../../utils/baseUrl';
 
 const useStyles = makeStyles((theme) => ({
   cardList: {
@@ -34,13 +34,13 @@ const Dashboard = () => {
   const classes = useStyles();
 
     useEffect(() => {
-        axios.get('https://online-shopping-platform-back.herokuapp.com/products/rated?pageNumber=0&itemsPerPage=15&category=&department=')
+        axios.get(`${url}/products/rated?pageNumber=0&itemsPerPage=15&category=&department=`)
             .then(res => {
                 setLoading(false)
                 setMostPopular(res.data)
             })
             .catch((err) => console.error(err))
-        axios.get(`https://online-shopping-platform-back.herokuapp.com/products?pageNumber=0&itemsPerPage=100&category=&department=`)
+        axios.get(`${url}/products?pageNumber=0&itemsPerPage=100&category=&department=`)
             .then(res => {
                 setLoading(false)
                 setData(res.data)
