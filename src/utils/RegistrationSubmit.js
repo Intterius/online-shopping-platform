@@ -2,7 +2,7 @@ import { Alert } from '@material-ui/lab';
 import { useCallback, useState } from 'react';
 import { useHistory } from 'react-router';
 import axios from 'axios';
-import { demoUrl } from './baseUrl';
+import {  url } from './baseUrl';
 
 const useRegistrationSubmit = (fields) => {
   const [validationStatus, setValidationStatus] = useState();
@@ -26,7 +26,7 @@ const useRegistrationSubmit = (fields) => {
         return;
       } else {
         axios
-          .post(`${demoUrl}/sign-in/register`, {
+          .post(`${url}/sign-in/register`, {
             email: fields.email.input,
             password: fields.password.input,
           })
@@ -34,7 +34,7 @@ const useRegistrationSubmit = (fields) => {
             setValidationStatus(true);
             event.target.reset();
             axios
-              .post(`${demoUrl}/sign-in/login`, {
+              .post(`${url}/sign-in/login`, {
                 email: fields.email.input,
                 password: fields.password.input,
               })

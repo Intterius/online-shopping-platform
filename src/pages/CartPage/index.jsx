@@ -6,7 +6,7 @@ import { useState } from 'react';
 import { updateCartAsGuest } from '../../redux/reducers/cartReducer';
 import { updatePrice } from '../../redux/reducers/cartPriceReducer';
 import { cartRequest } from '../../utils/requestInterceptor';
-import { demoUrl } from '../../utils/baseUrl';
+import {  url } from '../../utils/baseUrl';
 import DescriptiveAccountHeader from '../../components/DescriptiveAccountHeader';
 import DashboardHeader from '../../components/DashboardHeader';
 import CartPageItem from './CartPageItem';
@@ -45,7 +45,7 @@ const CartPage = () => {
   const updateCart = () => {
     if (user) {
       cartRequest
-        .put(`${demoUrl}/cart`, updatedItems)
+        .put(`${url}/cart`, updatedItems)
         .then(() => window.location.reload());
     }
     dispatch(updateCartAsGuest(updatedChildren));

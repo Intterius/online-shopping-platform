@@ -4,7 +4,7 @@ import { Divider, makeStyles, Typography } from '@material-ui/core';
 import axios from 'axios';
 import Box from '@material-ui/core/Box';
 import { CircularProgress } from '@material-ui/core';
-import {url} from '../../utils/baseUrl';
+import { url } from '../../utils/baseUrl';
 
 const useStyles = makeStyles((theme) => ({
   cardList: {
@@ -34,20 +34,26 @@ const Dashboard = () => {
   const [loading, setLoading] = useState(true);
   const classes = useStyles();
 
-    useEffect(() => {
-        axios.get(`${url}/products/rated?pageNumber=0&itemsPerPage=15&category=&department=`)
-            .then(res => {
-                setLoading(false)
-                setMostPopular(res.data)
-            })
-            .catch((err) => console.error(err))
-        axios.get(`${url}/products?pageNumber=0&itemsPerPage=100&category=&department=`)
-            .then(res => {
-                setLoading(false)
-                setData(res.data)
-            })
-            .catch((err) => console.error(err))
-    }, [])
+  useEffect(() => {
+    axios
+      .get(
+        `${url}/products/rated?pageNumber=0&itemsPerPage=15&category=&department=`
+      )
+      .then((res) => {
+        setLoading(false);
+        setMostPopular(res.data);
+      })
+      .catch((err) => console.error(err));
+    axios
+      .get(
+        `${url}/products?pageNumber=0&itemsPerPage=100&category=&department=`
+      )
+      .then((res) => {
+        setLoading(false);
+        setData(res.data);
+      })
+      .catch((err) => console.error(err));
+  }, []);
 
   const foodSorted = data.sort((a, b) => (a.title > b.title ? 1 : -1));
   // const mostPopular = [...data].sort((a, b) => (a.rating < b.rating) ? 1 : -1).slice(0, 15);
