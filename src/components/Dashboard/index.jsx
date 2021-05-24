@@ -10,6 +10,7 @@ const useStyles = makeStyles((theme) => ({
   cardList: {
     display: 'flex',
     flexWrap: 'wrap',
+    justifyContent: "center",
     margin: theme.spacing(1, 10),
   },
   cardContainer: {
