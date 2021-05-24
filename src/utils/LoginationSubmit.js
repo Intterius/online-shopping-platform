@@ -2,7 +2,7 @@ import { Alert } from '@material-ui/lab';
 import { useCallback, useState } from 'react';
 import { useHistory } from 'react-router';
 import axios from 'axios';
-import { demoUrl } from './baseUrl';
+import { url } from './baseUrl';
 
 const useLoginationSubmit = (fields) => {
   const [validationStatus, setValidationStatus] = useState();
@@ -23,13 +23,10 @@ const useLoginationSubmit = (fields) => {
         return;
       } else {
         axios
-          .post(
-            `${demoUrl}/sign-in/login`,
-            {
-              email: fields.email.input,
-              password: fields.password.input,
-            }
-          )
+          .post(`${url}/sign-in/login`, {
+            email: fields.email.input,
+            password: fields.password.input,
+          })
           .then((res) => {
             setValidationStatus(true);
             localStorage.setItem('key', res.data.key);
