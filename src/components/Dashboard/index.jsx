@@ -32,15 +32,15 @@ const Dashboard = () => {
   const [mostPopular, setMostPopular] = useState([]);
   const [loading, setLoading] = useState(true);
   const classes = useStyles();
-  
+
     useEffect(() => {
-        axios.get('https://online-shopping-platform-back.herokuapp.com/products/rated')
+        axios.get('https://online-shopping-platform-back.herokuapp.com/products/rated?pageNumber=0&itemsPerPage=15&category=&department=')
             .then(res => {
                 setLoading(false)
                 setMostPopular(res.data)
             })
             .catch((err) => console.error(err))
-        axios.get(`https://online-shopping-platform-back.herokuapp.com/products?pageNumber=0&itemsPerPage=100`)
+        axios.get(`https://online-shopping-platform-back.herokuapp.com/products?pageNumber=0&itemsPerPage=100&category=&department=`)
             .then(res => {
                 setLoading(false)
                 setData(res.data)
