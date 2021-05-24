@@ -2,7 +2,7 @@ import axios from 'axios';
 import { useDispatch } from 'react-redux';
 import { setCartForUser } from '../redux/reducers/cartReducer';
 import { setUserCartPrice } from '../redux/reducers/cartPriceReducer';
-import { demoUrl } from './baseUrl';
+import {  url } from './baseUrl';
 import { cartRequest } from './requestInterceptor';
 
 const useUserValidation = () => {
@@ -10,13 +10,13 @@ const useUserValidation = () => {
   const dispatch = useDispatch();
   if (user) {
     axios
-      .get(`${demoUrl}/sign-in/userInfo`, {
+      .get(`${url}/sign-in/userInfo`, {
         headers: {
           Authorization: user,
         },
       })
       .then((res) => {
-        cartRequest.get(`${demoUrl}/cart`).then((res) => {
+        cartRequest.get(`${url}/cart`).then((res) => {
           dispatch(setCartForUser(res.data));
           dispatch(
             setUserCartPrice(

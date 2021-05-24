@@ -109,6 +109,7 @@ const useStyles = makeStyles((theme) => ({
     paddingLeft: theme.spacing(1),
     '&:focus': {
       // outline: `1px solid ${theme.palette.primary.main}`,
+      outline: `none`,
     },
     '&[type=number]': {
       '-moz-appearance': 'textfield',
