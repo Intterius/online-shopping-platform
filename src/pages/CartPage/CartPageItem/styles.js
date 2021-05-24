@@ -10,8 +10,9 @@ const useStyles = makeStyles((theme) => ({
     gridTemplateColumns: '2fr 5fr',
     gridGap: theme.spacing(2),
     marginBottom: theme.spacing(2.5),
-    [theme.breakpoints.down('768')]: {
+    [theme.breakpoints.down('769')]: {
       height: theme.spacing(25),
+      gridTemplateColumns: '3fr 5fr',
     },
   },
 
@@ -36,8 +37,11 @@ const useStyles = makeStyles((theme) => ({
 
   img: {
     paddingTop: theme.spacing(2),
-    height: 'auto',
+    maxHeight: theme.spacing(28),
     width: '90%',
+    [theme.breakpoints.down('769')]: {
+      paddingTop: theme.spacing(4),
+    },
   },
 
   title: {
@@ -75,12 +79,13 @@ const useStyles = makeStyles((theme) => ({
     display: 'flex',
     justifyContent: 'flex-start',
     alignItems: 'center',
+    height: theme.spacing(3.8),
   },
   increment: {
     borderRadius: '0px',
     border: '1px solid rgba(0,0,0,.15)',
     borderLeft: 'none',
-    height: theme.spacing(4.2),
+    height: '100%',
     color: theme.palette.primary.main,
     '&:hover': {
       background: 'transparent',
@@ -91,7 +96,7 @@ const useStyles = makeStyles((theme) => ({
     borderRadius: '0px',
     border: '1px solid rgba(0,0,0,.15)',
     borderRight: 'none',
-    height: theme.spacing(4.2),
+    height: '100%',
     color: theme.palette.primary.main,
     '&:hover': {
       background: 'transparent',
@@ -104,7 +109,7 @@ const useStyles = makeStyles((theme) => ({
     borderRadius: theme.spacing(0),
     border: `1px solid rgba(0,0,0,.15)`,
     textAlign: 'center',
-    lineHeight: '30px',
+    height: theme.spacing(3.3),
     paddingRight: theme.spacing(1),
     paddingLeft: theme.spacing(1),
     '&:focus': {
