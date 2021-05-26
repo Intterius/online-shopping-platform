@@ -73,8 +73,8 @@ export default function AdministrationPanel() {
             <Divider/>
             <List>
                 {['Dashboard', 'Products', 'Users'].map((text, index) => (
-                    <Link style={{textDecoration: "none"}} to={'/admin-dashboard'}>
-                        <ListItem className={classes.btn} button key={index}>
+                    <Link key={index} style={{textDecoration: "none"}} to={'/admin-dashboard'}>
+                        <ListItem className={classes.btn} button>
                             <ListItemIcon>{index === 0 ? <PollIcon className={classes.icons}/>
                                 : index === 1 ? <FastfoodIcon className={classes.icons}/>
                                     : <PeopleIcon className={classes.icons}/>

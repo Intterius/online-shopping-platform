@@ -3,7 +3,7 @@ import {CircularProgress, Box, makeStyles} from "@material-ui/core"
 import DashboardHeader from "../../../components/DashboardHeader";
 import DescriptiveAccountHeader from "../../../components/DescriptiveAccountHeader";
 import {url} from "../../../utils/baseUrl";
-import {cartRequest} from "../../../utils/requestInterceptor";
+import {interceptorRequest} from "../../../utils/requestInterceptor";
 import DashboardProducts from "./DashboardProducts";
 import UserDashboard from "./UserDashboard";
 
@@ -28,7 +28,7 @@ const AdminDashboard = () => {
     const [userList, setUserList] = useState([''])
 
     useEffect(() => {
-        cartRequest
+        interceptorRequest
             .get(
                 `${url}/admin/popularProducts?orderDesc=true`
             )
@@ -39,7 +39,7 @@ const AdminDashboard = () => {
                 setUnpopularProducts(unpopular.splice(-10))
             })
             .catch((err) => console.error(err));
-        cartRequest
+        interceptorRequest
             .get(
                 `${url}/admin/users`
             )
