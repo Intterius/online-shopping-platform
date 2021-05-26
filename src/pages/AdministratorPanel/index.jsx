@@ -1,7 +1,7 @@
-import React, {useState} from 'react';
+import React, { useState } from 'react';
 import clsx from 'clsx';
-import {makeStyles} from '@material-ui/core/styles';
-import {Box} from '@material-ui/core';
+import { makeStyles } from '@material-ui/core/styles';
+import { Box } from '@material-ui/core';
 import Drawer from '@material-ui/core/Drawer';
 import Button from '@material-ui/core/Button';
 import List from '@material-ui/core/List';
@@ -12,52 +12,55 @@ import ListItemText from '@material-ui/core/ListItemText';
 import PollIcon from '@material-ui/icons/Poll';
 import FastfoodIcon from '@material-ui/icons/Fastfood';
 import PeopleIcon from '@material-ui/icons/People';
-import logo from "../../components/DashboardHeader/InteractionLinks/logo.png"
-import {Link} from "react-router-dom";
+import logo from '../../components/DashboardHeader/InteractionLinks/logo.png';
+import { Link } from 'react-router-dom';
 
 const useStyles = makeStyles((theme) => ({
-    list: {
-        width: 250,
+  list: {
+    width: 250,
+  },
+  fullList: {
+    width: 'auto',
+  },
+  btn: {
+    display: 'flex',
+    alignItems: 'center',
+    textDecoration: 'none',
+    fontFamily: 'Lemonada, cursive',
+    fontSize: theme.spacing(1.8),
+    fontWeight: '700',
+    color: theme.palette.primary.main,
+    transition: '0.3s ease-in-out',
+    '&:hover': {
+      color: theme.palette.secondary.main,
+      backgroundColor: theme.palette.common.white,
     },
-    fullList: {
-        width: 'auto',
-    },
-    btn: {
-        display: 'flex',
-        alignItems: 'center',
-        textDecoration: 'none',
-        fontFamily: 'Lemonada, cursive',
-        fontSize: theme.spacing(1.8),
-        fontWeight: '700',
-        color: theme.palette.primary.main,
-        transition: '0.3s ease-in-out',
-        '&:hover': {
-            color: theme.palette.secondary.main,
-            backgroundColor: theme.palette.common.white
-        }
-    },
-    logo: {
-        display: "flex",
-        alignItems: "center",
-        justifyContent: "center",
-        margin: theme.spacing(4)
-    },
-    icons: {
-        color: theme.palette.secondary.main
-    }
+  },
+  logo: {
+    display: 'flex',
+    alignItems: 'center',
+    justifyContent: 'center',
+    margin: theme.spacing(4),
+  },
+  icons: {
+    color: theme.palette.secondary.main,
+  },
 }));
 
 export default function AdministrationPanel() {
-    const classes = useStyles();
-    const [state, setState] = useState({left: false});
+  const classes = useStyles();
+  const [state, setState] = useState({ left: false });
 
-    const toggleDrawer = (anchor, open) => (event) => {
-        if (event.type === 'keydown' && (event.key === 'Tab' || event.key === 'Shift')) {
-            return;
-        }
-        setState({...state, [anchor]: open});
-    };
-
+  const toggleDrawer = (anchor, open) => (event) => {
+    if (
+      event.type === 'keydown' &&
+      (event.key === 'Tab' || event.key === 'Shift')
+    ) {
+      return;
+    }
+    setState({ ...state, [anchor]: open });
+  };
+  
     const list = (anchor) => (
         <div
             className={clsx(classes.list, {
@@ -87,14 +90,20 @@ export default function AdministrationPanel() {
         </div>
     );
 
-    return (
-        <div>
-            <React.Fragment key={'left'}>
-                <Button className={classes.btn} onClick={toggleDrawer('left', true)}>Administration panel</Button>
-                <Drawer anchor={'left'} open={state['left']} onClose={toggleDrawer('left', false)}>
-                    {list('left')}
-                </Drawer>
-            </React.Fragment>
-        </div>
-    );
+  return (
+    <div>
+      <React.Fragment key={'left'}>
+        <Button className={classes.btn} onClick={toggleDrawer('left', true)}>
+          Administration panel
+        </Button>
+        <Drawer
+          anchor={'left'}
+          open={state['left']}
+          onClose={toggleDrawer('left', false)}
+        >
+          {list('left')}
+        </Drawer>
+      </React.Fragment>
+    </div>
+  );
 }
