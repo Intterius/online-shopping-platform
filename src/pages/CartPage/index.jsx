@@ -5,7 +5,7 @@ import { useDispatch, useSelector } from 'react-redux';
 import { useMemo, useState } from 'react';
 import { updateCartAsGuest } from '../../redux/reducers/cartReducer';
 import { updatePrice } from '../../redux/reducers/cartPriceReducer';
-import {  interceptorRequest } from '../../utils/requestInterceptor';
+import { interceptorRequest } from '../../utils/requestInterceptor';
 import { url } from '../../utils/baseUrl';
 import { Alert } from '@material-ui/lab';
 import DescriptiveAccountHeader from '../../components/DescriptiveAccountHeader';

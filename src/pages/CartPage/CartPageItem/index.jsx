@@ -8,7 +8,7 @@ import {
 } from '../../../redux/reducers/cartReducer';
 import { removePrice } from '../../../redux/reducers/cartPriceReducer';
 import { url } from '../../../utils/baseUrl';
-import {  interceptorRequest } from '../../../utils/requestInterceptor';
+import { interceptorRequest } from '../../../utils/requestInterceptor';
 import ClearIcon from '@material-ui/icons/Clear';
 import RemoveIcon from '@material-ui/icons/Remove';
 import AddIcon from '@material-ui/icons/Add';
@@ -50,7 +50,7 @@ const CartPageItem = ({
 
   useEffect(() => {
     updateProduct({ id, quantity });
-  }, [quantity]);
+  }, [quantity, id]);
 
   return (
     <div id={id}>
@@ -68,7 +68,7 @@ const CartPageItem = ({
           <div className={classes.itemTitle}>
             <p className={classes.title}>{title}</p>
             <p className={classes.description}>
-              {amount} {measure === 'KG' ? 'kg' : amount > 1 ? 'packs' : 'pack'}
+              {amount} {measure === 'kg' ? 'kg' : amount > 1 ? 'packs' : 'pack'}
             </p>
           </div>
           <p className={classes.money}>${price.toFixed(2)}</p>

@@ -311,6 +311,7 @@ const CheckoutForm = () => {
               />
               <Autocomplete
                 id='city-select'
+                key={country}
                 options={handleCountry()}
                 autoHighlight
                 getOptionSelected={(option, value) => option === value}
