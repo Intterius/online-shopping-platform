@@ -25,13 +25,14 @@ const ProductPage = () => {
     // const product = item[0];
     const [product, setProduct] = useState('')
 
+
     useEffect(() => {
         axios.get(`${url}/products/description?productId=${params.id}`)
             .then(res => {
                 setProduct(res.data)
             })
             .catch((err) => console.error(err))
-    }, [])
+    }, [params])
 
 
     return (
