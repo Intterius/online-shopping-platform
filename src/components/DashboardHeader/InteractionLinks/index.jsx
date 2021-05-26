@@ -10,6 +10,7 @@ import MenuIcon from '@material-ui/icons/Menu';
 import logo from './logo.png';
 import clsx from 'clsx';
 import CartContent from '../../CartContent';
+import AdministrationPanel from "../../../pages/AdministratorPanel";
 
 const InteractionLinks = () => {
   const classes = useStyles();
@@ -49,6 +50,7 @@ const InteractionLinks = () => {
         <Link to={'/home'} className={classes.homeBtn}>
           Home
         </Link>
+        <AdministrationPanel />
         <div className={classes.linksContainer}>
           <Box
             display='flex'

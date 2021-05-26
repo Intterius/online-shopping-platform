@@ -27,7 +27,9 @@ const useUserValidation = () => {
             )
           );
         });
-        dispatch({ type: 'VALID', payload: res.data });
+        if(res.data.role === 'USER'){
+          dispatch({ type: 'VALID', payload: res.data.userName });
+        }
       })
       .catch(() => {
         dispatch({ type: 'INVALID' });
