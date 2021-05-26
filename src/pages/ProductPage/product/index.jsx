@@ -62,7 +62,7 @@ const Product = ({product}) => {
             setPosition({...position, open: true});
             setMessage("Quantity can not be more than 99");
         }
-    },[quantity])
+    },[quantity, product.quantityInStock, size, position, product.title])
 
 
     const handleIncrement = () => {
@@ -100,9 +100,8 @@ const Product = ({product}) => {
             setQuantity(99)
             setPosition({...position, open: true});
             setMessage("Quantity can not be more than 99");
-            return;
         }
-        // setQuantity(e.target.value)
+
     }
 
     return (

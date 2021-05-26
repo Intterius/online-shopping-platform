@@ -9,6 +9,8 @@ import ProductPage from './pages/ProductPage';
 import useAddProductList from './utils/AddProductList';
 import CartPage from './pages/CartPage';
 import Checkout from './pages/Checkout';
+import AdminDashboard from "./pages/AdministratorPanel/AdminDashboard";
+
 
 function App() {
   useUserValidation();
@@ -23,6 +25,7 @@ function App() {
         <Route path='/cart' exact component={CartPage} />
         <Route path={'/product/:id'} exact component={ProductPage} />
         <Route path='/checkout' exact component={Checkout} />
+        <Route path={'/admin-dashboard'} exact component={AdminDashboard} />
         <Route path='/not-found' exact component={NotFound} />
         <Redirect from='/' exact to='/home' />
         <Redirect to='/not-found' />
