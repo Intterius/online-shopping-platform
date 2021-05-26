@@ -31,7 +31,7 @@ const useUserValidation = () => {
                 if (res.data.role === 'USER') {
                     dispatch({type: 'VALID', payload: res.data.userName});
                     return;
-                }else{
+                } else {
                     dispatch({type: 'VALID', payload: res.data.userName});
                     dispatch(setUserRole(res.data.role));
                 }
