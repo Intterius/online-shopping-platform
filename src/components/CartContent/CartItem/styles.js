@@ -24,7 +24,7 @@ const useStyles = makeStyles((theme) => ({
     color: theme.palette.common.black,
     margin: '0',
     lineHeight: '32px',
-    fontFamily: 'Roboto, sans-serif',
+    fontFamily: theme.fontFamily.main,
     textAlign: 'start',
     fontSize: theme.spacing(2.1),
     transition: '0.3s ease-in-out',
@@ -52,7 +52,7 @@ const useStyles = makeStyles((theme) => ({
   },
 
   priceAndQuantity: {
-    fontFamily: 'Roboto, sans-serif',
+    fontFamily: theme.fontFamily.main,
     textAlign: 'start',
     color: theme.palette.common.black,
     margin: '0',

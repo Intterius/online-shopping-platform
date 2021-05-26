@@ -51,7 +51,7 @@ const useStyles = makeStyles((theme) => ({
     fontWeight: 400,
     fontSize: theme.spacing(2),
     lineHeight: 1.7,
-    fontFamily: 'Roboto, sans-serif',
+    fontFamily: theme.fontFamily.main,
     color: '#000',
   },
 
@@ -61,7 +61,7 @@ const useStyles = makeStyles((theme) => ({
     fontWeight: 400,
     fontSize: theme.spacing(2),
     lineHeight: 1.7,
-    fontFamily: 'Roboto, sans-serif',
+    fontFamily: theme.fontFamily.main,
     color: '#aaa',
   },
 
@@ -136,7 +136,7 @@ const useStyles = makeStyles((theme) => ({
     fontWeight: 600,
     fontSize: theme.spacing(2),
     lineHeight: 1.7,
-    fontFamily: 'Roboto, sans-serif',
+    fontFamily: theme.fontFamily.main,
   },
 }));
 

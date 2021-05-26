@@ -2,8 +2,8 @@ import axios from 'axios';
 import { useDispatch } from 'react-redux';
 import { setCartForUser } from '../redux/reducers/cartReducer';
 import { setUserCartPrice } from '../redux/reducers/cartPriceReducer';
-import {  url } from './baseUrl';
-import { cartRequest } from './requestInterceptor';
+import { url } from './baseUrl';
+import { interceptorRequest } from './requestInterceptor';
 
 const useUserValidation = () => {
   let user = localStorage.getItem('key');
@@ -16,7 +16,7 @@ const useUserValidation = () => {
         },
       })
       .then((res) => {
-        cartRequest.get(`${url}/cart`).then((res) => {
+        interceptorRequest.get(`${url}/cart`).then((res) => {
           dispatch(setCartForUser(res.data));
           dispatch(
             setUserCartPrice(
@@ -27,7 +27,10 @@ const useUserValidation = () => {
             )
           );
         });
-        dispatch({ type: 'VALID', payload: res.data });
+        if (res.data.role === 'USER') {
+          dispatch({ type: 'VALID', payload: res.data.userName });
+          return;
+        }
       })
       .catch(() => {
         dispatch({ type: 'INVALID' });

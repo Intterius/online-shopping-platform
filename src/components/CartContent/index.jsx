@@ -22,7 +22,7 @@ const CartContent = () => {
   });
 
   const checkSroll = () => {
-    if (productList.length >= 4) {
+    if (productList.length > 4) {
       return { maxHeight: 400, overflow: 'auto' };
     }
   };

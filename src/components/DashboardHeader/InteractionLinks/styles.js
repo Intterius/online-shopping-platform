@@ -96,7 +96,7 @@ const useStyles = makeStyles((theme) => ({
     zIndex: '5',
     width: '350px',
     color: '#444444',
-    fontFamily: 'Roboto, sans-serif',
+    fontFamily: theme.fontFamily.main,
     textAlign: 'center',
     padding: theme.spacing(2, 0),
     position: 'absolute',

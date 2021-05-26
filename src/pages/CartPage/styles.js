@@ -68,7 +68,7 @@ const useStyles = makeStyles((theme) => ({
     fontWeight: '300',
     fontSize: theme.spacing(2),
     lineHeight: 1.7,
-    fontFamily: 'Roboto, sans-serif',
+    fontFamily: theme.fontFamily.main,
     marginBottom: theme.spacing(1.2),
     color: '#000',
     '&:hover': {
@@ -81,7 +81,7 @@ const useStyles = makeStyles((theme) => ({
     fontWeight: '300',
     fontSize: theme.spacing(2),
     lineHeight: 1.7,
-    fontFamily: 'Roboto, sans-serif',
+    fontFamily: theme.fontFamily.main,
     fontStyle: 'italic',
     marginBottom: theme.spacing(2),
   },
