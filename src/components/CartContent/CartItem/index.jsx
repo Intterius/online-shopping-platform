@@ -8,8 +8,8 @@ import {
   removeItemAsGuest,
   removeItemAsUser,
 } from '../../../redux/reducers/cartReducer';
-import { cartRequest } from '../../../utils/requestInterceptor';
-import {  url } from '../../../utils/baseUrl';
+import {  interceptorRequest } from '../../../utils/requestInterceptor';
+import { url } from '../../../utils/baseUrl';
 
 const CartItem = ({ id, image, title, price, quantity, measure }) => {
   const classes = useStyles();
@@ -18,7 +18,7 @@ const CartItem = ({ id, image, title, price, quantity, measure }) => {
 
   const removeItem = () => {
     if (user) {
-      cartRequest.delete(`${url}/cart?product_id=${id}`);
+      interceptorRequest.delete(`${url}/cart?product_id=${id}`);
       dispatch(removeItemAsUser(id));
     } else {
       dispatch(removeItemAsGuest(id));
@@ -38,7 +38,7 @@ const CartItem = ({ id, image, title, price, quantity, measure }) => {
             </Link>
             <p className={classes.priceAndQuantity}>
               {quantity}{' '}
-              {measure === 'KG' ? 'kg' : quantity > 1 ? 'packs' : 'pack'} x $
+              {measure === 'kg' ? 'kg' : quantity > 1 ? 'packs' : 'pack'} x $
               {price} USD
             </p>
           </Box>

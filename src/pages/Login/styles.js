@@ -35,7 +35,7 @@ const useStyles = makeStyles((theme) => ({
   createAccBtn: {
     color: theme.palette.common.black,
     transition: '0.3s ease-in-out',
-    fontFamily: 'Roboto, sans-serif',
+    fontFamily: theme.fontFamily.main,
     '&:hover': {
       color: theme.palette.primary.main,
     },
@@ -44,7 +44,7 @@ const useStyles = makeStyles((theme) => ({
     color: theme.palette.common.black,
     textDecoration: 'none',
     transition: '0.3s ease-in-out',
-    fontFamily: 'Roboto, sans-serif',
+    fontFamily: theme.fontFamily.main,
     '&:hover': {
       color: theme.palette.primary.main,
       textDecoration: 'none',

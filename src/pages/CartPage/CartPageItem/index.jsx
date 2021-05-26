@@ -8,19 +8,21 @@ import {
 } from '../../../redux/reducers/cartReducer';
 import { removePrice } from '../../../redux/reducers/cartPriceReducer';
 import { url } from '../../../utils/baseUrl';
-import { cartRequest } from '../../../utils/requestInterceptor';
+import {  interceptorRequest } from '../../../utils/requestInterceptor';
 import ClearIcon from '@material-ui/icons/Clear';
 import RemoveIcon from '@material-ui/icons/Remove';
 import AddIcon from '@material-ui/icons/Add';
 
 const CartPageItem = ({
+  removeProduct,
   id,
   image,
   title,
   amount,
   measure,
   price,
-  updateCart,
+  updateProduct,
+  stock,
 }) => {
   const classes = useStyles();
   const [quantity, setQuantity] = useState(amount);
@@ -39,7 +41,7 @@ const CartPageItem = ({
 
   const removeItem = () => {
     if (user) {
-      cartRequest.delete(`${url}/cart?product_id=${id}`);
+      interceptorRequest.delete(`${url}/cart?product_id=${id}`);
       dispatch(removeItemAsUser(id));
     } else {
       dispatch(removeItemAsGuest(id));
@@ -47,7 +49,7 @@ const CartPageItem = ({
   };
 
   useEffect(() => {
-    updateCart({ id, quantity });
+    updateProduct({ id, quantity });
   }, [quantity]);
 
   return (
@@ -56,6 +58,7 @@ const CartPageItem = ({
         <ClearIcon
           className={classes.removeItem}
           onClick={() => {
+            removeProduct(true);
             dispatch(removePrice(price * amount));
             removeItem();
           }}
@@ -88,7 +91,7 @@ const CartPageItem = ({
               />
             </Box>
             <IconButton
-              disabled={quantity === 99 ? true : false}
+              disabled={quantity >= stock || quantity === 99 ? true : false}
               className={classes.increment}
               onClick={() => setQuantity(quantity + 1)}
             >

@@ -7,7 +7,7 @@ const useStyles = makeStyles((theme) => ({
   },
   priceDescription: {
     fontSize: theme.spacing(2.5),
-    fontFamily: 'Roboto, sans-serif',
+    fontFamily: theme.fontFamily.main,
     margin: 0,
     paddingTop: theme.spacing(1.8),
     marginBottom: theme.spacing(2.5),

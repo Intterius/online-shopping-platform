@@ -1,37 +1,46 @@
-import { Button } from '@material-ui/core';
+import { Button, Snackbar } from '@material-ui/core';
 import { Link } from 'react-router-dom';
 import { useStyles } from './styles';
 import { useDispatch, useSelector } from 'react-redux';
-import { useState } from 'react';
+import { useMemo, useState } from 'react';
 import { updateCartAsGuest } from '../../redux/reducers/cartReducer';
 import { updatePrice } from '../../redux/reducers/cartPriceReducer';
-import { cartRequest } from '../../utils/requestInterceptor';
-import {  url } from '../../utils/baseUrl';
+import {  interceptorRequest } from '../../utils/requestInterceptor';
+import { url } from '../../utils/baseUrl';
+import { Alert } from '@material-ui/lab';
 import DescriptiveAccountHeader from '../../components/DescriptiveAccountHeader';
 import DashboardHeader from '../../components/DashboardHeader';
 import CartPageItem from './CartPageItem';
 
 const CartPage = () => {
+  const [showSuccess, setShowSuccess] = useState(false);
+  const [showRemove, setShowRemove] = useState(false);
+
   const classes = useStyles();
   const items = useSelector((state) => state.cartReducer);
   const totalSum = useSelector((state) => state.cartPriceReducer);
   const { user } = useSelector((state) => state.tokenReducer);
   const dispatch = useDispatch();
   const [update, setUpdate] = useState({ id: '', quantity: '' });
-  const [updatedItems, setUpdatedItems] = useState([]);
+  const [updatedCart, setUpdatedCart] = useState([...items]);
 
-  const updatedChildren = items.map((item) => {
-    if (item.id === update.id && item.quantity !== update.quantity) {
-      item.quantity = update.quantity;
-      setUpdatedItems([item, ...updatedItems]);
+  useMemo(() => {
+    const result = updatedCart.map((item) => {
+      if (item.id === update.id) {
+        const updatedItem = { ...item };
+        updatedItem.quantity = update.quantity;
+        return updatedItem;
+      }
       return item;
-    }
-    return item;
-  });
+    });
+    setUpdatedCart(result);
+  }, [update]);
 
   const cartContent = items.map((item) => (
     <CartPageItem
-      updateCart={(update) => setUpdate(update)}
+      removeProduct={(status) => setShowRemove(status)}
+      stock={item.quantityInStock}
+      updateProduct={(update) => setUpdate(update)}
       key={item.id}
       id={item.id}
       image={item.imagesSet[0].url}
@@ -44,12 +53,17 @@ const CartPage = () => {
 
   const updateCart = () => {
     if (user) {
-      cartRequest
-        .put(`${url}/cart`, updatedItems)
-        .then(() => window.location.reload());
+      interceptorRequest.put(`${url}/cart`, updatedCart).then(() => {
+        setShowSuccess(true);
+        setTimeout(() => {
+          window.location.reload();
+        }, 1000);
+      });
+      return;
     }
-    dispatch(updateCartAsGuest(updatedChildren));
-    dispatch(updatePrice(updatedChildren));
+    dispatch(updateCartAsGuest(updatedCart));
+    dispatch(updatePrice(updatedCart));
+    setShowSuccess(true);
   };
 
   return (
@@ -90,10 +104,28 @@ const CartPage = () => {
             <div className={classes.details}>
               Shipping, taxes, and discounts will be calculated at checkout.
             </div>
-            <Button className={classes.checkout}>Proceed To Checkout</Button>
+            <Link style={{ textDecoration: 'none' }} to={'/checkout'}>
+              <Button className={classes.checkout}>Proceed To Checkout</Button>
+            </Link>
           </div>
         </div>
       </div>
+      <Snackbar
+        open={showSuccess}
+        onClose={() => setShowSuccess(false)}
+        autoHideDuration={3000}
+        anchorOrigin={{ vertical: 'bottom', horizontal: 'right' }}
+      >
+        <Alert severity='success'>Cart successfully updated!</Alert>
+      </Snackbar>
+      <Snackbar
+        open={showRemove}
+        onClose={() => setShowRemove(false)}
+        autoHideDuration={3000}
+        anchorOrigin={{ vertical: 'bottom', horizontal: 'right' }}
+      >
+        <Alert severity='error'>Product successfully removed from cart!</Alert>
+      </Snackbar>
     </>
   );
 };

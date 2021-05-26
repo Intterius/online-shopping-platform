@@ -25,7 +25,7 @@ const CartPrices = () => {
           className={classes.buttonsBox}
         >
           <Button startIcon={<DoneIcon />} className={classes.buttonContent}>
-            <Link to={'#'} className={classes.link}>
+            <Link to={'/checkout'} className={classes.link}>
               Checkout
             </Link>
           </Button>
