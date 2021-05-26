@@ -60,44 +60,35 @@ export default function AdministrationPanel() {
     }
     setState({ ...state, [anchor]: open });
   };
-
-  const list = (anchor) => (
-    <div
-      className={clsx(classes.list, {
-        [classes.fullList]: anchor === 'top' || anchor === 'bottom',
-      })}
-      role='presentation'
-      onClick={toggleDrawer(anchor, false)}
-      onKeyDown={toggleDrawer(anchor, false)}
-    >
-      <Box className={classes.logo}>
-        <img src={logo} alt='logo' />
-      </Box>
-      <Divider />
-      <List>
-        {['Dashboard', 'Products', 'Users'].map((text, index) => (
-          <Link
-            key={index}
-            style={{ textDecoration: 'none' }}
-            to={'/admin-dashboard'}
-          >
-            <ListItem className={classes.btn} button>
-              <ListItemIcon>
-                {index === 0 ? (
-                  <PollIcon className={classes.icons} />
-                ) : index === 1 ? (
-                  <FastfoodIcon className={classes.icons} />
-                ) : (
-                  <PeopleIcon className={classes.icons} />
-                )}
-              </ListItemIcon>
-              <ListItemText primary={text} />
-            </ListItem>
-          </Link>
-        ))}
-      </List>
-    </div>
-  );
+  
+    const list = (anchor) => (
+        <div
+            className={clsx(classes.list, {
+                [classes.fullList]: anchor === 'top' || anchor === 'bottom',
+            })}
+            role="presentation"
+            onClick={toggleDrawer(anchor, false)}
+            onKeyDown={toggleDrawer(anchor, false)}
+        >
+            <Box className={classes.logo}>
+                <img src={logo} alt="logo"/>
+            </Box>
+            <Divider/>
+            <List>
+                {['Dashboard', 'Products', 'Users'].map((text, index) => (
+                    <Link key={index} style={{textDecoration: "none"}} to={'/admin-dashboard'}>
+                        <ListItem className={classes.btn} button>
+                            <ListItemIcon>{index === 0 ? <PollIcon className={classes.icons}/>
+                                : index === 1 ? <FastfoodIcon className={classes.icons}/>
+                                    : <PeopleIcon className={classes.icons}/>
+                            }</ListItemIcon>
+                            <ListItemText primary={text}/>
+                        </ListItem>
+                    </Link>
+                ))}
+            </List>
+        </div>
+    );
 
   return (
     <div>

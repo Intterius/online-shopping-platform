@@ -4,6 +4,7 @@ import { combineReducers } from 'redux';
 import { productPathReducer } from './productPathReducer';
 import { getProductIdReducer } from './getProductIdReducer';
 import { cartPriceReducer } from './cartPriceReducer';
+import {userRoleReducer} from "./userRoleReducer";
 
 const rootReducer = combineReducers({
   cartReducer,
@@ -11,6 +12,7 @@ const rootReducer = combineReducers({
   productPathReducer,
   getProductIdReducer,
   cartPriceReducer,
+  userRoleReducer
 });
 
 export default rootReducer;

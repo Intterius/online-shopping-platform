@@ -1,3 +1,4 @@
+
 import React, { useEffect, useState } from 'react';
 import { CircularProgress, Box, makeStyles } from '@material-ui/core';
 import DashboardHeader from '../../../components/DashboardHeader';
@@ -26,24 +27,28 @@ const AdminDashboard = () => {
   const [popularProducts, setPopularProducts] = useState(['']);
   const [unpopularProducts, setUnpopularProducts] = useState(['']);
   const [userList, setUserList] = useState(['']);
-
-  useEffect(() => {
-    interceptorRequest
-      .get(`${url}/admin/popularProducts?orderDesc=true`)
-      .then((res) => {
-        let popular = [...res.data];
-        let unpopular = [...res.data];
-        setPopularProducts(popular.splice(0, 10));
-        setUnpopularProducts(unpopular.splice(-10));
-      })
-      .catch((err) => console.error(err));
-    interceptorRequest
-      .get(`${url}/admin/users`)
-      .then((res) => {
-        setUserList(res.data);
-      })
-      .catch((err) => console.error(err));
-  }, []);
+  
+    useEffect(() => {
+        interceptorRequest
+            .get(
+                `${url}/admin/popularProducts?orderDesc=true`
+            )
+            .then((res) => {
+                let popular = [...res.data];
+                let unpopular = [...res.data];
+                setPopularProducts(popular.splice(0, 10));
+                setUnpopularProducts(unpopular.splice(-10))
+            })
+            .catch((err) => console.error(err));
+        interceptorRequest
+            .get(
+                `${url}/admin/users`
+            )
+            .then((res) => {
+               setUserList(res.data);
+            })
+            .catch((err) => console.error(err));
+    }, []);
 
   return (
     <>
