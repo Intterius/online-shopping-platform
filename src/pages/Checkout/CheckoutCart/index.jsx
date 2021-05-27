@@ -28,7 +28,7 @@ const CheckoutCart = () => {
         <div className={classes.overviewDetails}>
           <div className={classes.priceDetails}>
             <span className={classes.detailsTitle}>Subtotal</span>
-            <span className={classes.price}>${finalPrice}</span>
+            <span className={classes.price}>${finalPrice.toFixed(2)}</span>
           </div>
           <div className={classes.priceDetails}>
             <span className={classes.detailsTitle}>Shipping</span>
@@ -39,7 +39,7 @@ const CheckoutCart = () => {
           <span className={classes.total}>Total</span>
           <div>
             <span className={classes.currency}>USD</span>
-            <span className={classes.finalPrice}>${finalPrice}</span>
+            <span className={classes.finalPrice}>${finalPrice.toFixed(2)}</span>
           </div>
         </div>
       </div>
