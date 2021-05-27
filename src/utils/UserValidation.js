@@ -38,7 +38,7 @@ const useUserValidation = () => {
       })
       .catch(() => {
         dispatch({ type: 'INVALID' });
-      });
+     });
   }
 };
 
