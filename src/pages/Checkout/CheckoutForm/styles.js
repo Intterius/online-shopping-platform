@@ -10,7 +10,7 @@ const useStyles = makeStyles((theme) => ({
   },
 
   formBox: {
-    width: '76%',
+    width: theme.spacing(71.5),
     float: 'right',
     display: 'grid',
   },
@@ -43,6 +43,7 @@ const useStyles = makeStyles((theme) => ({
 
   form: {
     marginTop: theme.spacing(3),
+    marginBottom: theme.spacing(6),
   },
 
   info: {
@@ -56,15 +57,6 @@ const useStyles = makeStyles((theme) => ({
     fontFamily: theme.fontFamily.main,
     fontSize: theme.spacing(2.2),
     fontWeight: '400',
-  },
-
-  alreadyText: {
-    fontFamily: theme.fontFamily.main,
-    fontSize: theme.spacing(1.8),
-    color: '#545454',
-    fontWeight: '400',
-    display: 'flex',
-    paddingTop: theme.spacing(0.4),
   },
 
   login: {
@@ -84,7 +76,7 @@ const useStyles = makeStyles((theme) => ({
     },
   },
 
-  keep: {
+  check: {
     fontFamily: theme.fontFamily.main,
     color: '#545454',
     fontWeight: '300',
@@ -107,6 +99,45 @@ const useStyles = makeStyles((theme) => ({
     display: 'grid',
     gridGap: theme.spacing(1.7),
     gridTemplateColumns: '1fr 1fr',
+  },
+
+  btnBox: {
+    marginTop: theme.spacing(2),
+    display: 'flex',
+    alignItems: 'center',
+  },
+
+  submitBtn: {
+    borderRadius: theme.spacing(0.6),
+    padding: theme.spacing(2, 4),
+    background: theme.palette.primary.main,
+    color: theme.palette.common.white,
+    fontFamily: theme.fontFamily.main,
+    transition: '0.3s ease-in-out',
+    '&:hover': {
+      background: theme.palette.secondary.main,
+    },
+  },
+
+  returnBtn: {
+    marginLeft: theme.spacing(3),
+    textDecoration: 'none',
+    color: theme.palette.primary.main,
+    fontFamily: theme.fontFamily.main,
+    fontSize: theme.spacing(1.8),
+    transition: '0.3s ease-in-out',
+    '&:hover': {
+      color: theme.palette.secondary.main,
+    },
+  },
+
+  rights: {
+    padding: theme.spacing(2.3, 0),
+    fontFamily: theme.fontFamily.main,
+    fontSize: theme.spacing(1.5),
+    color: '#737373',
+    fontWeight: '300',
+    borderTop: '1px solid #e6e6e6',
   },
 }));
 

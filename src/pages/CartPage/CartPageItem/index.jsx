@@ -14,6 +14,7 @@ import RemoveIcon from '@material-ui/icons/Remove';
 import AddIcon from '@material-ui/icons/Add';
 
 const CartPageItem = ({
+  removedId,
   removeProduct,
   id,
   image,
@@ -30,12 +31,13 @@ const CartPageItem = ({
   const dispatch = useDispatch();
 
   const handleInput = (e) => {
-    if (e.target.value > 99) {
+    let value = e.target.value;
+    if (value > 99) {
       return setQuantity(99);
-    } else if (e.target.value < 1) {
+    } else if (value < 1) {
       return setQuantity(1);
-    } else if (e.target.value[0] !== '0') {
-      return setQuantity(Number(e.target.value));
+    } else if (/^\d+$/.test(value) && value < stock) {
+      return setQuantity(Number(value));
     }
   };
 
@@ -59,6 +61,7 @@ const CartPageItem = ({
           className={classes.removeItem}
           onClick={() => {
             removeProduct(true);
+            removedId(id);
             dispatch(removePrice(price * amount));
             removeItem();
           }}
@@ -84,7 +87,7 @@ const CartPageItem = ({
               <input
                 onChange={handleInput}
                 className={classes.input}
-                type='number'
+                type='text'
                 min='1'
                 max='99'
                 value={quantity}

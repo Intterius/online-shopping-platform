@@ -1,6 +1,7 @@
 import { useStyles } from './styles';
 import {
   Breadcrumbs,
+  Button,
   Checkbox,
   FormControlLabel,
   TextField,
@@ -8,6 +9,7 @@ import {
 import { Link } from 'react-router-dom';
 import { Autocomplete } from '@material-ui/lab';
 import { useState } from 'react';
+import { countries } from '../../../utils/countries';
 import NavigateNextIcon from '@material-ui/icons/NavigateNext';
 import logo from '../../../components/DashboardHeader/InteractionLinks/logo.png';
 
@@ -20,117 +22,10 @@ const CheckoutForm = () => {
     return result.length ? result[0].cities : [];
   };
 
-  const countries = [
-    {
-      country: 'Belarus',
-      cities: [
-        'Borisov',
-        'Dzerzhinsk',
-        'Mar’ina Gorka',
-        'Minsk',
-        'Molodechno',
-        'Soligorsk',
-        'Slutsk',
-        'Stolbtsy',
-        'Vileyka',
-        'Zhodino',
-      ],
-    },
-    {
-      country: 'Czech Republic',
-      cities: [
-        'Brno',
-        'České Budějovice',
-        'Hradec Králové',
-        'Liberec',
-        'Olomuc',
-        'Ostrava',
-        'Pardubice',
-        'Prague',
-        'Plzeň',
-        'Ústí nad Labem',
-      ],
-    },
-    {
-      country: 'Latvia',
-      cities: [
-        'Daugavpils',
-        'Jēkabpils',
-        'Jelgava',
-        'Jūrmala',
-        'Liepāja',
-        'Ogre',
-        'Rēzekne',
-        'Riga',
-        'Valmiera',
-        'Ventspils',
-      ],
-    },
-    {
-      country: 'Republic of Moldova',
-      cities: [
-        'Bălți',
-        'Bender (Tighina)',
-        'Cahul',
-        'Chișinău',
-        'Comrat',
-        'Orhei',
-        'Rîbnița',
-        'Soroca',
-        'Tiraspol',
-        'Ungheni',
-      ],
-    },
-    {
-      country: 'Romania',
-      cities: [
-        'Brașov',
-        'Bucharest',
-        'Cluj-Napoca',
-        'Constanța',
-        'Craiova',
-        'Galați',
-        'Iași',
-        'Oradea',
-        'Timișoara',
-        'Ploiești',
-      ],
-    },
-    {
-      country: 'Russian Federation',
-      cities: [
-        'Chelyabinks',
-        'Kazan',
-        'Moscow',
-        'Nizhny Novgorod',
-        'Novosibirsk',
-        'Omsk',
-        'Rostov-on-Don',
-        'Saint Petersburg',
-        'Samara',
-        'Yekaterinburg',
-      ],
-    },
-    {
-      country: 'Ukraine',
-      cities: [
-        'Dnipro',
-        'Donetsk',
-        'Kharkiv',
-        'Kryvyi Rih',
-        'Kyiv',
-        'Lviv',
-        'Mariupol',
-        'Mykolaiv',
-        'Odesa',
-        'Zaporizhzhia',
-      ],
-    },
-  ];
   return (
     <div className={classes.formContainer}>
       <div className={classes.formBox}>
-        <Link to={'/home'}>
+        <Link to={'/home'} style={{ width: '150px' }}>
           <img src={logo} alt='grocery-logo' className={classes.logo} />
         </Link>
         <Breadcrumbs
@@ -150,12 +45,6 @@ const CheckoutForm = () => {
         <form className={classes.form}>
           <div className={classes.info}>
             <div className={classes.infoText}>Contact information</div>
-            <div className={classes.alreadyText}>
-              Already have an account?{' '}
-              <Link to='/account/login' className={classes.login}>
-                Log In
-              </Link>
-            </div>
           </div>
           <TextField
             className={classes.input}
@@ -185,7 +74,7 @@ const CheckoutForm = () => {
           <FormControlLabel
             control={<Checkbox color='primary' />}
             label={
-              <span className={classes.keep}>
+              <span className={classes.check}>
                 Keep me up to date on news and exclusive offers
               </span>
             }
@@ -381,7 +270,26 @@ const CheckoutForm = () => {
               )}
             />
           </div>
+          <FormControlLabel
+            control={<Checkbox color='primary' />}
+            label={
+              <span className={classes.check}>
+                Save this information for next time
+              </span>
+            }
+          />
+          <div className={classes.btnBox}>
+            <Button className={classes.submitBtn} type='submit'>
+              Finish checkout
+            </Button>
+            <Link className={classes.returnBtn} to='/cart'>
+              Return to cart
+            </Link>
+          </div>
         </form>
+        <div className={classes.rights}>
+          All rights reserved by Endava's Interns.
+        </div>
       </div>
     </div>
   );

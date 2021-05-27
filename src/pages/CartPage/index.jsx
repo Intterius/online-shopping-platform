@@ -13,10 +13,10 @@ import DashboardHeader from '../../components/DashboardHeader';
 import CartPageItem from './CartPageItem';
 
 const CartPage = () => {
+  const classes = useStyles();
   const [showSuccess, setShowSuccess] = useState(false);
   const [showRemove, setShowRemove] = useState(false);
-
-  const classes = useStyles();
+  const [removedId, setRemovedId] = useState('');
   const items = useSelector((state) => state.cartReducer);
   const totalSum = useSelector((state) => state.cartPriceReducer);
   const { user } = useSelector((state) => state.tokenReducer);
@@ -33,11 +33,12 @@ const CartPage = () => {
       }
       return item;
     });
-    setUpdatedCart(result);
-  }, [update]);
+    setUpdatedCart(result.filter((item) => item.id !== removedId));
+  }, [update, items]);
 
   const cartContent = items.map((item) => (
     <CartPageItem
+      removedId={(id) => setRemovedId(id)}
       removeProduct={(status) => setShowRemove(status)}
       stock={item.quantityInStock}
       updateProduct={(update) => setUpdate(update)}
