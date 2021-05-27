@@ -105,6 +105,7 @@ const useStyles = makeStyles((theme) => ({
   },
 
   input: {
+    width: theme.spacing(5),
     background: theme.palette.common.white,
     borderRadius: theme.spacing(0),
     border: `1px solid rgba(0,0,0,.15)`,
@@ -113,7 +114,6 @@ const useStyles = makeStyles((theme) => ({
     paddingRight: theme.spacing(1),
     paddingLeft: theme.spacing(1),
     '&:focus': {
-      // outline: `1px solid ${theme.palette.primary.main}`,
       outline: `none`,
     },
     '&[type=number]': {

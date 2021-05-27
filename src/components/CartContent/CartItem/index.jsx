@@ -8,7 +8,7 @@ import {
   removeItemAsGuest,
   removeItemAsUser,
 } from '../../../redux/reducers/cartReducer';
-import {  interceptorRequest } from '../../../utils/requestInterceptor';
+import { interceptorRequest } from '../../../utils/requestInterceptor';
 import { url } from '../../../utils/baseUrl';
 
 const CartItem = ({ id, image, title, price, quantity, measure }) => {
