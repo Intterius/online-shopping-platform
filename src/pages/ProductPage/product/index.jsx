@@ -40,29 +40,29 @@ const Product = ({product}) => {
         setSize(1)
     };
 
-    useEffect(()=>{
-        if(quantity<1){
+    useEffect(() => {
+        if (quantity < 1) {
             setQuantity(1);
             setPosition({...position, open: true});
             setMessage("Quantity should be at least 1");
         }
         if (quantity * size > product.quantityInStock) {
-            if(Math.floor( product.quantityInStock / size) < 99){
-                setQuantity(Math.floor( product.quantityInStock / size))
+            if (Math.floor(product.quantityInStock / size) < 99) {
+                setQuantity(Math.floor(product.quantityInStock / size))
                 setPosition({...position, open: true});
                 setMessage("We are sorry but our current amount of " + product.title + " is " + product.quantityInStock + " kg");
-            }else{
+            } else {
                 setQuantity(99)
                 setPosition({...position, open: true});
                 setMessage("Quantity can not be more than 99");
             }
         }
-        if (quantity> 99) {
+        if (quantity > 99) {
             setQuantity(99)
             setPosition({...position, open: true});
             setMessage("Quantity can not be more than 99");
         }
-    },[quantity, product.quantityInStock, size, position, product.title])
+    }, [quantity, product.quantityInStock, size, position, product.title])
 
 
     const handleIncrement = () => {
@@ -73,10 +73,10 @@ const Product = ({product}) => {
         setQuantity(quantity - 1)
     }
 
-    const handleInput = (e)=>{
-        if (e.target.value[0] !== '0') {
-            return setQuantity(Number(e.target.value));
-        }
+    const handleInput = (e) => {
+        // if (e.target.value[0] !== '0') {
+        //
+        // }
         if (Number(e.target.value) < 1) {
             setQuantity(1);
             setPosition({...position, open: true});
@@ -85,11 +85,11 @@ const Product = ({product}) => {
         }
         if (Number(e.target.value) * size > product.quantityInStock) {
             console.log("not in stock")
-            if(Math.floor( product.quantityInStock / size) < 99){
-                setQuantity(Math.floor( product.quantityInStock / size))
+            if (Math.floor(product.quantityInStock / size) < 99) {
+                setQuantity(Math.floor(product.quantityInStock / size))
                 setPosition({...position, open: true});
                 setMessage("We are sorry but our current amount of " + product.title + " is " + product.quantityInStock + " kg");
-            }else{
+            } else {
                 setQuantity(99)
                 setPosition({...position, open: true});
                 setMessage("Quantity can not be more than 99");
@@ -100,13 +100,16 @@ const Product = ({product}) => {
             setQuantity(99)
             setPosition({...position, open: true});
             setMessage("Quantity can not be more than 99");
+            return;
         }
-
+        if(/^\d+$/.test(e.target.value)){
+            return setQuantity(Number(e.target.value));
+        }
     }
 
     return (
         <>
-            <DashboardHeader />
+            <DashboardHeader/>
             <DescriptiveAccountHeader title={product.title}/>
             <Box className={classes.container}>
                 <Box className={classes.image}>
@@ -140,12 +143,12 @@ const Product = ({product}) => {
                                 setSize(1);
                             }}
                                  className={(size === 1) ? classes.selected : classes.sizeBox}>1 {product.measureUnit}</Box>
-                            <Box onClick={() =>{
+                            <Box onClick={() => {
                                 setQuantity(1);
                                 setSize(3);
                             }}
                                  className={(size === 3) ? classes.selected : classes.sizeBox}>3 {(product.measureUnit === "pack") ? product.measureUnit + "s" : product.measureUnit}</Box>
-                            <Box onClick={() =>{
+                            <Box onClick={() => {
                                 setQuantity(1);
                                 setSize(5);
 
@@ -158,14 +161,15 @@ const Product = ({product}) => {
                         <Box className={classes.quantitySpiner}>
                             <Box onClick={handleDecrement} className={classes.quantityBox}>-</Box>
                             <input style={{borderLeft: "0", borderRight: "0"}}
-                                 className={classes.inputBox}
+                                   className={classes.inputBox}
                                    onChange={handleInput}
                                    value={quantity}
-                                   type="number"
+                                   // type="number"
                                    min={1}
                                    max={99}
                             />
-                            <Box onClick={handleIncrement} className={quantity * size > product.quantityInStock? classes.quantityBoxLimit : classes.quantityBox}>+</Box>
+                            <Box onClick={handleIncrement}
+                                 className={quantity * size > product.quantityInStock ? classes.quantityBoxLimit : classes.quantityBox}>+</Box>
                         </Box>
                     </Box>
                     <Box className={classes.quantity}>
