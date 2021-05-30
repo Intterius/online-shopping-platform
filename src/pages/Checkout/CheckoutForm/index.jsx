@@ -10,16 +10,48 @@ import { Link } from 'react-router-dom';
 import { Autocomplete } from '@material-ui/lab';
 import { useState } from 'react';
 import { countries } from '../../../utils/countries';
+import { useFormValidation } from '../../../utils/FormValidation';
 import NavigateNextIcon from '@material-ui/icons/NavigateNext';
 import logo from '../../../components/DashboardHeader/InteractionLinks/logo.png';
+import FormDialog from './FormDialog';
+import { useSelector } from 'react-redux';
 
 const CheckoutForm = () => {
   const classes = useStyles();
+  const items = useSelector((state) => state.cartReducer);
   const [country, setCountry] = useState('');
+  const [city, setCity] = useState('');
+  const [fields, setValues] = useFormValidation({
+    email: '',
+    phoneNumber: '',
+    postalCode: '',
+    firstName: '',
+    lastName: '',
+  });
+  const [checkNews, setCheckNews] = useState(false);
+  const [checkSaveInfo, setCheckSaveInfo] = useState(false);
+  const [showDialog, setShowDialog] = useState(false);
+
+  const handleNumberInput = (e) => {
+    if (/^\d*$/.test(e.target.value)) {
+      return setValues(e);
+    }
+  };
+
+  const handleCharInput = (e) => {
+    if (/^[a-zA-Z]*$/.test(e.target.value)) {
+      return setValues(e);
+    }
+  };
 
   const handleCountry = () => {
     const result = countries.filter((item) => item.country === country);
     return result.length ? result[0].cities : [];
+  };
+
+  const handleSubmit = (e) => {
+    e.preventDefault();
+    setShowDialog(true);
   };
 
   return (
@@ -42,11 +74,12 @@ const CheckoutForm = () => {
           </Link>
           <div className={classes.checkout}>Checkout</div>
         </Breadcrumbs>
-        <form className={classes.form}>
+        <form className={classes.form} onSubmit={handleSubmit}>
           <div className={classes.info}>
             <div className={classes.infoText}>Contact information</div>
           </div>
           <TextField
+            onChange={setValues}
             className={classes.input}
             InputLabelProps={{
               style: {
@@ -70,9 +103,17 @@ const CheckoutForm = () => {
             autoFocus
             autoComplete='email'
             type='email'
+            error={fields.email.error ? true : false}
+            helperText={fields.email.error}
           />
           <FormControlLabel
-            control={<Checkbox color='primary' />}
+            control={
+              <Checkbox
+                color='primary'
+                checked={checkNews}
+                onChange={(e) => setCheckNews(e.target.checked)}
+              />
+            }
             label={
               <span className={classes.check}>
                 Keep me up to date on news and exclusive offers
@@ -83,7 +124,9 @@ const CheckoutForm = () => {
             <span className={classes.infoText}>Shipping Address</span>
             <div className={classes.userName}>
               <TextField
+                onChange={handleCharInput}
                 className={classes.input}
+                value={fields.firstName}
                 InputLabelProps={{
                   style: {
                     height: 45,
@@ -95,18 +138,22 @@ const CheckoutForm = () => {
                     height: 45,
                     padding: '0 16px',
                   },
+                  maxLength: 20,
+                  minLength: 4,
                 }}
                 variant='outlined'
                 margin='normal'
-                id='first-name'
+                id='firstName'
                 required
                 label='First name'
-                name='firts-name'
-                autoComplete='first-name'
+                name='firstName'
+                autoComplete='firstName'
                 type='text'
               />
               <TextField
+                onChange={handleCharInput}
                 className={classes.input}
+                value={fields.lastName}
                 InputLabelProps={{
                   style: {
                     height: 45,
@@ -121,14 +168,16 @@ const CheckoutForm = () => {
                 }}
                 variant='outlined'
                 margin='normal'
-                id='last-name'
+                id='lastName'
                 label='Last name (optional)'
-                name='last-name'
-                autoComplete='last-name'
+                name='lastName'
+                autoComplete='lastName'
                 type='text'
               />
             </div>
             <TextField
+              onChange={handleNumberInput}
+              value={fields.phoneNumber}
               className={classes.input}
               InputLabelProps={{
                 style: {
@@ -141,17 +190,20 @@ const CheckoutForm = () => {
                   height: 45,
                   padding: '0 16px',
                 },
+                maxLength: 10,
+                minLength: 6,
               }}
               required
               variant='outlined'
               margin='normal'
-              id='phone-number'
+              id='phoneNumber'
               label='Phone number'
-              name='phone-number'
-              autoComplete='phone-number'
+              name='phoneNumber'
+              autoComplete='phoneNumber'
               type='text'
             />
             <TextField
+              onChange={setValues}
               className={classes.input}
               InputLabelProps={{
                 style: {
@@ -168,14 +220,16 @@ const CheckoutForm = () => {
               required
               variant='outlined'
               margin='normal'
-              id='user-address'
+              id='userAddress'
               label='Address'
-              name='user-address'
-              autoComplete='user-address'
+              name='userAddress'
+              autoComplete='userAddress'
               type='text'
             />
             <div className={classes.userLocation}>
               <TextField
+                onChange={handleNumberInput}
+                value={fields.postalCode}
                 className={classes.input}
                 InputLabelProps={{
                   style: {
@@ -188,18 +242,21 @@ const CheckoutForm = () => {
                     height: 45,
                     padding: '0 16px',
                   },
+                  maxLength: 8,
+                  minLength: 4,
                 }}
                 variant='outlined'
                 margin='normal'
-                id='postal-code'
+                id='postalCode'
                 required
                 label='Postal code'
-                name='postal-code'
-                autoComplete='postal-code'
+                name='postalCode'
+                autoComplete='postalCode'
                 type='text'
               />
               <Autocomplete
                 id='city-select'
+                onChange={(event, value) => setCity(value)}
                 key={country}
                 options={handleCountry()}
                 autoHighlight
@@ -271,7 +328,13 @@ const CheckoutForm = () => {
             />
           </div>
           <FormControlLabel
-            control={<Checkbox color='primary' />}
+            control={
+              <Checkbox
+                color='primary'
+                checked={checkSaveInfo}
+                onChange={(e) => setCheckSaveInfo(e.target.checked)}
+              />
+            }
             label={
               <span className={classes.check}>
                 Save this information for next time
@@ -279,7 +342,11 @@ const CheckoutForm = () => {
             }
           />
           <div className={classes.btnBox}>
-            <Button className={classes.submitBtn} type='submit'>
+            <Button
+              disabled={!items.length ? true : false}
+              className={classes.submitBtn}
+              type='submit'
+            >
               Finish checkout
             </Button>
             <Link className={classes.returnBtn} to='/cart'>
@@ -291,6 +358,7 @@ const CheckoutForm = () => {
           All rights reserved by Endava's Interns.
         </div>
       </div>
+      <FormDialog open={showDialog} />
     </div>
   );
 };

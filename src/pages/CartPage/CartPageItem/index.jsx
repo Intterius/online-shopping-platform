@@ -12,6 +12,7 @@ import { interceptorRequest } from '../../../utils/requestInterceptor';
 import ClearIcon from '@material-ui/icons/Clear';
 import RemoveIcon from '@material-ui/icons/Remove';
 import AddIcon from '@material-ui/icons/Add';
+import { Alert } from '@material-ui/lab';
 
 const CartPageItem = ({
   removedId,
@@ -56,6 +57,11 @@ const CartPageItem = ({
 
   return (
     <div id={id}>
+      {!quantity && (
+        <Alert style={{ marginBottom: '10px' }} severity='error'>
+          Out of stock
+        </Alert>
+      )}
       <div className={classes.container}>
         <ClearIcon
           className={classes.removeItem}
