@@ -12,6 +12,7 @@ const CheckoutCart = () => {
 
   const cartContent = items.map((item) => (
     <CheckoutCartItem
+      key={item.id}
       id={item.id}
       image={item.imagesSet[0].url}
       title={item.title}
