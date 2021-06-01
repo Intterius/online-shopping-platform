@@ -53,5 +53,28 @@ export const useStyles = makeStyles((theme) => ({
         fontSize: theme.spacing(2.5),
         fontWeight: "bold",
         margin: theme.spacing(0.6, 0)
+    },
+    iconsContainer:{
+        display: "flex",
+        position: "absolute",
+        color: theme.palette.primary.main
+
+    },
+    icons:{
+        height: "auto",
+        width: "auto",
+        borderRadius: theme.spacing(1),
+        border: "1px solid",
+        borderColor: theme.palette.primary.main,
+        margin: theme.spacing(0.5),
+        backgroundColor: theme.palette.common.white,
+        cursor: "pointer",
+        "&:hover":{
+            borderColor: theme.palette.secondary.main,
+            color: theme.palette.secondary.main,
+            transform: "scale(1.3)",
+            transition: "0.4s"
+        }
+
     }
 }), {name: 'Card'})

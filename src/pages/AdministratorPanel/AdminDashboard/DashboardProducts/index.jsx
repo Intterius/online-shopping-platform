@@ -15,12 +15,12 @@ const DashboardProducts = ({products, title}) => {
     const labels = [];
     const soldAmount = [];
     const timesSold = [];
-    const totalAmount = [];
+    const quantityInStock = [];
     for (let i = 0; i < products.length; i++) {
         labels.push(products[i].productName);
         soldAmount.push(products[i].soldAmount);
         timesSold.push(products[i].timesSold);
-        totalAmount.push(products[i].totalAmount);
+        quantityInStock.push(products[i].quantityInStock);
     }
 
     const data = {
@@ -37,8 +37,8 @@ const DashboardProducts = ({products, title}) => {
                 backgroundColor: 'black',
             },
             {
-                label: 'Total amount',
-                data: totalAmount,
+                label: 'Quantity in stock',
+                data: quantityInStock,
                 backgroundColor: '#89c74a',
             }
         ]

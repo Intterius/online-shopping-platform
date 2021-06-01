@@ -12,8 +12,8 @@ const useStyles = makeStyles((theme) => ({
 
 const SoldStockDashboard = ({products, title}) => {
     const classes = useStyles();
-    // const soldAmount = products.reduce((acc, cur) => acc.soldAmount + cur.soldAmount);
-    // const amountInStock = products.reduce((acc, cur) => acc.quantityInStock + cur.quantityInStock);
+    // const soldAmount1 = products.reduce((acc, cur) => acc + cur.soldAmount, 0);
+    // const amountInStock1 = products.reduce((acc, cur) => acc + cur.quantityInStock, 0);
     let soldAmount = 0;
     let amountInStock = 0;
 
