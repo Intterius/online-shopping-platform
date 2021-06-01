@@ -60,7 +60,7 @@ export default function AdministrationPanel() {
     }
     setState({ ...state, [anchor]: open });
   };
-  
+
     const list = (anchor) => (
         <div
             className={clsx(classes.list, {
@@ -75,8 +75,9 @@ export default function AdministrationPanel() {
             </Box>
             <Divider/>
             <List>
-                {['Dashboard', 'Products', 'Users'].map((text, index) => (
-                    <Link key={index} style={{textDecoration: "none"}} to={'/admin-dashboard'}>
+                {['Dashboard', 'Add product', 'Users'].map((text, index) => (
+                    <Link key={index} style={{textDecoration: "none"}} to={index===0? '/admin-dashboard'
+                                                                                    : index===1 ? '/add-product' : '/users-list'}>
                         <ListItem className={classes.btn} button>
                             <ListItemIcon>{index === 0 ? <PollIcon className={classes.icons}/>
                                 : index === 1 ? <FastfoodIcon className={classes.icons}/>
