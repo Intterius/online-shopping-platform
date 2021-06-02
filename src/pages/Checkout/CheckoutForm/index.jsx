@@ -8,13 +8,16 @@ import {
 } from '@material-ui/core';
 import { Link } from 'react-router-dom';
 import { Autocomplete } from '@material-ui/lab';
-import { useState } from 'react';
+import { useEffect, useState } from 'react';
 import { countries } from '../../../utils/countries';
 import { useFormValidation } from '../../../utils/FormValidation';
+import { useSelector } from 'react-redux';
+import { url } from '../../../utils/baseUrl';
+import { interceptorRequest } from '../../../utils/requestInterceptor';
 import NavigateNextIcon from '@material-ui/icons/NavigateNext';
 import logo from '../../../components/DashboardHeader/InteractionLinks/logo.png';
 import FormDialog from './FormDialog';
-import { useSelector } from 'react-redux';
+import ErrorFormDialog from './ErrorFormDialog';
 
 const CheckoutForm = () => {
   const classes = useStyles();
@@ -30,7 +33,8 @@ const CheckoutForm = () => {
   });
   const [checkNews, setCheckNews] = useState(false);
   const [checkSaveInfo, setCheckSaveInfo] = useState(false);
-  const [showDialog, setShowDialog] = useState(false);
+  const [showSuccessDialog, setShowSuccessDialog] = useState(false);
+  const [showErrorDialog, setShowErrorDialog] = useState(false);
 
   const handleNumberInput = (e) => {
     if (/^\d*$/.test(e.target.value)) {
@@ -51,8 +55,24 @@ const CheckoutForm = () => {
 
   const handleSubmit = (e) => {
     e.preventDefault();
-    setShowDialog(true);
+    // setShowSuccessDialog(true);
+    // setShowErrorDialog(true);
   };
+
+  const handleSubmitBtn = () => {
+    if (!items.length || fields.email.error) {
+      return true;
+    } else {
+      return false;
+    }
+  };
+
+  // useEffect(() => {
+  //   interceptorRequest
+  //     .get(`${url}/orders`)
+  //     .then((res) => console.log(res))
+  //     .catch((err) => console.log(err));
+  // }, []);
 
   return (
     <div className={classes.formContainer}>
@@ -138,8 +158,6 @@ const CheckoutForm = () => {
                     height: 45,
                     padding: '0 16px',
                   },
-                  maxLength: 20,
-                  minLength: 4,
                 }}
                 variant='outlined'
                 margin='normal'
@@ -343,7 +361,7 @@ const CheckoutForm = () => {
           />
           <div className={classes.btnBox}>
             <Button
-              disabled={!items.length ? true : false}
+              disabled={handleSubmitBtn()}
               className={classes.submitBtn}
               type='submit'
             >
@@ -358,7 +376,11 @@ const CheckoutForm = () => {
           All rights reserved by Endava's Interns.
         </div>
       </div>
-      <FormDialog open={showDialog} />
+      <FormDialog open={showSuccessDialog} />
+      <ErrorFormDialog
+        handleCloseError={(state) => setShowErrorDialog(state)}
+        open={showErrorDialog}
+      />
     </div>
   );
 };

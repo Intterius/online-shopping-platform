@@ -1,9 +1,9 @@
 import { makeStyles } from '@material-ui/core';
 
 const useStyles = makeStyles((theme) => ({
-  successIcon: {
+  errorIcon: {
     marginTop:theme.spacing(3.5),
-    color: theme.palette.primary.main,
+    color: theme.palette.secondary.main,
     fontSize: theme.spacing(15),
     width: '100%',
   },
