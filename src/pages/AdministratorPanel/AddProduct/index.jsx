@@ -12,6 +12,8 @@ import ProductCategory from "./ProductCategory";
 import ProductQuantityInStock from "./ProductQuantityInStock";
 import MeasureUnit from "./MeasureUnit";
 import {AppContextEdit} from "../EditProduct";
+import {interceptorRequest} from "../../../utils/requestInterceptor";
+import {url} from "../../../utils/baseUrl";
 
 const useStyles = makeStyles((theme) => ({
     photo: {
@@ -29,7 +31,7 @@ const useStyles = makeStyles((theme) => ({
         width: theme.spacing(15),
         color: theme.palette.common.white,
         fontSize: theme.spacing(3),
-        marginTop: theme.spacing(2),
+        margin: theme.spacing(2, 0),
         "&:hover":{
             backgroundColor: theme.palette.secondary.main,
         }
@@ -38,7 +40,7 @@ const useStyles = makeStyles((theme) => ({
         width: theme.spacing(30),
         color: theme.palette.common.white,
         fontSize: theme.spacing(3),
-        marginTop: theme.spacing(2),
+        marginTop: theme.spacing(2, 0),
         "&:hover":{
             backgroundColor: theme.palette.secondary.main,
         }
@@ -88,10 +90,8 @@ const AddProduct = () => {
                category: 'category',
                department: 'department',
                description: 'description',
-               id: Math.random()+Math.random(),
                imagesSet: [
                    {
-                       id: Math.random()*Math.random(),
                        url: 'https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcSjwJGQfzWC5sSRL2r4zJTXPRj-eJO-BgGWxg&usqp=CAU',
                    }
                ],
@@ -101,10 +101,20 @@ const AddProduct = () => {
                quantityInStock: 1,
                rating: 1,
                title: 'title',
-               tags: 'tasty'
+               tags: 'tasty',
+               manufacturer: "Moldova SRL",
            })
        }
     }, [])
+
+    const handleAddProduct = () =>{
+        console.log(product)
+        interceptorRequest.post(`${url}/products/`, {...product})
+            .then(res => {
+                console.log(res.data.warning, res)
+            })
+            .catch((err) => console.error(err));
+    }
 
 
     return (
@@ -127,7 +137,7 @@ const AddProduct = () => {
                             <ProductQuantityInStock />
                             <MeasureUnit />
                             {productToEdit && <Button className={classes.btnSubmit} onClick={handleEdit} variant="contained" color="primary">Submit</Button>}
-                            {!productToEdit && <Button className={classes.btnAdd} onClick={()=>console.log(product)} variant="contained" color="primary">Add Product</Button>}
+                            {!productToEdit && <Button className={classes.btnAdd} onClick={handleAddProduct} variant="contained" color="primary">Add Product</Button>}
                         </Box>
                     </Box>
                 </Box>

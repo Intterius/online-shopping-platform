@@ -16,7 +16,7 @@ import {url} from '../../utils/baseUrl';
 import EditIcon from '@material-ui/icons/Edit';
 import DeleteForeverIcon from '@material-ui/icons/DeleteForever';
 
-const Card = ({food}) => {
+const Card = ({food, handleRemove}) => {
     const classes = useStyles();
     const {role} = useSelector((state) => state.userRoleReducer);
     const noImage =
@@ -40,7 +40,7 @@ const Card = ({food}) => {
             {
                 role === "ADMIN" &&
                 <Box className={classes.iconsContainer}>
-                    <Box className={classes.icons}>
+                    <Box onClick={()=>handleRemove(food.id)} className={classes.icons}>
                         <DeleteForeverIcon/>
                     </Box>
                     <Link style={{color: '#89c74a'}} to={`/edit-product/${food.id}`}>

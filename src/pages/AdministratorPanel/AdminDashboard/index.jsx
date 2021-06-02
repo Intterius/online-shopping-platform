@@ -14,6 +14,7 @@ const useStyles = makeStyles((theme) => ({
         justifyContent: 'center',
         padding: theme.spacing(2, 0),
         marginTop: theme.spacing(20),
+        marginLeft: theme.spacing(100)
     },
     dashboard: {
         height: theme.spacing(50),
@@ -81,11 +82,6 @@ const AdminDashboard = () => {
                         />
                     </Box>
                 )}
-                {!productList[0] && (
-                    <Box className={classes.loader}>
-                        <CircularProgress/>
-                    </Box>
-                )}
                 {productList[0] && (
                     <Box className={classes.userChart}>
                         <SoldStockDashboard
@@ -94,22 +90,12 @@ const AdminDashboard = () => {
                         />
                     </Box>
                 )}
-                {!unpopularProducts[0] && (
-                    <Box className={classes.loader}>
-                        <CircularProgress/>
-                    </Box>
-                )}
                 {unpopularProducts[0] && (
                     <Box className={classes.dashboard}>
                         <DashboardProducts
                             products={unpopularProducts}
                             title='Less popular products'
                         />
-                    </Box>
-                )}
-                {!userList && (
-                    <Box className={classes.loader}>
-                        <CircularProgress/>
                     </Box>
                 )}
                 {userList && (

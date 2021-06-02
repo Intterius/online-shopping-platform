@@ -29,7 +29,7 @@ const ProductDescription = ()=>{
 
     const handleInput =(input)=>{
         console.log(input)
-        if(/(^[a-zA-Z0-9?]{1,1000}$)/.test(input)){
+        if(/(^[a-zA-Z0-9\s]{0,1000}$)/.test(input)){
             console.log("here")
             setDescription(input);
             setProduct({...product, description: input});
@@ -39,7 +39,7 @@ const ProductDescription = ()=>{
     return(
         <Box className={classes.container}>
             <Typography className={classes.text}>Please set description</Typography>
-            <TextField fullWidth={true} multiline={true} onChange={(e)=>handleInput(e.target.value)} variant="standard" value={description}/>
+            <TextField inputProps={{maxLength: 1000, minLength: 11}} fullWidth={true} multiline={true} onChange={(e)=>handleInput(e.target.value)} variant="standard" value={description}/>
         </Box>
     );
 }
