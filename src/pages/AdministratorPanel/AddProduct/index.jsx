@@ -25,8 +25,17 @@ const useStyles = makeStyles((theme) => ({
         flexDirection: "column",
         justifyContent: "center"
     },
-    btn:{
+    btnSubmit:{
         width: theme.spacing(15),
+        color: theme.palette.common.white,
+        fontSize: theme.spacing(3),
+        marginTop: theme.spacing(2),
+        "&:hover":{
+            backgroundColor: theme.palette.secondary.main,
+        }
+    },
+    btnAdd:{
+        width: theme.spacing(30),
         color: theme.palette.common.white,
         fontSize: theme.spacing(3),
         marginTop: theme.spacing(2),
@@ -65,7 +74,9 @@ const AddProduct = () => {
     })
 
     useEffect(()=>{
-        setProductToEdit(product)
+        if(productToEdit){
+            setProductToEdit(product);
+        }
     },[product])
 
     useEffect(() => {
@@ -115,7 +126,8 @@ const AddProduct = () => {
                             <ProductCategory />
                             <ProductQuantityInStock />
                             <MeasureUnit />
-                            <Button className={classes.btn} onClick={handleEdit} variant="contained" color="primary">Submit</Button>
+                            {productToEdit && <Button className={classes.btnSubmit} onClick={handleEdit} variant="contained" color="primary">Submit</Button>}
+                            {!productToEdit && <Button className={classes.btnAdd} onClick={()=>console.log(product)} variant="contained" color="primary">Add Product</Button>}
                         </Box>
                     </Box>
                 </Box>
