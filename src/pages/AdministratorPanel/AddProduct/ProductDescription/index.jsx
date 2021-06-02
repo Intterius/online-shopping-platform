@@ -11,6 +11,10 @@ const useStyles = makeStyles((theme)=>({
         margin: theme.spacing(1),
         padding: theme.spacing(1),
         flexDirection: 'column'
+    },
+    text:{
+        fontSize: theme.spacing(3),
+        fontWeight: "bold"
     }
 }))
 
@@ -24,7 +28,9 @@ const ProductDescription = ()=>{
     },[product]);
 
     const handleInput =(input)=>{
-        if(/(^[a-zA-Z0-9 ]{1,700}$)/.test(input)){
+        console.log(input)
+        if(/(^[a-zA-Z0-9?]{1,1000}$)/.test(input)){
+            console.log("here")
             setDescription(input);
             setProduct({...product, description: input});
         }
@@ -32,7 +38,7 @@ const ProductDescription = ()=>{
 
     return(
         <Box className={classes.container}>
-            <Typography>Please set description</Typography>
+            <Typography className={classes.text}>Please set description</Typography>
             <TextField fullWidth={true} multiline={true} onChange={(e)=>handleInput(e.target.value)} variant="standard" value={description}/>
         </Box>
     );
