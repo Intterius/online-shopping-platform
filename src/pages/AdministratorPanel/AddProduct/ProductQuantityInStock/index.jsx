@@ -4,13 +4,17 @@ import {AppContext} from "../index";
 
 const useStyles = makeStyles((theme)=>({
     container:{
-        width: theme.spacing(25),
+        width: "auto",
         display: "flex",
         justifyContent: "center",
         alignItems: "center",
         flexDirection: "column",
         margin: theme.spacing(1),
         padding: theme.spacing(1),
+    },
+    text:{
+        fontSize: theme.spacing(3),
+        fontWeight: "bold"
     }
 }))
 
@@ -28,7 +32,7 @@ const ProductQuantityInStock = ()=>{
             setQuantity(9999)
         }
         if(quantity<1){
-            setQuantity(0.5)
+            setQuantity(1)
         }
     },[quantity])
 
@@ -40,7 +44,7 @@ const ProductQuantityInStock = ()=>{
 
     return(
         <Box className={classes.container}>
-            <Typography>Please set quantity in stock</Typography>
+            <Typography className={classes.text}>Please set quantity in stock</Typography>
             <TextField  type="number" onChange={(e)=>handleInput(e.target.value)} variant="standard" value={quantity}/>
         </Box>
     );

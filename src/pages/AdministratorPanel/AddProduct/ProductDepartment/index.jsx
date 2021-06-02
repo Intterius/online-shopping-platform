@@ -4,13 +4,17 @@ import {AppContext} from "../index";
 
 const useStyles = makeStyles((theme)=>({
     container:{
-        width: theme.spacing(25),
+        width: "auto",
         display: "flex",
         justifyContent: "center",
         alignItems: "center",
         margin: theme.spacing(1),
         padding: theme.spacing(1),
         flexDirection: 'column'
+    },
+    text:{
+        fontSize: theme.spacing(3),
+        fontWeight: "bold"
     }
 }))
 
@@ -32,7 +36,7 @@ const ProductDepartment = ()=>{
 
     return(
         <Box className={classes.container}>
-            <Typography>Please set department</Typography>
+            <Typography className={classes.text}>Please set department</Typography>
             <TextField onChange={(e)=>handleInput(e.target.value)} variant="standard" value={department}/>
         </Box>
     );

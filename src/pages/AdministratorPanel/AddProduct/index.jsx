@@ -1,4 +1,4 @@
-import React, {createContext, useEffect, useState} from "react";
+import React, {createContext, useContext, useEffect, useState} from "react";
 import {Box, Button, makeStyles} from "@material-ui/core";
 import DashboardHeader from "../../../components/DashboardHeader";
 import DescriptiveAccountHeader from "../../../components/DescriptiveAccountHeader";
@@ -11,6 +11,7 @@ import ProductDepartment from "./ProductDepartment";
 import ProductCategory from "./ProductCategory";
 import ProductQuantityInStock from "./ProductQuantityInStock";
 import MeasureUnit from "./MeasureUnit";
+import {AppContextEdit} from "../EditProduct";
 
 const useStyles = makeStyles((theme) => ({
     photo: {
@@ -38,7 +39,8 @@ const useStyles = makeStyles((theme) => ({
 
 export const AppContext = createContext([]);
 
-const AddProduct = ({productToEdit}) => {
+const AddProduct = () => {
+    const {productToEdit, handleEdit, setProductToEdit} = useContext(AppContextEdit)
     const classes = useStyles();
     const [urlInput, setUrlInput] = useState(false);
     const [title, setTitle] = useState('Add product');
@@ -62,6 +64,10 @@ const AddProduct = ({productToEdit}) => {
         tags: 'tasty'
     })
 
+    useEffect(()=>{
+        setProductToEdit(product)
+    },[product])
+
     useEffect(() => {
        if(productToEdit){
            setTitle("Edit :"+productToEdit.title)
@@ -79,7 +85,7 @@ const AddProduct = ({productToEdit}) => {
                    }
                ],
                measureUnit: 'kg',
-               price: 0.5,
+               price: 0.1,
                quantity: 1,
                quantityInStock: 1,
                rating: 1,
@@ -109,7 +115,7 @@ const AddProduct = ({productToEdit}) => {
                             <ProductCategory />
                             <ProductQuantityInStock />
                             <MeasureUnit />
-                            <Button className={classes.btn} onClick={()=>console.log(product)} variant="contained" color="primary">Submit</Button>
+                            <Button className={classes.btn} onClick={handleEdit} variant="contained" color="primary">Submit</Button>
                         </Box>
                     </Box>
                 </Box>

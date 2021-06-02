@@ -33,6 +33,15 @@ const useStyles = makeStyles((theme) => ({
         cursor: "pointer",
         padding: theme.spacing(0, 1)
     },
+    container: {
+        width: "auto",
+        display: "flex",
+        justifyContent: "center",
+        alignItems: "center",
+        flexDirection: "column",
+        margin: theme.spacing(1),
+        padding: theme.spacing(1),
+    },
 }))
 
 const MeasureUnit = () => {
@@ -40,22 +49,24 @@ const MeasureUnit = () => {
     const {product, setProduct} = useContext(AppContext);
     const [measureUnit, setMeasureUnit] = useState(product.measureUnit);
 
-    useEffect(()=>{
+    useEffect(() => {
         setMeasureUnit(product.measureUnit)
-    },[product]);
+    }, [product]);
 
     return (
-        <Box className={classes.sizeVariant}>
-            <Box onClick={() => {
-                setMeasureUnit("kg");
-                setProduct({...product, measureUnit: "kg"})
-            }
-            } className={(measureUnit === "kg") ? classes.selected : classes.sizeBox}>kg</Box>
-            <Box onClick={() => {
-                setMeasureUnit("pack");
-                setProduct({...product, measureUnit: 'pack'});
-            }
-            } className={(measureUnit === "pack") ? classes.selected : classes.sizeBox}>pack</Box>
+        <Box className={classes.container}>
+            <Box className={classes.sizeVariant}>
+                <Box onClick={() => {
+                    setMeasureUnit("kg");
+                    setProduct({...product, measureUnit: "kg"})
+                }
+                } className={(measureUnit === "kg") ? classes.selected : classes.sizeBox}>kg</Box>
+                <Box onClick={() => {
+                    setMeasureUnit("pack");
+                    setProduct({...product, measureUnit: 'pack'});
+                }
+                } className={(measureUnit === "pack") ? classes.selected : classes.sizeBox}>pack</Box>
+            </Box>
         </Box>
     );
 }
