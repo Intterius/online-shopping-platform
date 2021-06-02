@@ -9,10 +9,12 @@ import ProductPage from './pages/ProductPage';
 import useAddProductList from './utils/AddProductList';
 import CartPage from './pages/CartPage';
 import Checkout from './pages/Checkout';
+import SearchPage from './pages/SearchPage';
 import AdminDashboard from "./pages/AdministratorPanel/AdminDashboard";
 import AddProduct from "./pages/AdministratorPanel/AddProduct";
 import EditProduct from "./pages/AdministratorPanel/EditProduct";
 import Users from "./pages/AdministratorPanel/Users";
+
 
 function App() {
   useUserValidation();
@@ -25,6 +27,7 @@ function App() {
         <Route path='/account/login' exact component={Login} />
         <Route path='/account/register' exact component={Register} />
         <Route path='/cart' exact component={CartPage} />
+        <Route path='/search' exact component={SearchPage} />
         <Route path={'/product/:id'} exact component={ProductPage} />
         <Route path='/checkout' exact component={Checkout} />
         <Route path={'/admin-dashboard'} exact component={AdminDashboard} />

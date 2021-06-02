@@ -3,7 +3,7 @@ import { useStyles } from './styles';
 
 const CheckoutCartItem = ({ image, title, quantity, measure, price }) => {
   const classes = useStyles();
-
+  
   return (
     <>
       <div className={classes.product}>
