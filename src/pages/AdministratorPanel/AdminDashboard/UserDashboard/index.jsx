@@ -12,17 +12,16 @@ const useStyles = makeStyles((theme) => ({
 
 const UserDashboard = ({userList, title}) => {
     const classes = useStyles();
-    const label = [];
-    for (let i = 0; i < userList.length; i++) {
-        label.push("Created on:" + userList[i].createdOn)
-    }
+    const label = Object.keys(userList);
+    const userCount = Object.values(userList);
+
 
     const data = {
-        labels: [...new Set(label)],
+        labels: [...label],
         datasets: [
             {
                 label: "Created on:",
-                data: [100, 40, 10, 20, 35, 12, 32],
+                data: [...userCount],
                 backgroundColor: [
                     'rgba(255, 99, 132, 0.2)',
                     'rgba(54, 162, 235, 0.2)',

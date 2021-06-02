@@ -25,7 +25,7 @@ const useStyles = makeStyles((theme) => ({
         width: theme.spacing(50),
         margin: theme.spacing(10, 'auto'),
     },
-    chartsContainer:{
+    chartsContainer: {
         display: "flex",
         flexWrap: "wrap",
         margin: theme.spacing(4),
@@ -38,7 +38,7 @@ const AdminDashboard = () => {
     const [popularProducts, setPopularProducts] = useState(['']);
     const [unpopularProducts, setUnpopularProducts] = useState(['']);
     const [productList, setProductList] = useState([''])
-    const [userList, setUserList] = useState(['']);
+    const [userList, setUserList] = useState();
 
     useEffect(() => {
         interceptorRequest
@@ -55,10 +55,10 @@ const AdminDashboard = () => {
             .catch((err) => console.error(err));
         interceptorRequest
             .get(
-                `${url}/admin/users`
+                `${url}/admin/registrationStatistics`
             )
             .then((res) => {
-                setUserList(res.data);
+               setUserList(res.data);
             })
             .catch((err) => console.error(err));
     }, []);
@@ -107,14 +107,14 @@ const AdminDashboard = () => {
                         />
                     </Box>
                 )}
-                {!userList[0] && (
+                {!userList && (
                     <Box className={classes.loader}>
                         <CircularProgress/>
                     </Box>
                 )}
-                {userList[0] && (
+                {userList && (
                     <Box className={classes.userChart}>
-                        <UserDashboard userList={userList} title='Users creation statistic'/>
+                        <UserDashboard userList={userList} title='Users registration per month'/>
                     </Box>
                 )}
             </Box>

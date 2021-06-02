@@ -66,10 +66,10 @@ const Dashboard = () => {
     );
   });
 
-  const mostPopularCardList = mostPopular.map((e) => {
+  const mostPopularCardList = mostPopular.map((element) => {
     return (
-      <div key={e.id} className={classes.cardContainer}>
-        <Card food={e} />
+      <div key={element.id} className={classes.cardContainer}>
+        <Card food={element} />
       </div>
     );
   });
