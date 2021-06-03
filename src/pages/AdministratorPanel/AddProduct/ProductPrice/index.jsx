@@ -1,9 +1,9 @@
 import React, {useContext, useEffect, useState} from "react";
-import {Box, makeStyles, TextField, Typography} from "@material-ui/core";
+import {Box, makeStyles, TextField} from "@material-ui/core";
 import {AppContext} from "../index";
 
-const useStyles = makeStyles((theme)=>({
-    container:{
+const useStyles = makeStyles((theme) => ({
+    container: {
         width: "auto",
         display: "flex",
         justifyContent: "center",
@@ -12,59 +12,49 @@ const useStyles = makeStyles((theme)=>({
         margin: theme.spacing(1),
         padding: theme.spacing(1),
     },
-    text:{
+    text: {
         fontSize: theme.spacing(3),
         fontWeight: "bold"
+    },
+    root: {
+        '& > *': {
+            margin: theme.spacing(1),
+            width: theme.spacing(30),
+        },
     }
 }))
 
-const ProductPrice = ()=>{
+const ProductPrice = () => {
     const classes = useStyles();
     const {product, setProduct} = useContext(AppContext);
     const [price, setPrice] = useState(product.price);
 
-    useEffect(()=>{
+    useEffect(() => {
         setPrice(product.price);
-    },[product])
+    }, [product])
 
-    useEffect(()=>{
-        if(price>9999){
+    useEffect(() => {
+        if (price > 9999) {
             setPrice(9999)
         }
-        if(price<0.1){
+        if (price < 0.1) {
             setPrice(0.1)
         }
 
-    },[price])
+    }, [price])
 
-    const handleInput =(input)=>{
-        if (input[0] === '0' && input[1] === '0') {
-            console.log("here")
-            let result = [...input];
-            result.shift();
-            result.shift();
-            let finalResult = Number(result.join(''));
-            console.log(finalResult, price);
-            return setPrice(finalResult);
-        }
-        if (input[1] === '0' && input[2] === '.') {
-            console.log("second")
-            let result = [...input];
-            result.shift();
-            let finalResult = Number(result.join(''));
-            console.log(finalResult, price);
-            return setPrice(finalResult);
-        }
+    const handleInput = (input) => {
         const result = Number(input);
-        console.log("ajunge")
         setPrice(result);
         setProduct({...product, price: parseFloat(result.toFixed(2))});
     }
 
-    return(
+    return (
         <Box className={classes.container}>
-            <Typography className={classes.text}>Please set price in $</Typography>
-            <TextField type="number" onChange={(e)=>handleInput(e.target.value)} variant="standard" value={price.toFixed(2)}/>
+            <form className={classes.root}>
+                <TextField type="number" label="Product price" onChange={(e) => handleInput(e.target.value)} variant="outlined"
+                           value={price.toFixed(2)}/>
+            </form>
         </Box>
     );
 }
