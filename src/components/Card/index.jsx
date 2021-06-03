@@ -15,9 +15,11 @@ import { interceptorRequest } from '../../utils/requestInterceptor';
 import { url } from '../../utils/baseUrl';
 import EditIcon from '@material-ui/icons/Edit';
 import DeleteForeverIcon from '@material-ui/icons/DeleteForever';
+import RemoveProduct from "../Dashboard/RemoveProduct";
 
 const Card = ({ food, handleRemove }) => {
   const classes = useStyles();
+  const [remove, setRemove] = useState(false);
   const { role } = useSelector((state) => state.userRoleReducer);
   const [productStock, setProductStock] = useState(1);
   const db = useSelector((state) => state.productQuantityReducer);
@@ -39,6 +41,23 @@ const Card = ({ food, handleRemove }) => {
     }
     return dispatch(addToCartAsGuest(food));
   };
+  
+    const handleRemove = () => {
+        interceptorRequest.delete(`${url}/products/?productId=${food.id}`,)
+            .then(res => {
+                console.log(res.data.warning, res)
+            })
+            .catch((err) => console.error(err));
+        handleClose();
+    }
+
+    const handleCheck = () => {
+        setRemove(true)
+    }
+
+    const handleClose = () => {
+        setRemove(false)
+    }
 
   useEffect(() => {
     if (result.length) {
@@ -47,10 +66,12 @@ const Card = ({ food, handleRemove }) => {
   }, [db]);
 
   return (
+    <>
+     <RemoveProduct remove={remove} handleRemove={handleRemove} handleClose={handleClose}/>
     <div className={classes.cartContainer}>
       {role === 'ADMIN' && (
         <Box className={classes.iconsContainer}>
-          <Box onClick={() => handleRemove(food.id)} className={classes.icons}>
+          <Box onClick={handleCheck} className={classes.icons}>
             <DeleteForeverIcon />
           </Box>
           <Link style={{ color: '#89c74a' }} to={`/edit-product/${food.id}`}>
@@ -98,6 +119,7 @@ const Card = ({ food, handleRemove }) => {
         }}
       />
     </div>
+    </>
   );
 };
 

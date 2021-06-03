@@ -1,16 +1,17 @@
 import React from "react";
-import {Box, Button, makeStyles, Typography} from "@material-ui/core";
+import {Box, makeStyles, Typography, Button} from "@material-ui/core";
+
 
 const useStyles = makeStyles((theme)=>({
     main:{
-        width: "100%",
-        height: "100%",
-        background: "rgba(0, 0, 0, 0.5)",
+        width: "auto",
+        height: "auto",
         zIndex: 1000,
         position: "absolute",
         display: "flex",
         justifyContent: "center",
-        alignItems: "center"
+        alignItems: "center",
+        marginLeft: theme.spacing(-24)
     },
     container: {
         display: "flex",
@@ -33,19 +34,20 @@ const useStyles = makeStyles((theme)=>({
         display: "none"
     }
 
-}));
+}))
 
-const AddProductCheck = ({incorrect, handleClose}) =>{
+const RemoveProduct = ({remove, handleClose, handleRemove}) =>{
     const classes = useStyles();
 
     return(
-        <Box className={incorrect? classes.main : classes.disable}>
+        <Box className={remove? classes.main : classes.disable}>
             <Box className={classes.container}>
-                <Typography >Please set data as required.</Typography>
-                <Button className={classes.button} onClick={handleClose} variant="contained" color="secondary">Ok</Button>
+                <Typography>Are you sure</Typography>
+                <Button onClick={handleRemove} className={classes.button} variant="contained" color="secondary">Yes</Button>
+                <Button onClick={handleClose} className={classes.button} variant="contained" color="primary">Cancel</Button>
             </Box>
         </Box>
     );
-};
+}
 
-export default AddProductCheck;
+export default RemoveProduct;

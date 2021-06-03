@@ -51,12 +51,12 @@ const useStyles = makeStyles((theme) => ({
 
 export const AppContext = createContext([]);
 
-const AddProduct = ({incorrectToEdit}) => {
+const AddProduct = () => {
     const {productToEdit, handleEdit, setProductToEdit} = useContext(AppContextEdit)
     const classes = useStyles();
     const [urlInput, setUrlInput] = useState(false);
     const [title, setTitle] = useState('Add product');
-    const [incorrect, setIncorrect] = useState({incorrectToEdit});
+    const [incorrect, setIncorrect] = useState(false);
     const [product, setProduct] = useState({
         category: 'category',
         department: 'department',
@@ -94,7 +94,7 @@ const AddProduct = ({incorrectToEdit}) => {
                description: 'description',
                imagesSet: [
                    {
-                       url: 'https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcSjwJGQfzWC5sSRL2r4zJTXPRj-eJO-BgGWxg&usqp=CAU',
+                       url: 'https://www.portdoverkia.com/dist/img/nophoto.jpg',
                    }
                ],
                measureUnit: 'kg',
@@ -110,12 +110,15 @@ const AddProduct = ({incorrectToEdit}) => {
     }, [])
 
     const handleAddProduct = () =>{
-        console.log(product)
-        interceptorRequest.post(`${url}/products/`, {...product})
-            .then(res => {
-                console.log(res.data.warning, res)
-            })
-            .catch((err) => console.error(err));
+        if(product.title.length>=3 && product.description.length>=10 && product.department.length>=3 && product.category.length>=3 && product.quantityInStock<=999){
+            interceptorRequest.post(`${url}/products/`, {...product})
+                .then(res => {
+                    console.log(res.data.warning, res)
+                })
+                .catch((err) => console.error(err));
+        }else{
+            setIncorrect(true);
+        }
     }
 
     const handleClose = ()=>{
