@@ -15,6 +15,7 @@ const CartContent = () => {
         price={item.price.toFixed(2)}
         description={item.description}
         id={item.id}
+        stock={item.quantityInStock}
         quantity={item.quantity}
         measure={item.measureUnit}
       />

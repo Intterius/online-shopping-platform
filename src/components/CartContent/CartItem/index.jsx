@@ -10,8 +10,9 @@ import {
 } from '../../../redux/reducers/cartReducer';
 import { interceptorRequest } from '../../../utils/requestInterceptor';
 import { url } from '../../../utils/baseUrl';
+import { returnQuantity } from '../../../redux/reducers/productQuantityReducer';
 
-const CartItem = ({ id, image, title, price, quantity, measure }) => {
+const CartItem = ({ id, image, title, price, quantity, measure, stock }) => {
   const classes = useStyles();
   const dispatch = useDispatch();
   const { user } = useSelector((state) => state.tokenReducer);
@@ -47,6 +48,7 @@ const CartItem = ({ id, image, title, price, quantity, measure }) => {
               className={classes.removeItemBtn}
               onClick={() => {
                 dispatch(removePrice(price * quantity));
+                dispatch(returnQuantity({ id, quantity: stock }));
                 removeItem();
               }}
             >
