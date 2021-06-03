@@ -11,6 +11,7 @@ import { Alert } from '@material-ui/lab';
 import DescriptiveAccountHeader from '../../components/DescriptiveAccountHeader';
 import DashboardHeader from '../../components/DashboardHeader';
 import CartPageItem from './CartPageItem';
+import { updateQuantity } from '../../redux/reducers/productQuantityReducer';
 
 const CartPage = () => {
   const classes = useStyles();
@@ -53,6 +54,14 @@ const CartPage = () => {
   ));
 
   const updateCart = () => {
+    for (let item of updatedCart) {
+      dispatch(
+        updateQuantity({
+          id: item.id,
+          quantity: item.quantityInStock - item.quantity,
+        })
+      );
+    }
     if (user) {
       interceptorRequest.put(`${url}/cart`, updatedCart).then(() => {
         setShowSuccess(true);
