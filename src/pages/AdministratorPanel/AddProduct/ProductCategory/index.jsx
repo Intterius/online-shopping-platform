@@ -31,7 +31,7 @@ const ProductCategory = () => {
     const [incorrect, setIncorrect] = useState(false);
 
     useEffect(() => {
-        if (category.length <= 0 || category.length > 15) {
+        if (category.length <= 2 || category.length > 15) {
             setIncorrect(true);
         } else {
             setIncorrect(false)
@@ -52,7 +52,7 @@ const ProductCategory = () => {
             <form className={classes.root}>
                 <TextField error={incorrect} onChange={(e) => handleInput(e.target.value)} label="Category"
                            variant="outlined"
-                           helperText={incorrect ? "Category should have form 1 to 15 characters" : ""}
+                           helperText={incorrect ? "Category should have form 3 to 15 characters" : ""}
                            value={category}/>
             </form>
         </Box>
