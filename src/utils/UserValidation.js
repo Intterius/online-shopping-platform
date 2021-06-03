@@ -1,10 +1,11 @@
-import axios from 'axios';
 import { useDispatch } from 'react-redux';
 import { setCartForUser } from '../redux/reducers/cartReducer';
 import { setUserCartPrice } from '../redux/reducers/cartPriceReducer';
 import { url } from './baseUrl';
 import { interceptorRequest } from './requestInterceptor';
 import { setUserRole } from '../redux/reducers/userRoleReducer';
+import { returnQuantity } from '../redux/reducers/productQuantityReducer';
+import axios from 'axios';
 
 const useUserValidation = () => {
   let user = localStorage.getItem('key');
@@ -27,6 +28,14 @@ const useUserValidation = () => {
               )
             )
           );
+          for (let item of res.data) {
+            dispatch(
+              returnQuantity({
+                id: item.id,
+                quantity: item.quantityInStock - item.quantity,
+              })
+            );
+          }
         });
         if (res.data.role === 'USER') {
           dispatch({

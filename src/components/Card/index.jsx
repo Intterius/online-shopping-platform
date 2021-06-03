@@ -13,6 +13,7 @@ import { useStyles } from './style';
 import { addPrice } from '../../redux/reducers/cartPriceReducer';
 import { interceptorRequest } from '../../utils/requestInterceptor';
 import { url } from '../../utils/baseUrl';
+import { removeQuantity } from '../../redux/reducers/productQuantityReducer';
 import EditIcon from '@material-ui/icons/Edit';
 import DeleteForeverIcon from '@material-ui/icons/DeleteForever';
 import RemoveProduct from '../Dashboard/RemoveProduct';
@@ -32,6 +33,7 @@ const Card = ({ food }) => {
   food.quantity = 1;
 
   const addToCart = () => {
+    dispatch(removeQuantity({ id: food.id, quantity: 1 }));
     if (user) {
       interceptorRequest.post(
         `${url}/cart?product_id=${food.id}&quantity=${food.quantity}`

@@ -13,6 +13,7 @@ import ClearIcon from '@material-ui/icons/Clear';
 import RemoveIcon from '@material-ui/icons/Remove';
 import AddIcon from '@material-ui/icons/Add';
 import { Alert } from '@material-ui/lab';
+import { returnQuantity } from '../../../redux/reducers/productQuantityReducer';
 
 const CartPageItem = ({
   removedId,
@@ -43,6 +44,7 @@ const CartPageItem = ({
   };
 
   const removeItem = () => {
+    dispatch(returnQuantity({ id, quantity: stock }));
     if (user) {
       interceptorRequest.delete(`${url}/cart?product_id=${id}`);
       dispatch(removeItemAsUser(id));

@@ -10,15 +10,14 @@ import useAddProductList from './utils/AddProductList';
 import CartPage from './pages/CartPage';
 import Checkout from './pages/Checkout';
 import SearchPage from './pages/SearchPage';
-import AdminDashboard from "./pages/AdministratorPanel/AdminDashboard";
-import AddProduct from "./pages/AdministratorPanel/AddProduct";
-import EditProduct from "./pages/AdministratorPanel/EditProduct";
-import Users from "./pages/AdministratorPanel/Users";
-
+import AdminDashboard from './pages/AdministratorPanel/AdminDashboard';
+import AddProduct from './pages/AdministratorPanel/AddProduct';
+import EditProduct from './pages/AdministratorPanel/EditProduct';
+import Users from './pages/AdministratorPanel/Users';
 
 function App() {
-  useUserValidation();
   useAddProductList();
+  useUserValidation();
   return (
     <BrowserRouter>
       <Switch>

@@ -41,7 +41,15 @@ const Button = ({ onClick, disable }) => {
         pointerEvents: disable ? 'none' : 'auto',
       }}
     >
-      <div className={classes.btnAddToCart}>Add to cart</div>
+      <div
+        className={classes.btnAddToCart}
+        style={{
+          background: disable ? '#AAAAAA' : '',
+          color: disable ? '#777777' : '',
+        }}
+      >
+        Add to cart
+      </div>
     </div>
   );
 };
