@@ -29,7 +29,13 @@ const useUserValidation = () => {
           );
         });
         if (res.data.role === 'USER') {
-          dispatch({ type: 'VALID', payload: res.data.userName });
+          dispatch({
+            type: 'VALID',
+            payload: {
+              user: res.data.userName,
+              orderHistory: res.data.customer,
+            },
+          });
           return;
         } else {
           dispatch({ type: 'VALID', payload: res.data.userName });
@@ -38,7 +44,7 @@ const useUserValidation = () => {
       })
       .catch(() => {
         dispatch({ type: 'INVALID' });
-     });
+      });
   }
 };
 

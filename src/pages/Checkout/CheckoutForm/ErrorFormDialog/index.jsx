@@ -23,7 +23,7 @@ const ErrorFormDialog = ({ open, handleCloseError }) => {
       <DialogContent>
         <DialogContentText>
           Please check your cart list in case some of the products went out of
-          stock. In that case, please remove them and try again.
+          stock. If so, please remove them and try again.
         </DialogContentText>
       </DialogContent>
       <DialogActions>

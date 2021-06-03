@@ -5,7 +5,7 @@ import React from 'react';
 
 const useStyles = makeStyles((theme) => ({
   allCategoryStyle: {
-    backgroundColor: theme.palette.common.white,
+    background: theme.palette.common.white,
     boxShadow: theme.spacing(0, 0, 0, 0),
     width: theme.spacing(30),
     display: 'flex',

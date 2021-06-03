@@ -10,41 +10,88 @@ import { Link } from 'react-router-dom';
 import { Autocomplete } from '@material-ui/lab';
 import { useEffect, useState } from 'react';
 import { countries } from '../../../utils/countries';
-import { useFormValidation } from '../../../utils/FormValidation';
-import { useSelector } from 'react-redux';
+import { useDispatch, useSelector } from 'react-redux';
 import { url } from '../../../utils/baseUrl';
 import { interceptorRequest } from '../../../utils/requestInterceptor';
+import * as EmailValidator from 'email-validator';
 import NavigateNextIcon from '@material-ui/icons/NavigateNext';
 import logo from '../../../components/DashboardHeader/InteractionLinks/logo.png';
 import FormDialog from './FormDialog';
 import ErrorFormDialog from './ErrorFormDialog';
+import axios from 'axios';
+import { setCartForUser } from '../../../redux/reducers/cartReducer';
 
 const CheckoutForm = () => {
   const classes = useStyles();
   const items = useSelector((state) => state.cartReducer);
+  const dispatch = useDispatch();
+  const { user, orderHistory } = useSelector((state) => state.tokenReducer);
   const [country, setCountry] = useState('');
   const [city, setCity] = useState('');
-  const [fields, setValues] = useFormValidation({
-    email: '',
+  const [fields, setValues] = useState({
+    email: { input: '', error: '' },
     phoneNumber: '',
     postalCode: '',
     firstName: '',
     lastName: '',
+    userAddress: '',
   });
   const [checkNews, setCheckNews] = useState(false);
   const [checkSaveInfo, setCheckSaveInfo] = useState(false);
   const [showSuccessDialog, setShowSuccessDialog] = useState(false);
   const [showErrorDialog, setShowErrorDialog] = useState(false);
 
+  const order = {
+    customer: {
+      firstName: fields.firstName,
+      lastName: fields.lastName,
+      email: fields.email.input,
+      phone: fields.phoneNumber,
+      currency: 'USD',
+      address: {
+        zipCode: fields.postalCode,
+        country,
+        stateCity: city,
+        localAddress: fields.userAddress,
+        contactName: `${fields.firstName} ${fields.lastName}`,
+      },
+      keepMeInTouch: checkNews,
+      saveAddressForNextUsage: checkSaveInfo,
+    },
+    productInCartDtoSet: [...items],
+    discount: 0.0,
+  };
+
+  const validateEmail = (e) => {
+    const { value } = e.target;
+    if (!EmailValidator.validate(value)) {
+      setValues({
+        ...fields,
+        email: {
+          input: value,
+          error: 'Please, introduce a valid email address.',
+        },
+      });
+    } else {
+      setValues({
+        ...fields,
+        email: {
+          input: value,
+          error: '',
+        },
+      });
+    }
+  };
+
   const handleNumberInput = (e) => {
     if (/^\d*$/.test(e.target.value)) {
-      return setValues(e);
+      return setValues({ ...fields, [e.target.name]: e.target.value });
     }
   };
 
   const handleCharInput = (e) => {
     if (/^[a-zA-Z]*$/.test(e.target.value)) {
-      return setValues(e);
+      return setValues({ ...fields, [e.target.name]: e.target.value });
     }
   };
 
@@ -55,8 +102,26 @@ const CheckoutForm = () => {
 
   const handleSubmit = (e) => {
     e.preventDefault();
-    // setShowSuccessDialog(true);
-    // setShowErrorDialog(true);
+    if (user) {
+      interceptorRequest
+        .post(`${url}/orders`, order)
+        .then((res) => setShowSuccessDialog(true))
+        .catch((err) => {
+          console.log(err.response);
+          dispatch(setCartForUser(err.response.data.data));
+          setShowErrorDialog(true);
+        });
+      return;
+    }
+    axios
+      .post(`${url}/orders`, order)
+      .then((res) => setShowSuccessDialog(true))
+      .catch((err) => {
+        console.log(order);
+        console.log(err.response);
+        dispatch(setCartForUser(err.response.data.data));
+        setShowErrorDialog(true);
+      });
   };
 
   const handleSubmitBtn = () => {
@@ -67,12 +132,23 @@ const CheckoutForm = () => {
     }
   };
 
-  // useEffect(() => {
-  //   interceptorRequest
-  //     .get(`${url}/orders`)
-  //     .then((res) => console.log(res))
-  //     .catch((err) => console.log(err));
-  // }, []);
+  useEffect(() => {
+    if (user && orderHistory) {
+      order.customer.address.id = orderHistory.address.id;
+      setValues({
+        ...fields,
+        email: { input: orderHistory.email, error: '' },
+        firstName: orderHistory.firstName,
+        lastName: orderHistory.lastName,
+        phoneNumber: orderHistory.phone ? orderHistory.phone : '',
+        userAddress: orderHistory.address.localAddress,
+        postalCode: orderHistory.address.zipCode,
+      });
+      setCity(orderHistory.address.stateCity);
+      setCountry(orderHistory.address.country);
+      setCheckNews(orderHistory.keepMeInTouch);
+    }
+  }, [orderHistory]);
 
   return (
     <div className={classes.formContainer}>
@@ -99,7 +175,7 @@ const CheckoutForm = () => {
             <div className={classes.infoText}>Contact information</div>
           </div>
           <TextField
-            onChange={setValues}
+            onChange={(e) => validateEmail(e)}
             className={classes.input}
             InputLabelProps={{
               style: {
@@ -113,6 +189,7 @@ const CheckoutForm = () => {
                 padding: '0 16px',
               },
             }}
+            value={fields.email.input}
             fullWidth
             variant='outlined'
             margin='normal'
@@ -171,7 +248,6 @@ const CheckoutForm = () => {
               <TextField
                 onChange={handleCharInput}
                 className={classes.input}
-                value={fields.lastName}
                 InputLabelProps={{
                   style: {
                     height: 45,
@@ -184,6 +260,7 @@ const CheckoutForm = () => {
                     padding: '0 16px',
                   },
                 }}
+                value={fields.lastName}
                 variant='outlined'
                 margin='normal'
                 id='lastName'
@@ -195,7 +272,6 @@ const CheckoutForm = () => {
             </div>
             <TextField
               onChange={handleNumberInput}
-              value={fields.phoneNumber}
               className={classes.input}
               InputLabelProps={{
                 style: {
@@ -211,6 +287,7 @@ const CheckoutForm = () => {
                 maxLength: 10,
                 minLength: 6,
               }}
+              value={fields.phoneNumber}
               required
               variant='outlined'
               margin='normal'
@@ -221,7 +298,9 @@ const CheckoutForm = () => {
               type='text'
             />
             <TextField
-              onChange={setValues}
+              onChange={(e) =>
+                setValues({ ...fields, [e.target.name]: e.target.value })
+              }
               className={classes.input}
               InputLabelProps={{
                 style: {
@@ -235,6 +314,7 @@ const CheckoutForm = () => {
                   padding: '0 16px',
                 },
               }}
+              value={fields.userAddress}
               required
               variant='outlined'
               margin='normal'
@@ -278,6 +358,8 @@ const CheckoutForm = () => {
                 key={country}
                 options={handleCountry()}
                 autoHighlight
+                value={city}
+                filterSelectedOptions
                 getOptionSelected={(option, value) => option === value}
                 getOptionLabel={(option) => option}
                 renderOption={(option) => <span>{option}</span>}
@@ -308,12 +390,20 @@ const CheckoutForm = () => {
               />
             </div>
             <Autocomplete
-              onChange={(event, values) =>
-                values ? setCountry(values.country) : setCountry('')
-              }
+              onChange={(event, values) => {
+                if (values) {
+                  setCountry(values.country);
+                  setCity('');
+                  return;
+                }
+                setCountry('');
+                setCity('');
+              }}
               id='country-select'
               options={countries}
+              value={{ country }}
               autoHighlight
+              filterSelectedOptions
               getOptionSelected={(option, value) =>
                 option.country === value.country
               }
@@ -345,20 +435,23 @@ const CheckoutForm = () => {
               )}
             />
           </div>
-          <FormControlLabel
-            control={
-              <Checkbox
-                color='primary'
-                checked={checkSaveInfo}
-                onChange={(e) => setCheckSaveInfo(e.target.checked)}
-              />
-            }
-            label={
-              <span className={classes.check}>
-                Save this information for next time
-              </span>
-            }
-          />
+          {user && (
+            <FormControlLabel
+              control={
+                <Checkbox
+                  color='primary'
+                  checked={checkSaveInfo}
+                  onChange={(e) => setCheckSaveInfo(e.target.checked)}
+                />
+              }
+              label={
+                <span className={classes.check}>
+                  Save this information for next time
+                </span>
+              }
+            />
+          )}
+
           <div className={classes.btnBox}>
             <Button
               disabled={handleSubmitBtn()}
