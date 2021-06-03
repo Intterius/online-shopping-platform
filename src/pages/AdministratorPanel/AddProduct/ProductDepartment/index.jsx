@@ -43,8 +43,11 @@ const ProductDepartment = () => {
     }, [product]);
 
     const handleInput = (input) => {
-        setDepartment(input);
-        setProduct({...product, department: input})
+        if(/^[a-zA-Z]{0,15}$/.test(input)){
+            setDepartment(input);
+            setProduct({...product, department: input});
+        }
+
     }
 
     return (
