@@ -16,7 +16,7 @@ const CartPage = () => {
   const classes = useStyles();
   const [showSuccess, setShowSuccess] = useState(false);
   const [showRemove, setShowRemove] = useState(false);
-  const [removedId, setRemovedId] = useState('');
+  const [removedId, setRemovedId] = useState('1');
   const items = useSelector((state) => state.cartReducer);
   const totalSum = useSelector((state) => state.cartPriceReducer);
   const { user } = useSelector((state) => state.tokenReducer);

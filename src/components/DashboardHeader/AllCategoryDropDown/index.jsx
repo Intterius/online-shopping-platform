@@ -1,7 +1,8 @@
-import { useState } from 'react';
+import { useEffect, useState } from 'react';
 import { useStyles, StyledMenu, StyledMenuItem } from './style';
-import { Link } from 'react-router-dom';
+import { Link, useLocation } from 'react-router-dom';
 import ListItemText from '@material-ui/core/ListItemText';
+import queryString from 'query-string';
 import Box from '@material-ui/core/Box';
 import ExpandMoreIcon from '@material-ui/icons/ExpandMore';
 
@@ -10,6 +11,9 @@ const AllCategoryDropDown = () => {
   const [anchorEl, setAnchorEl] = useState(null);
   const [category, setCategory] = useState('All Categories');
   const [searchInput, setSearchInput] = useState('');
+  const { search } = useLocation();
+  const { category: queryCategory } = queryString.parse(search);
+  const categories = ['All Categories', 'Fruits', 'Vegetables', 'Meat'];
 
   const handleClick = (event) => {
     setAnchorEl(event.currentTarget);
@@ -17,7 +21,9 @@ const AllCategoryDropDown = () => {
 
   const handleCategoryChange = (event) => {
     let str = event.target.innerText;
-    if (str === 'Fruits') {
+    if (str === 'All Categories') {
+      setCategory('All Categories');
+    } else if (str === 'Fruits') {
       setCategory('Fruits');
     } else if (str === 'Vegetables') {
       setCategory('Vegetables');
@@ -41,6 +47,21 @@ const AllCategoryDropDown = () => {
       return category;
     }
   };
+
+  const handleCategoriesDisplay = () => {
+    const result = categories.filter((el) => el !== category);
+    return result.map((el) => (
+      <StyledMenuItem key={Math.random()}>
+        <ListItemText primary={el} />
+      </StyledMenuItem>
+    ));
+  };
+
+  useEffect(() => {
+    if (queryCategory !== undefined) {
+      setCategory(queryCategory === '' ? 'All Categories' : queryCategory);
+    }
+  }, [queryCategory]);
 
   return (
     <Box>
@@ -84,15 +105,7 @@ const AllCategoryDropDown = () => {
         keepMounted
         open={Boolean(anchorEl)}
       >
-        <StyledMenuItem>
-          <ListItemText primary='Fruits' />
-        </StyledMenuItem>
-        <StyledMenuItem>
-          <ListItemText primary='Vegetables' />
-        </StyledMenuItem>
-        <StyledMenuItem>
-          <ListItemText primary='Meat' />
-        </StyledMenuItem>
+        {handleCategoriesDisplay()}
       </StyledMenu>
     </Box>
   );
