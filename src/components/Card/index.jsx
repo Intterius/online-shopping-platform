@@ -15,9 +15,9 @@ import { interceptorRequest } from '../../utils/requestInterceptor';
 import { url } from '../../utils/baseUrl';
 import EditIcon from '@material-ui/icons/Edit';
 import DeleteForeverIcon from '@material-ui/icons/DeleteForever';
-import RemoveProduct from "../Dashboard/RemoveProduct";
+import RemoveProduct from '../Dashboard/RemoveProduct';
 
-const Card = ({ food, handleRemove }) => {
+const Card = ({ food }) => {
   const classes = useStyles();
   const [remove, setRemove] = useState(false);
   const { role } = useSelector((state) => state.userRoleReducer);
@@ -41,23 +41,24 @@ const Card = ({ food, handleRemove }) => {
     }
     return dispatch(addToCartAsGuest(food));
   };
-  
-    const handleRemove = () => {
-        interceptorRequest.delete(`${url}/products/?productId=${food.id}`,)
-            .then(res => {
-                console.log(res.data.warning, res)
-            })
-            .catch((err) => console.error(err));
-        handleClose();
-    }
 
-    const handleCheck = () => {
-        setRemove(true)
-    }
+  const handleRemove = () => {
+    interceptorRequest
+      .delete(`${url}/products/?productId=${food.id}`)
+      .then((res) => {
+        window.location.reload();
+      })
+      .catch((err) => console.error(err));
+    handleClose();
+  };
 
-    const handleClose = () => {
-        setRemove(false)
-    }
+  const handleCheck = () => {
+    setRemove(true);
+  };
+
+  const handleClose = () => {
+    setRemove(false);
+  };
 
   useEffect(() => {
     if (result.length) {
@@ -67,58 +68,62 @@ const Card = ({ food, handleRemove }) => {
 
   return (
     <>
-     <RemoveProduct remove={remove} handleRemove={handleRemove} handleClose={handleClose}/>
-    <div className={classes.cartContainer}>
-      {role === 'ADMIN' && (
-        <Box className={classes.iconsContainer}>
-          <Box onClick={handleCheck} className={classes.icons}>
-            <DeleteForeverIcon />
-          </Box>
-          <Link style={{ color: '#89c74a' }} to={`/edit-product/${food.id}`}>
-            <Box className={classes.icons}>
-              <EditIcon />
-            </Box>
-          </Link>
-        </Box>
-      )}
-      <Link to={`/product/${food.id}`}>
-        <div
-          onClick={() => dispatch(getProductId(food.id))}
-          className={classes.cartImgContainer}
-        >
-          <img
-            src={food.imagesSet.length > 0 ? food.imagesSet[0].url : noImage}
-            className={classes.cartImgContainerImg}
-            alt={food.title}
-          />
-        </div>
-      </Link>
-      <div className={classes.cartName}>
-        <p className={classes.cartNameP}>{food.title}</p>
-      </div>
-      <div>
-        <Box component='fieldset' mb={3} borderColor='transparent'>
-          <Rating
-            className={classes.root}
-            name='read-only'
-            value={food.rating}
-            max={5}
-            readOnly
-            precision={0.25}
-          />
-        </Box>
-      </div>
-      <div className={classes.cartName}>
-        <p className={classes.cartPriceP}>${food.price}</p>
-      </div>
-      <Button
-        disable={!productStock ? true : false}
-        onClick={() => {
-          addToCart();
-          dispatch(addPrice(food.price));
-        }}
+      <RemoveProduct
+        remove={remove}
+        handleRemove={handleRemove}
+        handleClose={handleClose}
       />
-    </div>
+      <div className={classes.cartContainer}>
+        {role === 'ADMIN' && (
+          <Box className={classes.iconsContainer}>
+            <Box onClick={handleCheck} className={classes.icons}>
+              <DeleteForeverIcon />
+            </Box>
+            <Link style={{ color: '#89c74a' }} to={`/edit-product/${food.id}`}>
+              <Box className={classes.icons}>
+                <EditIcon />
+              </Box>
+            </Link>
+          </Box>
+        )}
+        <Link to={`/product/${food.id}`}>
+          <div
+            onClick={() => dispatch(getProductId(food.id))}
+            className={classes.cartImgContainer}
+          >
+            <img
+              src={food.imagesSet.length > 0 ? food.imagesSet[0].url : noImage}
+              className={classes.cartImgContainerImg}
+              alt={food.title}
+            />
+          </div>
+        </Link>
+        <div className={classes.cartName}>
+          <p className={classes.cartNameP}>{food.title}</p>
+        </div>
+        <div>
+          <Box component='fieldset' mb={3} borderColor='transparent'>
+            <Rating
+              className={classes.root}
+              name='read-only'
+              value={food.rating}
+              max={5}
+              readOnly
+              precision={0.25}
+            />
+          </Box>
+        </div>
+        <div className={classes.cartName}>
+          <p className={classes.cartPriceP}>${food.price}</p>
+        </div>
+        <Button
+          disable={!productStock ? true : false}
+          onClick={() => {
+            addToCart();
+            dispatch(addPrice(food.price));
+          }}
+        />
+      </div>
     </>
   );
 };
