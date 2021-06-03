@@ -33,11 +33,11 @@ const CartPageItem = ({
 
   const handleInput = (e) => {
     let value = e.target.value;
-    if (value > 99) {
-      return setQuantity(99);
+    if (value > stock) {
+      return setQuantity(stock);
     } else if (value < 1) {
       return setQuantity(1);
-    } else if (/^\d+$/.test(value) && value < stock) {
+    } else if (/^\d+$/.test(value)) {
       return setQuantity(Number(value));
     }
   };

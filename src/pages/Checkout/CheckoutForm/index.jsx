@@ -13,13 +13,13 @@ import { countries } from '../../../utils/countries';
 import { useDispatch, useSelector } from 'react-redux';
 import { url } from '../../../utils/baseUrl';
 import { interceptorRequest } from '../../../utils/requestInterceptor';
+import { setCartForUser } from '../../../redux/reducers/cartReducer';
 import * as EmailValidator from 'email-validator';
 import NavigateNextIcon from '@material-ui/icons/NavigateNext';
 import logo from '../../../components/DashboardHeader/InteractionLinks/logo.png';
 import FormDialog from './FormDialog';
 import ErrorFormDialog from './ErrorFormDialog';
 import axios from 'axios';
-import { setCartForUser } from '../../../redux/reducers/cartReducer';
 
 const CheckoutForm = () => {
   const classes = useStyles();
