@@ -36,8 +36,6 @@ const EditProduct = ()=>{
 
     const handleEdit =()=>{
         if(productToEdit.title.length>=3 && productToEdit.description.length>=10 && productToEdit.department.length>=3 && productToEdit.category.length>=3 && productToEdit.quantityInStock<=999){
-            setIncorrect(true);
-        }else{
             interceptorRequest.put(`${url}/products/?productId=${params.id}`,{...productToEdit})
                 .then(res => {
                     history.push('/home');
@@ -50,6 +48,8 @@ const EditProduct = ()=>{
                     console.log(res.data.warning, res)
                 })
                 .catch((err) => console.error(err));
+        }else{
+            setIncorrect(true);
         }
     }
 
