@@ -14,6 +14,7 @@ import MeasureUnit from "./MeasureUnit";
 import {AppContextEdit} from "../EditProduct";
 import {interceptorRequest} from "../../../utils/requestInterceptor";
 import {url} from "../../../utils/baseUrl";
+import AddProductCheck from "./AddProductCheck";
 
 const useStyles = makeStyles((theme) => ({
     photo: {
@@ -50,11 +51,12 @@ const useStyles = makeStyles((theme) => ({
 
 export const AppContext = createContext([]);
 
-const AddProduct = () => {
+const AddProduct = ({incorrectToEdit}) => {
     const {productToEdit, handleEdit, setProductToEdit} = useContext(AppContextEdit)
     const classes = useStyles();
     const [urlInput, setUrlInput] = useState(false);
     const [title, setTitle] = useState('Add product');
+    const [incorrect, setIncorrect] = useState({incorrectToEdit});
     const [product, setProduct] = useState({
         category: 'category',
         department: 'department',
@@ -116,11 +118,16 @@ const AddProduct = () => {
             .catch((err) => console.error(err));
     }
 
+    const handleClose = ()=>{
+        setIncorrect(false);
+    }
+
 
     return (
         <AppContext.Provider value={{product, setProduct, urlInput, setUrlInput}}>
             <Box>
                 <InputForNewUrl/>
+                <AddProductCheck incorrect={incorrect} handleClose={handleClose}/>
                 <Box>
                     <DashboardHeader/>
                     <DescriptiveAccountHeader title={title}/>
@@ -129,13 +136,19 @@ const AddProduct = () => {
                             <ProductPhoto/>
                         </Box>
                         <Box className={classes.details}>
-                            <ProductTitle/>
-                            <ProductPrice/>
+                            <Box display="flex">
+                                <ProductTitle/>
+                                <ProductPrice/>
+                            </Box>
                             <ProductDescription />
-                            <ProductDepartment />
-                            <ProductCategory />
-                            <ProductQuantityInStock />
-                            <MeasureUnit />
+                            <Box display="flex">
+                                <ProductDepartment />
+                                <ProductCategory />
+                            </Box>
+                            <Box display="flex">
+                                <ProductQuantityInStock />
+                                <MeasureUnit />
+                            </Box>
                             {productToEdit && <Button className={classes.btnSubmit} onClick={handleEdit} variant="contained" color="primary">Submit</Button>}
                             {!productToEdit && <Button className={classes.btnAdd} onClick={handleAddProduct} variant="contained" color="primary">Add Product</Button>}
                         </Box>

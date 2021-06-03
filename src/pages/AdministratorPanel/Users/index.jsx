@@ -28,7 +28,6 @@ const Users = ()=>{
     useEffect(()=>{
         interceptorRequest.get(`${url}/admin/users`)
             .then(res => {
-                //console.log(res.data);
                 setUserList(res.data)
             })
     },[])

@@ -5,7 +5,7 @@ import {AppContext} from "../index";
 const useStyles = makeStyles((theme) => ({
     main: {
         width: "100%",
-        height: "115%",
+        height: "100%",
         display: "flex",
         justifyContent: "center",
         alignItems: "center",

@@ -23,6 +23,7 @@ const EditProduct = ()=>{
     const classes = useStyles();
     const [productToEdit, setProductToEdit] = useState('');
     const history = useHistory();
+    const [incorrectToEdit, setIncorrectToEdit] = useState(false)
 
     useEffect(() => {
         axios.get(`${url}/products/description?productId=${params.id}`)
@@ -53,7 +54,7 @@ const EditProduct = ()=>{
 
     return(
         <AppContextEdit.Provider value={{productToEdit, setProductToEdit, handleEdit}}>
-            {productToEdit && <AddProduct />}
+            {productToEdit && <AddProduct incorrectToEdit={incorrectToEdit}/>}
         </AppContextEdit.Provider>
     );
 }

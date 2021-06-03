@@ -1,9 +1,9 @@
 import React, {useContext, useEffect, useState} from "react";
-import {Box, makeStyles, TextField, Typography} from "@material-ui/core";
+import {Box, makeStyles, TextField} from "@material-ui/core";
 import {AppContext} from "../index";
 
-const useStyles = makeStyles((theme)=>({
-    container:{
+const useStyles = makeStyles((theme) => ({
+    container: {
         width: "auto",
         display: "flex",
         justifyContent: "center",
@@ -12,32 +12,49 @@ const useStyles = makeStyles((theme)=>({
         padding: theme.spacing(1),
         flexDirection: 'column'
     },
-    text:{
+    text: {
         fontSize: theme.spacing(3),
         fontWeight: "bold"
+    },
+    root: {
+        '& > *': {
+            margin: theme.spacing(1),
+            width: theme.spacing(30),
+        },
     }
 }))
 
-const ProductCategory = ()=>{
+const ProductCategory = () => {
     const classes = useStyles();
     const {product, setProduct} = useContext(AppContext);
     const [category, setCategory] = useState(product.category);
+    const [incorrect, setIncorrect] = useState(false);
 
-    useEffect(()=>{
-        setCategory(product.category)
-    },[product])
-
-    const handleInput =(input)=>{
-        if(/^[a-zA-Z]{1,15}$/.test(input)){
-            setCategory(input);
-            setProduct({...product, category: input})
+    useEffect(() => {
+        if (category.length <= 0 || category.length > 15) {
+            setIncorrect(true);
+        } else {
+            setIncorrect(false)
         }
+    }, [category]);
+
+    useEffect(() => {
+        setCategory(product.category)
+    }, [product])
+
+    const handleInput = (input) => {
+        setCategory(input);
+        setProduct({...product, category: input})
     }
 
-    return(
+    return (
         <Box className={classes.container}>
-            <Typography className={classes.text}>Please set category</Typography>
-            <TextField onChange={(e)=>handleInput(e.target.value)} variant="standard" value={category}/>
+            <form className={classes.root}>
+                <TextField error={incorrect} onChange={(e) => handleInput(e.target.value)} label="Category"
+                           variant="outlined"
+                           helperText={incorrect ? "Category should have form 1 to 15 characters" : ""}
+                           value={category}/>
+            </form>
         </Box>
     );
 }

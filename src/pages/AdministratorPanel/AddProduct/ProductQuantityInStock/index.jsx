@@ -1,20 +1,24 @@
 import React, {useContext, useEffect, useState} from "react";
-import {Box, makeStyles, TextField, Typography} from "@material-ui/core";
+import {Box, makeStyles, TextField} from "@material-ui/core";
 import {AppContext} from "../index";
 
 const useStyles = makeStyles((theme)=>({
     container:{
         width: "auto",
         display: "flex",
-        justifyContent: "center",
         alignItems: "center",
-        flexDirection: "column",
         margin: theme.spacing(1),
         padding: theme.spacing(1),
     },
     text:{
         fontSize: theme.spacing(3),
         fontWeight: "bold"
+    },
+    root: {
+        '& > *': {
+            margin: theme.spacing(1),
+            width: theme.spacing(30),
+        },
     }
 }))
 
@@ -22,30 +26,34 @@ const ProductQuantityInStock = ()=>{
     const classes = useStyles();
     const {product, setProduct} = useContext(AppContext);
     const [quantity, setQuantity] = useState(product.quantityInStock);
+    const [incorrect, setIncorrect] = useState(false);
+
+    useEffect(()=>{
+        if(quantity<0 || quantity>999){
+            setIncorrect(true);
+        }else{
+            setIncorrect(false)
+        }
+    },[quantity])
 
     useEffect(()=>{
         setQuantity(product.quantityInStock)
     },[product])
 
-    useEffect(()=>{
-        if(quantity>9999){
-            setQuantity(9999)
-        }
-        if(quantity<1){
-            setQuantity(1)
-        }
-    },[quantity])
-
     const handleInput =(input)=>{
-        const result = Number(input);
-        setQuantity(result);
-        setProduct({...product, quantityInStock: parseFloat(result.toFixed(2))});
+        if(/^\d{0,999}$/.test(input)){
+            setQuantity(input);
+            setProduct({...product, quantityInStock: Number(input)});
+        }
     }
 
     return(
         <Box className={classes.container}>
-            <Typography className={classes.text}>Please set quantity in stock</Typography>
-            <TextField  type="number" onChange={(e)=>handleInput(e.target.value)} variant="standard" value={quantity}/>
+            <form className={classes.root}>
+                <TextField error={incorrect} label="Quantity in stock" onChange={(e)=>handleInput(e.target.value)}
+                           helperText={incorrect ? "Quantity should be form 0 to 999 characters" : ""}
+                           variant="outlined" value={quantity}/>
+            </form>
         </Box>
     );
 }
