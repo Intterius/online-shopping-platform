@@ -5,7 +5,6 @@ import axios from 'axios';
 import Box from '@material-ui/core/Box';
 import {CircularProgress} from '@material-ui/core';
 import {url} from '../../utils/baseUrl';
-import {interceptorRequest} from "../../utils/requestInterceptor";
 
 const useStyles = makeStyles((theme) => ({
     cardList: {
@@ -58,19 +57,10 @@ const Dashboard = () => {
 
     const foodSorted = data.sort((a, b) => (a.title > b.title ? 1 : -1));
 
-    const handleRemove = (id) => {
-        interceptorRequest.delete(`${url}/products/?productId=${id}`,)
-            .then(res => {
-                console.log(res.data.warning, res)
-            })
-            .catch((err) => console.error(err));
-    }
-
-
-    const cardList = foodSorted.map((e) => {
+    const cardList = foodSorted.map((element) => {
         return (
-            <div key={e.id} className={classes.cardContainer}>
-                <Card handleRemove={handleRemove} food={e}/>
+            <div key={element.id} className={classes.cardContainer}>
+                <Card food={element}/>
             </div>
         );
     });
@@ -78,10 +68,12 @@ const Dashboard = () => {
     const mostPopularCardList = mostPopular.map((element) => {
         return (
             <div key={element.id} className={classes.cardContainer}>
-                <Card handleRemove={handleRemove} food={element}/>
+                <Card food={element}/>
             </div>
         );
     });
+
+
 
     return (
         <Box>

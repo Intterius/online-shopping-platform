@@ -6,6 +6,7 @@ import {url} from "../../../utils/baseUrl";
 import AddProduct from "../AddProduct";
 import {interceptorRequest} from "../../../utils/requestInterceptor";
 import InputForNewUrl from "../AddProduct/InputForNewUrl";
+import AddProductCheck from "../AddProduct/AddProductCheck";
 
 const useStyles = makeStyles((theme)=>({
     loader: {
@@ -22,8 +23,8 @@ const EditProduct = ()=>{
     const params = useParams();
     const classes = useStyles();
     const [productToEdit, setProductToEdit] = useState('');
+    const [incorrect, setIncorrect] = useState(false);
     const history = useHistory();
-    const [incorrectToEdit, setIncorrectToEdit] = useState(false)
 
     useEffect(() => {
         axios.get(`${url}/products/description?productId=${params.id}`)
@@ -34,8 +35,8 @@ const EditProduct = ()=>{
     }, [params]);
 
     const handleEdit =()=>{
-        if(productToEdit.description.length<10){
-            alert("Description should have more than 10 characters")
+        if(productToEdit.title.length>=3 && productToEdit.description.length>=10 && productToEdit.department.length>=3 && productToEdit.category.length>=3 && productToEdit.quantityInStock<=999){
+            setIncorrect(true);
         }else{
             interceptorRequest.put(`${url}/products/?productId=${params.id}`,{...productToEdit})
                 .then(res => {
@@ -52,9 +53,17 @@ const EditProduct = ()=>{
         }
     }
 
+    const handleClose = ()=>{
+        setIncorrect(false);
+    }
+
     return(
         <AppContextEdit.Provider value={{productToEdit, setProductToEdit, handleEdit}}>
-            {productToEdit && <AddProduct incorrectToEdit={incorrectToEdit}/>}
+            <Box>
+                <AddProductCheck incorrect={incorrect} handleClose={handleClose}/>
+                {productToEdit && <AddProduct />}
+            </Box>
+
         </AppContextEdit.Provider>
     );
 }
