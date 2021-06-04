@@ -105,7 +105,9 @@ const CheckoutForm = () => {
     if (user) {
       interceptorRequest
         .post(`${url}/orders`, order)
-        .then((res) => setShowSuccessDialog(true))
+        .then((res) => {
+          setShowSuccessDialog(true);
+        })
         .catch((err) => {
           console.log(err.response);
           dispatch(setCartForUser(err.response.data.data));
