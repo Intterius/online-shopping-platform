@@ -31,7 +31,7 @@ const ProductTitle = () => {
     const [incorrect, setIncorrect] = useState(false);
 
     useEffect(()=>{
-        if(title.length <= 2 || title.length>15){
+        if(title.length <= 2 || title.length>20){
             setIncorrect(true);
         }else{
             setIncorrect(false)
@@ -43,7 +43,7 @@ const ProductTitle = () => {
     }, [product])
 
     const handleInput = (input) => {
-        if(/[a-zA-Z]+/.test(input)){
+        if(/^[a-zA-Z]{0,21}$/.test(input)){
             setTitle(input);
             setProduct({...product, title: input})
         }
@@ -53,7 +53,7 @@ const ProductTitle = () => {
         <Box className={classes.container}>
             <form className={classes.root}>
                 <TextField error={incorrect} onChange={(e) => handleInput(e.target.value)} label="Title" variant="outlined"
-                           helperText={incorrect? "Title should have form 3 to 15 characters": ""}
+                           helperText={incorrect? "Title should have form 3 to 20 characters": ""}
                            value={title}/>
             </form>
         </Box>

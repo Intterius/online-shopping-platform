@@ -43,8 +43,10 @@ const ProductCategory = () => {
     }, [product])
 
     const handleInput = (input) => {
-        setCategory(input);
-        setProduct({...product, category: input})
+        if(/^[a-zA-Z]{0,15}$/.test(input)){
+            setCategory(input);
+            setProduct({...product, category: input})
+        }
     }
 
     return (
